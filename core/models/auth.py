@@ -9,11 +9,7 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-#  Created by Xudoyberdi Egamberdiyev
-#
-#  Please contact before making any changes
-#
-#  Tashkent, Uzbekistan
+
 from django.contrib.auth.base_user import BaseUserManager
 
 
@@ -36,6 +32,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.CharField(max_length=255, null=True)
     avatar = models.ImageField(max_length=255, null=True)
     gender = models.BooleanField(default=True)
+    username = models.CharField(max_length=50, null=True, blank=True)
 
     is_test = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -59,6 +56,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
         verbose_name_plural = "1. Users"
+
+    def full_name(self):
+        return f"{self.first_name} {self.last_name or ''}"
 
     def personal(self):
         ut = {1: 'Admin',

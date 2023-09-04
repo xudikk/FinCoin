@@ -6,5 +6,5 @@
 
 
 from core.v1.services.auth import logout
-from core.v1.services.user import user_info
+from core.v1.services.user import user_info, set_lang
 from core.v1 import method_names
