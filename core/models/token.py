@@ -20,12 +20,13 @@ class Token(abs_models.Token):
 class Otp(abs_models.Otp):
     mobile = models.CharField(max_length=15)
     email = models.EmailField(null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     by = models.SmallIntegerField(choices=[
-        (1, "mobile"),
+        (1, "login"),
         (2, "dashboard"),
         (3, "p2p")
-    ])
+    ], default=1)
 
     class Meta:
         verbose_name_plural = "T. One Time Password"

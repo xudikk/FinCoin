@@ -16,16 +16,26 @@ from base.errors import MSG
 from core.models import Token, ExpiredToken, User, Otp
 
 
-def auth_one(request, params):
-    if 'phone' not in params:
+def login(request, params):
+    if "phone" not in params or 'password' not in params:
         return custom_response(False, message=MSG['ParamsNotFull'][lang_helper(request)])
-    if len(str(params['phone'])) != 12:
-        return custom_response(False, message=MSG['LENPHONE'][lang_helper(request)])
+
+    # if len(str(params['phone'])) != 12:
+    #     return custom_response(False, message=MSG['LENPHONE'][lang_helper(request)])
+
+    # user check
+    user = User.objects.filter(phone=params['phone']).first()
+    if not user: return custom_response(False, MSG['UserNotFound'][lang_helper(request)])
+    if not user.is_active: return custom_response(False, message=MSG['UserDeleted'][lang_helper(request)])
+    if not user.check_password(params['password']): return custom_response(False,
+                                                                           MSG['PasswordError'][lang_helper(request)])
+
+    # otp create
     otp = random.randint(int(f'1{"0" * (settings.RANGE - 1)}'), int('9' * settings.RANGE))
     # shu yerda sms chiqib ketadi
     code = eval(settings.CUSTOM_HASHING)
     hash = code_decoder(code, l=settings.RANGE)
-    token = Otp.objects.create(key=hash, mobile=params['phone'], step='one', extra={"via": "api"})
+    token = Otp.objects.create(key=hash, mobile=params['phone'], step='one', by=1, user=user)
 
     return custom_response(True, data={
         "otp": otp,
@@ -65,33 +75,13 @@ def auth_two(request, params):
         otp.save()
         return custom_response(False, message=MSG['OtpError'][lang_helper(request)])
     otp.is_verified, otp.is_expired = True, True
-    user = User.objects.filter(phone=otp.mobile).first()
-    otp.step = 'login' if user else 'regis'
+    otp.step = 'confirmed'
     otp.save()
-    return custom_response(True, data={'is_registered': user is not None})
 
-
-def login(request, params):
-    if "phone" not in params or 'password' not in params:
-        return custom_response(False, message=MSG['ParamsNotFull'][lang_helper(request)])
-
-    # otp check
-    otp = Otp.objects.filter(key=params['token']).first()
-    if not otp: return custom_response(False, message=MSG['OTPTokenError'][lang_helper(request)])
-    if otp.step != 'login': return custom_response(False, message=MSG['TokenUnUsable'][lang_helper(request)])
-    if not otp.is_verified: return custom_response(False, message=MSG['TokenUnUsable'][lang_helper(request)])
-    if otp.mobile != str(params['phone']): return custom_response(False, message=MSG['OTPPhoneAndPhoneNotMatch'][
-        lang_helper(request)])
-
-    # user check
-    user = User.objects.filter(phone=params['phone']).first()
-    if not user: return custom_response(False, MSG['UserNot'][lang_helper(request)])
-    if not user.is_active: return custom_response(False, message=MSG['UserDeleted'][lang_helper(request)])
-    if not user.check_password(params['password']): return custom_response(False,
-                                                                           MSG['PasswordError'][lang_helper(request)])
-    token = Token.objects.get_or_create(user=user)[0]
-    user.last_login = datetime.datetime.now()
-    user.save()
+    print(otp.user.full_name())
+    token = Token.objects.get_or_create(user=otp.user)[0]
+    otp.user.last_login = datetime.datetime.now()
+    otp.user.save()
     return custom_response(True, data={"token": token.key})
 
 

@@ -48,7 +48,7 @@ def permission_checker(funk):
         }
 
         if request.user.ut != 1:
-            return redirect('home')
+            return redirect('login')
 
         return response.get(True) or funk(request, *args, **kwargs)
 
