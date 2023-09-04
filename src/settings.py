@@ -147,17 +147,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 """  Extra settings """
 
 # Cors
-# CORS_ALLOWED_ORIGINS = [
-#     os.getenv('CORS_URL')
-# ]
-#
-# CSRF_TRUSTED_ORIGINS = [
-#     os.getenv('CORS_URL')
-# ]
-#
-# CORS_ORIGIN_WHITELIST = [
-#     os.getenv('CORS_URL')
-# ]
+
+if not DEBUG:
+    CORS_ALLOWED_ORIGINS = [
+        os.getenv('CORS_URL')
+    ]
+
+    CSRF_TRUSTED_ORIGINS = [
+        os.getenv('CORS_URL')
+    ]
+
+    CORS_ORIGIN_WHITELIST = [
+        os.getenv('CORS_URL')
+    ]
 
 
 PAGINATE_BY = 20

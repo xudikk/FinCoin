@@ -1,0 +1,16 @@
+asgiref==3.7.2
+beautifulsoup4==4.12.2
+dj-database-url==2.1.0
+Django==4.2.4
+django-bootstrap4==23.2
+django-cors-headers==4.2.0
+djangorestframework==3.14.0
+methodism==0.2.1
+Pillow==10.0.0
+python-dotenv==1.0.0
+pytz==2023.3
+soupsieve==2.5
+sqlparse==0.4.4
+typing_extensions==4.7.1
+tzdata==2023.3
+whitenoise==6.5.0
