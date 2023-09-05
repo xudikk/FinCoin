@@ -19,6 +19,9 @@ class CustomUserManager(BaseUserManager):
                           **extra_fields)
         user.set_password(password)
         user.save()
+
+
+
         return user
 
     def create_superuser(self, phone, password, **extra_fields):
@@ -30,9 +33,25 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=255, null=True)
     last_name = models.CharField(max_length=255, null=True)
     email = models.CharField(max_length=255, null=True)
-    avatar = models.ImageField(max_length=255, null=True)
+    avatar = models.ImageField(max_length=255, null=True, upload_to='avatar')
     gender = models.BooleanField(default=True)
     username = models.CharField(max_length=50, null=True, blank=True)
+
+    level = models.CharField(max_length=128, choices=[
+        ("Beginner", "Beginner"),
+        ("Junior", "Junior"),
+        ("Middle", "Middle"),
+        ("Senior", "Senior"),
+        ("TeamLead", "Team Lead"),
+    ], default="Beginner", null=True, blank=True)
+    specialty = models.CharField(max_length=128, choices=[
+        ("Backend Developer", "Backend Developer"),
+        ("Mobile Developer", "Mobile Developer"),
+        ("Frontend Developer", "Frontend Developer"),
+        ("Full Stack Developer", "Full Stack Developer"),
+        ("Admin", "Admin"),
+        ("Fintech Student", "Fintech Student"),
+    ], default="Fintech Student", null=True, blank=True)
 
     is_test = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -54,6 +73,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'phone'
     REQUIRED_FIELDS = ['ut']
 
+    def save(self, *args, **kwargs):
+        if self.ut == 3:
+            self.specialty = "Fintech Student"
+            self.level = "Beginner"
+
+        return super(User, self).save(*args, **kwargs)
     class Meta:
         verbose_name_plural = "1. Users"
 
@@ -71,4 +96,9 @@ class User(AbstractBaseUser, PermissionsMixin):
             'mobile': self.phone,
             'lang': self.lang,
             'user_type': ut,
+            'gender': self.gender,
+            'level': self.level,
+            "spec": self.specialty,
+            "username": self.username,
+            "email": self.everf
         }
