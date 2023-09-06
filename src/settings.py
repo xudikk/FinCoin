@@ -86,25 +86,16 @@ if DEBUG:
 else:
     DATABASES = {
         'default': {
-<<<<<<< HEAD
-            'ENGINE': 'django.db.backends'+os.getenv('DB_ENGINE', "mysql"),
-            'NAME': os.getenv('DB_NAME'),
-            'USER': os.getenv('DB_USER'),
-            'PASSWORD': os.getenv('DB_PASS'),
-            'HOST': os.getenv('DB_HOST'),
-            'PORT': int(os.getenv('DB_PORT')),
-=======
-            'ENGINE': 'django.db.backends.'+os.getenv('DB_ENGINE'),
+            'ENGINE': 'django.db.backends.'+os.getenv('DB_ENGINE', "mysql"),
             'NAME': os.getenv("POSTGRES_DB"),
             'USER': os.getenv("POSTGRES_USER"),
             'PASSWORD': os.getenv("POSTGRES_PASSWORD"),
             'HOST': os.getenv('POSTGRES_HOST'),
             'PORT': os.getenv("POSTGRES_PORT"),
->>>>>>> 3a1c508 (Docker setup done)
         }
     }
 
-# Password validation
+#Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
