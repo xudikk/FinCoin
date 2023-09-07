@@ -25,10 +25,10 @@ def login(request, params):
 
     # user check
     user = User.objects.filter(phone=params['phone']).first()
-    if not user: return custom_response(False, MSG['UserNotFound'][lang_helper(request)])
+    if not user: return custom_response(False, message=MSG['UserNotFound'][lang_helper(request)])
     if not user.is_active: return custom_response(False, message=MSG['UserDeleted'][lang_helper(request)])
     if not user.check_password(params['password']): return custom_response(False,
-                                                                           MSG['PasswordError'][lang_helper(request)])
+                                                                           message=MSG['PasswordError'][lang_helper(request)])
 
     # otp create
     otp = random.randint(int(f'1{"0" * (settings.RANGE - 1)}'), int('9' * settings.RANGE))

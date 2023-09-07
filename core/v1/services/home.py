@@ -37,3 +37,14 @@ def home_page(request):
         "rating": rating,
         "news": news
     })
+
+
+def mentors(request):
+    mentors = "select * from core_user where ut=2 order by id desc"
+    with closing(connection.cursor()) as cursor:
+        cursor.execute(mentors)
+        mentors = dictfetchall(cursor)
+
+    return custom_response(True, data=mentors)
+
+

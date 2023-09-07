@@ -63,8 +63,16 @@ class Done(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, limit_choices_to={"ut": 3})
 
 
+class Backed(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    quantity = models.IntegerField("Nechtaligi", default=1)
+    cost = models.IntegerField('Umumiy Narx', default=0, editable=False)
+    order = models.BooleanField(default=False)
 
-
+    def save(self, *args, **kwargs):
+        self.cost = self.quantity * self.product.cost
+        return super(Backed, self).save(*args, **kwargs)
 
 
 
