@@ -14,7 +14,7 @@ APP_NAME = "Fintech Coin"
 load_dotenv()
 
 SECRET_KEY = os.getenv('SECRET_KEY', 1)
-DEBUG = os.getenv('DEBUG', True)
+DEBUG = bool(os.getenv('DEBUG') == 'True')
 ALLOWED_HOSTS = ['*'] if DEBUG else os.getenv('ALLOWED_HOSTS').split(',')
 
 METHODS = os.getenv('AUTH_METHODS', '').split(',')
@@ -86,18 +86,16 @@ if DEBUG:
 else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends'+os.getenv('DB_ENGINE', "mysql"),
-            'NAME': os.getenv('DB_NAME'),
-            'USER': os.getenv('DB_USER'),
-            'PASSWORD': os.getenv('DB_PASS'),
-            'HOST': os.getenv('DB_HOST'),
-            'PORT': int(os.getenv('DB_PORT')),
+            'ENGINE': 'django.db.backends.'+os.getenv('DB_ENGINE', "mysql"),
+            'NAME': os.getenv("POSTGRES_DB"),
+            'USER': os.getenv("POSTGRES_USER"),
+            'PASSWORD': os.getenv("POSTGRES_PASSWORD"),
+            'HOST': os.getenv('POSTGRES_HOST'),
+            'PORT': os.getenv("POSTGRES_PORT"),
         }
     }
-    db_from_env = dj_database_url.config(conn_max_age=600)
-    DATABASES['default'].update(db_from_env)
 
-# Password validation
+#Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [

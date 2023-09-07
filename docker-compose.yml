@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  fincoin_web:
+    build: ./
+    container_name: "fincoin_web"
+    restart: always
+    command: bash entrypoint.sh
+    #command: sh -c "python manage.py runserver 0.0.0.0:8049"
+    volumes:
+      - .:/app
+      - ./staticfiles:/staticfiles
+      - ./static:/static
+      - ./media:/media
+      - fincoin_data:/var/lib/postgresql/data/
+    ports:
+      - 8060:8060
+    env_file:
+      - ./.env
+    depends_on:
+      - fincoin_db
+
+  fincoin_db:
+    image: postgres
+    container_name: "fincoin_db"
+    volumes:
+      - fincoin_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+    ports:
+      - 5434:5432
+
+volumes:
+  fincoin_data:
+  staticfiles:
+  static:
+  media:
