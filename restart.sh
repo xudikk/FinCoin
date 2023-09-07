@@ -1,1 +1,2 @@
-docker restart fincoin_web
+docker compose down
+docker compose up --build -d
