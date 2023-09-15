@@ -3,6 +3,7 @@ from contextlib import closing
 from django.conf import settings
 from django.db import connection
 from methodism import custom_response, dictfetchone, dictfetchall
+from methodism.sqlpaginator import SqlPaginator
 
 from core.models import New
 
@@ -48,3 +49,32 @@ def mentors(request):
     return custom_response(True, data=mentors)
 
 
+def algorithm(request):
+    try:
+        page = int(request.GET.get('page', 1))
+    except:
+        page = 1
+    offset = (page - 1) * settings.PAGINATE_BY
+    print(request.user.id)
+
+    algos = """ 
+            SELECT al.*, us.first_name, us.last_name, us.username  from core_algorithm al
+            inner join core_user us on al.creator_id = us.id
+            LIMIT 15 OFFSET 0
+            """
+    cnt = "SELECT COUNT(*) as cnt from core_algorithm"
+
+    with closing(connection.cursor()) as cursor:
+        cursor.execute(algos)
+        algos = dictfetchall(cursor)
+        cursor.execute(cnt)
+        cnt = dictfetchone(cursor)
+
+        if cnt:
+            count_records = cnt['cnt']
+        else:
+            count_records = 0
+        paginator = SqlPaginator(request, page=page, per_page=settings.PAGINATE_BY, count=count_records)
+        pagging = paginator.get_paginated_response(per_page=settings.PAGINATE_BY, current_page=page)
+
+    return custom_response(True, data={"algorithms": algos, "pagging": pagging})

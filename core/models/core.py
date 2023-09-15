@@ -41,7 +41,7 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         if not self.discount_price:
             self.discount_price = self.cost
-        self.discount_percent = int(((self.cost-self.discount_price)/self.cost)*100)
+        self.discount_percent = int(((self.cost - self.discount_price) / self.cost) * 100)
         return super(Product, self).save(*args, **kwargs)
 
 
@@ -50,6 +50,9 @@ class Algorithm(models.Model):
     description = models.TextField()
     bonus = models.IntegerField()
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.description
 
 
 class Done(models.Model):
@@ -73,6 +76,3 @@ class Backed(models.Model):
     def save(self, *args, **kwargs):
         self.cost = self.quantity * self.product.cost
         return super(Backed, self).save(*args, **kwargs)
-
-
-

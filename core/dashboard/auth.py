@@ -33,6 +33,7 @@ def sign_in(requests):
         if not user.is_active:
             return render(requests, 'pages/auth/login.html', {"error": "Profil active emas "})
         login(requests, user)
+        return redirect('home')
     return render(requests, 'pages/auth/login.html')
 
 
