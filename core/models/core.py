@@ -22,12 +22,18 @@ class New(models.Model):
             "date": self.date
         }
 
+    class Meta:
+        verbose_name_plural = "C. Yangiliklar"
+
 
 class Category(models.Model):
     name = models.CharField(max_length=224)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "C. Categoriyalar"
 
 
 class Product(models.Model):
@@ -44,6 +50,9 @@ class Product(models.Model):
         self.discount_percent = int(((self.cost - self.discount_price) / self.cost) * 100)
         return super(Product, self).save(*args, **kwargs)
 
+    class Meta:
+        verbose_name_plural = "C. Mahsulotlar"
+
 
 class Algorithm(models.Model):
     reward = models.IntegerField(default=0)
@@ -53,6 +62,9 @@ class Algorithm(models.Model):
 
     def __str__(self):
         return self.description
+
+    class Meta:
+        verbose_name_plural = "C. Algoritmlar"
 
 
 class Done(models.Model):
@@ -65,6 +77,9 @@ class Done(models.Model):
     algorithm = models.ForeignKey(Algorithm, on_delete=models.SET_NULL, null=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, limit_choices_to={"ut": 3})
 
+    class Meta:
+        verbose_name_plural = "C. Bajarilgan Algoritmlar"
+
 
 class Backed(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -76,3 +91,6 @@ class Backed(models.Model):
     def save(self, *args, **kwargs):
         self.cost = self.quantity * self.product.cost
         return super(Backed, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = "C. Savatlar"
