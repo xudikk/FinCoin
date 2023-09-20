@@ -57,10 +57,10 @@ def algorithm(request):
     offset = (page - 1) * settings.PAGINATE_BY
     print(request.user.id)
 
-    algos = """ 
+    algos = f""" 
             SELECT al.*, us.first_name, us.last_name, us.username  from core_algorithm al
             inner join core_user us on al.creator_id = us.id
-            LIMIT 15 OFFSET 0
+            LIMIT {settings.PAGINATE_BY} OFFSET {offset}
             """
     cnt = "SELECT COUNT(*) as cnt from core_algorithm"
 

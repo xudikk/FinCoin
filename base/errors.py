@@ -340,6 +340,11 @@ MSG = {
         "ru": "Произошла неопределенная ошибка",
         "en": "Undefined error occurred",
     },
+    'UndefinedErrora': {
+        "uz": "Nomalum xatolik yuz berdi",
+        "ru": "Произошла неопределенная ошибка",
+        "en": "Undefined error occurred",
+    },
     "Success": {
         'uz': "Muaffaqiyatli",
         'ru': 'Успешно',
