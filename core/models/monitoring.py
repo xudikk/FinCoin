@@ -12,11 +12,11 @@ from core.models import User
 class Card(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="cards")
     name = models.CharField(max_length=128)
-    balance = models.FloatField(max_length=128)
+    balance = models.FloatField(max_length=128)  # default = 0
     mask = models.CharField(max_length=128, null=True)
     number = models.CharField(max_length=128, default=0)
     token = models.CharField(max_length=128, null=True)
-    expire = models.CharField(max_length=10)
+    expire = models.CharField(max_length=10)  # goden do
     is_primary = models.BooleanField()
     card_registered_phone = models.CharField(max_length=50, null=True)
     blocked = models.IntegerField(null=True)  # ?
@@ -47,5 +47,3 @@ class Card(models.Model):
             'created_at': self.created.strftime("%d %b, %Y"),
             'updated_at': self.updated.strftime("%d %b, %Y"),
         }
-
-
