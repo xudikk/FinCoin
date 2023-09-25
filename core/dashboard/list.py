@@ -8,3 +8,7 @@ from core.models.auth import User
 def list_user(request):
     users = User.objects.all()
     return render(request, 'pages/list.html', {'roots': users, 'u_active': "active"})
+
+
+def create_user(request):
+    return render(request, 'pages/create-user.html')

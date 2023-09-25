@@ -7,7 +7,7 @@
 from django.urls import path, include
 from core.dashboard.view import index
 from core.dashboard.auth import sign_in, sign_out
-from core.dashboard.list import list_user
+from core.dashboard.list import list_user, create_user
 
 urlpatterns = [
 
@@ -19,4 +19,5 @@ urlpatterns = [
 
     # list
     path('user/list/', list_user, name='user_list'),
+    path('user/create/', create_user, name='create_user'),
 ]
