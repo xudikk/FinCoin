@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
-{% block title %} List | Users {% endblock %}
-{% block pagetitle %} Users List {% endblock %}
+{% block title %} Create | Users {% endblock %}
+{% block pagetitle %} User Create {% endblock %}
 
 {% load static %}
 
@@ -13,22 +13,52 @@
       <!-- Default box -->
       <div class="card card-solid">
         <div class="card-body pb-0">
-          <div class="row d-flex align-items-stretch">
-          {% if roots %}
-
-              {% for i in roots %}
-              {% if i.ut == 1  %}
-              {% else %}
-                
-              {% endif %}
-              {% endfor %}
-          {% else %}
-             <h3 class="text-danger">Uzur Bu bo'limdan hech narsa topilmadi</h3>
-
-          {% endif %}
-
-          </div>
-        </div>
+          <div class="row">
+          <form class="row g-3">
+            
+            <div class="col-md-4">
+              <label for="inputState" class="form-label">First name</label>
+              <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+            </div>  
+            <div class="col-md-4">
+              <label for="inputState" class="form-label">Last name</label>
+              <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+            </div>  
+            <div class="col-md-4 mb-3">
+              <label for="inputEmail4" class="form-label">Username</label>
+              <input type="text" class="form-control" id="inputEmail4" placeholder="Username">
+            </div>  
+            <div class="col-md-6">
+              <label for="inputEmail4" class="form-label">Email</label>
+              <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+            </div>  
+            <div class="col-md-6 mb-3">
+              <label for="inputEmail4" class="form-label">Phone number</label>
+              <input type="text" required class="form-control" id="inputEmail4" maxlength="14" placeholder="Phone number" value="+998 ">
+            </div>  
+            
+            <div class="col-md-6">
+              <label for="inputPassword4" class="form-label">Password</label>
+              <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+            </div>
+            <div class="col-md-6">
+              <label for="inputPassword5" class="form-label">Change Password</label>
+              <input type="password" class="form-control" id="inputPassword5" placeholder="Change Password">
+            </div>
+            <div class="col-md-2 mt-2">
+              <select class="form-select p-2 form-select-sm" aria-label="Small select example">
+                <option selected>Erkak 👨‍🎓</option>
+                <option value="1">Ayol 🙍‍♀️</option>
+              </select>
+            </div>
+            <div class="col-md-2 mt-2">
+              <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Confirm identity</button>
+              </div>
+            </div>
+            
+          </form>
+        </div><br>
         <!-- /.card-body -->
         <div class="card-footer">
           <nav aria-label="Contacts Page Navigation">

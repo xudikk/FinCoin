@@ -7,12 +7,19 @@
 
 {% block content %}
 
-<button>Create User</button>
+
 
 <section class="content">
       <!-- Default box -->
         <div class="card card-solid">
-            <div class="card-body pb-0">
+          <div class="card-body pb-0">
+              <div class="col-auto float-top">
+                <button type="submit" class="btn btn-primary mb-3">
+                  <a href="{% url 'create_user' %}" class="text-light">
+                    Create User
+                  </a>
+                </button>
+              </div>
                 <div class="row d-flex align-items-stretch">
                     {% if roots %}
 
