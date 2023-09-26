@@ -46,8 +46,8 @@ def create_user(request):
             number=generate_number(),
             name=f"{user.full_name()}'s card",
             balance=0.0,
-            expire=f"{datetime.datetime.now().month}/{str(datetime.datetime.now().year+2)[2:]}",
-            is_primary=True,
+            expire=f"{datetime.datetime.now().month}/{str(datetime.datetime.now().year+1)[2:]}",
+            is_primary=False,
             card_registered_phone=user.phone
         )
         card.save()
