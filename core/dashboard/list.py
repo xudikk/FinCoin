@@ -9,22 +9,24 @@ from core.models.auth import User
 @permission_checker
 def list_user(request):
     users = User.objects.all()
-    # print(">>>>>>>>>>>>>>>>>>>>>>>>>>>")
-    # for i in users:
-    #     print(i.phone)
+    
     return render(request, 'pages/list.html', {'roots': users, 'u_active': "active"})
 
 
 def create_user(request):
     if request.method == 'POST':
         data = request.POST
-        nott = "phone" if "phone" not in data else "name" if "name" not in data \
-            else "surname" if "surname" not in data else "email" if "email" not in data \
-            else "pass" if "pass" not in data else "pass_conf" if "pass_conf" not in data \
-            else "username" if "username" not in data else "ut" if "ut" not in data else ""
+
+        nott = "name" if "name" not in data else "surname" if "surname" not in data \
+            else "username" if "username" not in data else "email" if "email" not in data \
+            else "phone" if "phone" not in data else "pass" if "pass" not in data \
+            else "pass_conf" if "pass_conf" not in data else ""
+        user_type = data.get("ut")
+        gender = data.get('gender')
 
         if nott:
             return render(request, "pages/create-user.html", {"error": f"{nott} datada bo'lishi kerak"})
+        
         user1 = User.objects.filter(phone=data["phone"]).first()
         if user1:
             return render(request, "pages/create-user.html", {"error": "Phone Band"})
@@ -32,8 +34,8 @@ def create_user(request):
             return render(request, "pages/create-user.html", {"error": "Password not confirmed"})
         user = User.objects.create_user(
             phone=data["phone"], password=data["pass"],
-            first_name=data["name"], last_name=data["surname"],
-            email=data["email"], username=data["username"], ut=data["ut"]
+            first_name=data["name"], last_name=data["surname"], gender=gender,
+            email=data["email"], username=data["username"], ut=user_type
         )
         user.save()
         card = Card.objects.create(
@@ -43,5 +45,22 @@ def create_user(request):
             expire=f"{datetime.datetime.now().month}/{datetime.datetime.now().year}",
             is_primary=True
         )
+        
         card.save()
+
     return render(request, 'pages/create-user.html')
+
+
+# def create_user(request):
+#     if request.method == 'POST':
+#         data = request.POST
+#         # nott = "phone" if "phone" not in data else "name" if "name" not in data \
+#         #     else "surname" if "surname" not in data else "email" if "email" not in data \
+#         #     else "pass" if "pass" not in data else "pass_conf" if "pass_conf" not in data \
+#         #     else "username" if "username" not in data else "ut" if "ut" not in data else ""
+
+#         if 'phone' not in data:
+#             return render(request, "pages/create-user.html", {"error": " datada bo'lishi kerak"})
+#         print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+#     print("salom")
+#     return render(request, 'pages/create-user.html')

@@ -14,41 +14,48 @@
       <div class="card card-solid">
         <div class="card-body pb-0">
           <div class="row">
-          <form class="row g-3">
-            
+          <form class="row g-3" method="post">
+            {% csrf_token %}
             <div class="col-md-4">
               <label for="inputState" class="form-label">First name</label>
-              <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+              <input type="text" class="form-control" name="name" placeholder="First name" aria-label="First name">
             </div>  
             <div class="col-md-4">
-              <label for="inputState" class="form-label">Last name</label>
-              <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+              <label for="inputState" class="form-label" name="surname">Last name</label>
+              <input type="text" class="form-control" name="surname" placeholder="Last name" aria-label="Last name">
             </div>  
             <div class="col-md-4 mb-3">
               <label for="inputEmail4" class="form-label">Username</label>
-              <input type="text" class="form-control" id="inputEmail4" placeholder="Username">
+              <input type="text" name="username" class="form-control" id="inputEmail4" placeholder="Username">
             </div>  
             <div class="col-md-6">
               <label for="inputEmail4" class="form-label">Email</label>
-              <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+              <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="Email">
             </div>  
             <div class="col-md-6 mb-3">
               <label for="inputEmail4" class="form-label">Phone number</label>
-              <input type="text" required class="form-control" id="inputEmail4" maxlength="14" placeholder="Phone number" value="+998 ">
+              <input type="text" required class="form-control" name="phone" id="inputEmail4" maxlength="14" placeholder="Phone number" value="+998 ">
             </div>  
             
             <div class="col-md-6">
               <label for="inputPassword4" class="form-label">Password</label>
-              <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+              <input type="password" name="pass" class="form-control" id="inputPassword4" placeholder="Password">
             </div>
             <div class="col-md-6">
               <label for="inputPassword5" class="form-label">Change Password</label>
-              <input type="password" class="form-control" id="inputPassword5" placeholder="Change Password">
+              <input type="password" name="pass_conf" class="form-control" id="inputPassword5" placeholder="Change Password">
             </div>
             <div class="col-md-2 mt-2">
-              <select class="form-select p-2 form-select-sm" aria-label="Small select example">
-                <option selected>Erkak 👨‍🎓</option>
-                <option value="1">Ayol 🙍‍♀️</option>
+              <select class="form-select p-2 form-select-sm" name="gender" aria-label="Small select example">
+                <option selected value="True">Erkak 👨‍🎓</option>
+                <option value="False">Ayol 🙍‍♀️</option>
+              </select>
+            </div>
+            <div class="col-md-2 mt-2">
+              <select class="form-select p-2 form-select-sm" name="ut" aria-label="Small select example">
+                <option value="1">Admin</option>
+                <option value="2">Teacher</option>
+                <option selected value="3">Student</option>
               </select>
             </div>
             <div class="col-md-2 mt-2">
@@ -58,6 +65,11 @@
             </div>
             
           </form>
+        {% if error %}
+        <h3>
+          {{error}}
+        </h3>
+        {% endif %}
         </div><br>
         <!-- /.card-body -->
         <div class="card-footer">

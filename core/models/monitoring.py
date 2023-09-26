@@ -14,7 +14,7 @@ class Card(models.Model):
     name = models.CharField(max_length=128)
     balance = models.FloatField(max_length=128)  # default = 0
     mask = models.CharField(max_length=128, null=True)
-    number = models.CharField(max_length=128, default=0)
+    number = models.CharField(max_length=128, default="0")
     token = models.CharField(max_length=128, null=True)
     expire = models.CharField(max_length=10)  # goden do
     is_primary = models.BooleanField()
