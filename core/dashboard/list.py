@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import redirect, render
 from core.models.monitoring import Card
 from base.custom import permission_checker
@@ -38,13 +40,8 @@ def create_user(request):
             user=user,
             name=f"{user.full_name}'s card",
             balance=0.0,
-            # expire=
-
-
-                # TO BE CONTINUED
-
-
-
+            expire=f"{datetime.datetime.now().month}/{datetime.datetime.now().year}",
+            is_primary=True
         )
-
+        card.save()
     return render(request, 'pages/create-user.html')
