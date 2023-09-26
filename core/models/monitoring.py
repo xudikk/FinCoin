@@ -14,12 +14,12 @@ class Card(models.Model):
     name = models.CharField(max_length=128)
     balance = models.FloatField(max_length=128)  # default = 0
     mask = models.CharField(max_length=128, null=True)
-    number = models.CharField(max_length=128, default="0")
+    number = models.CharField(max_length=128)
     token = models.CharField(max_length=128, null=True)
     expire = models.CharField(max_length=10)  # goden do
     is_primary = models.BooleanField()
     card_registered_phone = models.CharField(max_length=50, null=True)
-    blocked = models.IntegerField(null=True)  # ?
+    blocked = models.IntegerField(null=True)  # ? IntegerField or BooleanField
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
 

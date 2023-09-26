@@ -20,8 +20,6 @@ class CustomUserManager(BaseUserManager):
         user.set_password(password)
         user.save()
 
-
-
         return user
 
     def create_superuser(self, phone, password, **extra_fields):
@@ -79,6 +77,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             self.level = "Beginner"
 
         return super(User, self).save(*args, **kwargs)
+
     class Meta:
         verbose_name_plural = "1. Users"
 

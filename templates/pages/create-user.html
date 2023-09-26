@@ -18,19 +18,19 @@
             {% csrf_token %}
             <div class="col-md-4">
               <label for="inputState" class="form-label">First name</label>
-              <input type="text" class="form-control" name="name" placeholder="First name" aria-label="First name">
+              <input required type="text" class="form-control" name="name" placeholder="First name" aria-label="First name">
             </div>  
             <div class="col-md-4">
-              <label for="inputState" class="form-label" name="surname">Last name</label>
-              <input type="text" class="form-control" name="surname" placeholder="Last name" aria-label="Last name">
-            </div>  
+              <label for="inputState" class="form-label">Last name</label>
+              <input required type="text" class="form-control" name="surname" placeholder="Last name" aria-label="Last name">
+            </div>
             <div class="col-md-4 mb-3">
               <label for="inputEmail4" class="form-label">Username</label>
-              <input type="text" name="username" class="form-control" id="inputEmail4" placeholder="Username">
+              <input required type="text" name="username" class="form-control" id="inputEmail4" placeholder="Username">
             </div>  
             <div class="col-md-6">
               <label for="inputEmail4" class="form-label">Email</label>
-              <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="Email">
+              <input required type="email" name="email" class="form-control" id="inputEmail4" placeholder="Email">
             </div>  
             <div class="col-md-6 mb-3">
               <label for="inputEmail4" class="form-label">Phone number</label>
@@ -39,11 +39,11 @@
             
             <div class="col-md-6">
               <label for="inputPassword4" class="form-label">Password</label>
-              <input type="password" name="pass" class="form-control" id="inputPassword4" placeholder="Password">
+              <input required type="password" name="pass" class="form-control" id="inputPassword4" placeholder="Password">
             </div>
             <div class="col-md-6">
               <label for="inputPassword5" class="form-label">Change Password</label>
-              <input type="password" name="pass_conf" class="form-control" id="inputPassword5" placeholder="Change Password">
+              <input required type="password" name="pass_conf" class="form-control" id="inputPassword5" placeholder="Change Password">
             </div>
             <div class="col-md-2 mt-2">
               <select class="form-select p-2 form-select-sm" name="gender" aria-label="Small select example">
