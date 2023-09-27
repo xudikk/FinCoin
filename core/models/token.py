@@ -33,7 +33,7 @@ class Otp(abs_models.Otp):
 
 class ExpiredToken(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="expired_access_token")
-    key = models.CharField(max_length=128)
+    key = models.CharField(max_length=5216)
     created = models.DateTimeField(auto_now=False, auto_now_add=True, editable=False)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
