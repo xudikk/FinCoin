@@ -30,7 +30,7 @@ def create_card(request, params):
         balance=10_000,
         number=generate_number(),
         token=uuid.uuid4(),
-        expire=f"{now.month}/{f'{now.year+1}'[2:]}",
+        expire=f"{now.month}/{f'{now.year + 1}'[2:]}",
         is_primary=False,
         card_registered_phone=user.phone
     )
@@ -42,7 +42,3 @@ def all_card(request, params):
     return custom_response(True, data=[
         x.response() for x in cards
     ])
-
-
-
-

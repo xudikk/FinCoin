@@ -6,100 +6,218 @@
 {% load static %}
 
 {% block content %}
-
-
-
+<!-- /.content -->
 <section class="content">
-      <!-- Default box -->
-        <div class="card card-solid">
-          <div class="card-body pb-0">
-              <div class="col-auto float-top">
-                <button type="submit" class="btn btn-primary mb-3">
-                  <a href="{% url 'create_user' %}" class="text-light">
-                    Create User
-                  </a>
-                </button>
-              </div>
-                <div class="row d-flex align-items-stretch">
-                    {% if roots %}
+    <div class="row">
+        <div class="col-12">
 
-              {% for i in roots %}
-              {% if i.ut == 1  %}
-              {% else %}
-             <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
-              <div class="card bg-light">
-                <div class="card-header text-muted border-bottom-0">
-                  {{ i.prof }}
-                </div>
-                <div class="card-body pt-0">
-                  <div class="row">
-                    <div class="col-7">
-                      <h2 class="lead"><b>{{ i }}</b></h2>
-                      <p class="text-muted text-sm"><b>About: </b>{{ i.info }}</p>
-                      <ul class="ml-4 mb-0 fa-ul text-muted">
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> {{ i.position }}</li>
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone : {{ i.phone }}</li>
-                      </ul>
+            <div class="card">
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>T/r</th>
+                            <th>Foydalanuvchi nomi</th>
+                            <th>Sohhasi</th>
+                            <th>Telefon Raqami</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for i in roots %}
+                        {% if i.ut == 1 %}
+                        {% else %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.full_name }}</td>
+                            <td>{{ i.specialty }}</td>
+                            <td>{{ i.phone }}</td>
+                            <td>
+                                <a href="#" title="To'lliq ma'lumotlarni ko'rish"
+                                   class="btn btn-info btn-circle btn-sm">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a href="{% url 'update_user' key='edit' pk=i.id %}" title="O'zgartirish"
+                                   class="btn btn-warning btn-circle btn-sm">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                            </td>
+
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        </tbody>
+
+                    </table>
+
+                    <br>
+                    <hr>
+                    {% if key == 'create' %}
+                    <div class="card py-3 px-4">
+                        <h2 class="text-center fw-normal mt-2">User qo'shish</h2>
+                        <form class="row g-3 mt-3" method="post">
+                            {% csrf_token %}
+                            <div class="col-md-3">
+                                <label for="inputState" class="form-label">First name</label>
+                                <input required type="text" id="inputState" class="form-control" name="name"
+                                       placeholder="First name" aria-label="First name">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="inputEmail4" class="form-label">Email</label>
+                                <input required type="email" name="email" class="form-control" id="inputEmail4"
+                                       placeholder="Email">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="inputphone3" class="form-label">Phone number</label>
+                                <input type="text" required class="form-control" name="phone" id="inputphone3"
+                                       maxlength="14" placeholder="Phone number">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="usertype" class="form-label">User turi</label>
+                                <select class="form-control border-1 p-2 form-select-sm" id="usertype" required
+                                        name="ut" aria-label="Small select example">
+                                    <option selected disabled> -----------</option>
+                                    <option value="1">Admin</option>
+                                    <option value="2">Teacher</option>
+                                    <option value="3">Student</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label for="inputPassword4" class="form-label">Password</label>
+                                <input required type="password" name="pass" class="form-control" id="inputPassword4"
+                                       placeholder="Password">
+                            </div>
+                            <div class="col-md-2 mt-3">
+                                <label for="gender" class="form-label">Gender </label>
+                                <select class="form-control p-2 form-select-sm" name="gender"
+                                        aria-label="Small select example" id="gender">
+                                    <option selected disabled> -------------</option>
+                                    <option value="True">Erkak 👨‍🎓</option>
+                                    <option value="False">Ayol 🙍‍♀️</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mt-5">
+                                <div class="col-auto d-flex">
+                                    <button type="submit" class="btn btn-success mb-3 mr-3"><i class="fa fa-check"></i>
+                                        Saqlash
+                                    </button>
+                                    <button type="submit" class="btn btn-primary mb-3">
+                                        <a href="{% url 'user_list' %}" class="text-light">
+                                            <i class="fa fa-home"></i> Bekor qilish
+                                        </a>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mt-5">
+                                <div class="col-auto">
+
+                                </div>
+                            </div>
+
+                        </form>
                     </div>
-                    <div class="col-5 text-center">
-                        <img {% if i.gender %}
-                            src="{% static 'ddist/img/avatar.png' %}"
-                         {% else %}
-                             src="{% static 'ddist/img/avatar2.png' %}"
-                         {% endif %}
-                            alt="" class="img-circle img-fluid">
+<!--                <div class="pagination">-->
+<!--                <span class="step-links">-->
+<!--                    {% if roots.has_previous %}-->
+<!--                        <a href="?page=1" class="btn btn-primary btn-sm">&laquo;first</a>-->
+<!--                        <a href="?page={{ roots.previous_page_number }}" class="btn btn-primary btn-sm">prev</a>-->
+<!--                    {% endif %}-->
+
+<!--                    <span class="current">-->
+<!--                        Page {{ roots.number }} of {{ roots.paginator.num_pages }}.-->
+<!--                    </span>-->
+
+<!--                    {% if roots.has_next %}-->
+<!--                        <a href="?page={{ roots.next_page_number }}" class="btn btn-primary btn-sm">next</a>-->
+<!--                        <a href="?page={{ roots.paginator.num_pages }}"-->
+<!--                           class="btn btn-primary btn-sm">last&raquo;</a>-->
+<!--                    {% endif %}-->
+<!--                </span>-->
+<!--                </div>-->
+                    {% elif key == 'edit' %}
+                    <div class="card py-3 px-4">
+                        <h2 class="text-center fw-normal mt-2">User yangilash</h2>
+                        <form class="row g-3 mt-3" method="post">
+                            {% csrf_token %}
+                            <div class="col-md-3">
+                                <label for="inputState" class="form-label">First name</label>
+                                <input required type="text" id="inputState" class="form-control" name="name"
+                                       placeholder="First name" aria-label="First name"
+                                       value="{{update_user.first_name}}">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="inputEmail4" class="form-label">Email</label>
+                                <input required type="email" name="email" class="form-control" id="inputEmail4"
+                                       placeholder="Email" value="{{update_user.email}}">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="inputphone3" class="form-label">Phone number</label>
+                                <input type="text" required class="form-control" name="phone" id="inputphone3"
+                                       maxlength="14" placeholder="Phone number" value="{{update_user.phone}}">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="usertype" class="form-label">User turi</label>
+                                <select class="form-control border-1 p-2 form-select-sm" id="usertype" required
+                                        name="ut" aria-label="Small select example">
+                                    <option disabled value="1">
+                                        Admin
+                                    </option>
+                                    <option value="2">
+                                        Teacher
+                                    </option>
+                                    <option selected value="3">
+                                        Student
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 ml-0 mt-5">
+                                <div class="col-auto d-flex">
+                                    <button type="submit" class="btn btn-success mb-3 mr-3"><i class="fa fa-check"></i>
+                                        Saqlash
+                                    </button>
+                                    <button type="submit" class="btn btn-primary mb-3">
+                                        <a href="{% url 'user_list' %}" class="text-light">
+                                            <i class="fa fa-home"></i> Bekor qilish
+                                        </a>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mt-5">
+                                <div class="col-auto">
+
+                                </div>
+                            </div>
+
+                        </form>
                     </div>
-                  </div>
-                </div>
-                <div class="card-footer">
-                  <div class="text-right">
-
-                        <a href="" title="To'lliq ma'lumotlarni ko'rish" class="btn btn-info btn-circle btn-sm">
-                            <i class="fas fa-info-circle"></i>
-                        </a>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-              {% endif %}
-              {% endfor %}
-          {% else %}
-             <h3 class="text-danger">Uzur Bu bo'limdan hech narsa topilmadi</h3>
-
-          {% endif %}
-
-          </div>
-        </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-          <nav aria-label="Contacts Page Navigation">
-            <ul class="pagination justify-content-center m-0">
-                {% if roots.has_previous %}
-                    <li class="page-item"><a class="page-link" href="?page={{ roots.previous_page_number }}"><<</a></li>
-                {% endif %}
-
-                {% for i in page_len %}
-                    {% if current_page == i %}
-                        <li class="page-item active"><a class="page-link">{{ i }}</a></li>
                     {% else %}
-                        <li class="page-item"><a class="page-link" href="?page={{i}}">{{ i }}</a></li>
+                    <div class="row">
+                        <div class="col-xl-6 col-md-6 mb-4">
+                            <a href="{% url 'create_user' key='create' %}" class="btn btn-success">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                                <span class="text">Yangi xizmat turini qo`shish</span>
+                            </a>
+                            <a href="{% url 'home' %}" class="btn btn-info">
+                           <span class="icon text-white-50">
+                                <i class="fas fa-home"></i>
+                            </span>
+                                <span class="text">Bosh Menu</span>
+                            </a>
+                        </div>
+                    </div>
                     {% endif %}
-                {% endfor %}
-                {% if roots.has_next %}
-                    <li class="page-item"><a class="page-link" href="?page={{ roots.next_page_number }}">>></a></li>
-
-                {% endif %}
-
-            </ul>
-          </nav>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
         </div>
-        <!-- /.card-footer -->
-
-      </div>
-      <!-- /.card -->
-
-    </section>
-    <!-- Main content -->
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
 
 {% endblock %}

@@ -11,7 +11,6 @@ from core.models import User
 
 
 class Token(abs_models.Token):
-
     class Meta:
         verbose_name_plural = "T. Auth Token"
 
