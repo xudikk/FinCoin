@@ -17,8 +17,7 @@ def home_page(request):
     rating = f"""
     SELECT SUM(card.balance) as balance, uu.id, uu.username, uu.phone, uu.first_name, uu.last_name, uu.avatar
     from core_user uu
-    left join core_card card on card.user_id = uu.id 
-    where uu.id = {request.user.id}
+    left join core_card card on card.user_id = uu.id
     group by uu.id, uu.username, uu.phone, uu.first_name, uu.last_name, uu.avatar
     order by balance desc 
     limit {settings.PAGINATE_BY}

@@ -31,6 +31,9 @@ class Card(models.Model):
             self.mask = card_mask(self.number)
         return super(Card, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return f"{self.user}  ||  {self.balance}"
+
     def response(self):
         return {
             'id': self.token,
