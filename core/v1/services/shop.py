@@ -17,7 +17,7 @@ def add_backed(request, params):
     if not product:
         return custom_response(False, message=MSG['NotData'][lang_helper(request)])
 
-    backed = Backed.objects.get_or_create(product=product, user=request.user)
+    backed = Backed.objects.get_or_create(product=product, user=request.user)[0]
     backed.quantity = params.get('quantity', backed.quantity)
     backed.save()
     return custom_response(True, data=MSG['Success'][lang_helper(request)])

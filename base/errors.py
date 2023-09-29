@@ -156,10 +156,25 @@ MSG = {
     },
 
     # Data Errors
+    "LangError": {
+        "uz": "Lang data yoki paramsi ichida bo'lishi kerak",
+        "ru": "Lang должен быть в дате или парамсе",
+        "en": "Lang must be in data or params"
+    },
     'ParamsNotFull': {
         "uz": "< params > to'lliq emas",
         "ru": "< params> неполные",
         "en": "< params > is incomplete"
+    },
+    "User_id_not_in_params": {
+        "uz": "User_id datani ichida bo'lishi kerak",
+        "ru": "User_id должен  быть в дате",
+        "en": "User_id must be in data",
+    },
+    "product_id_not_in_params": {
+        "uz": "product_id datani ichida bo'lishi kerak",
+        "ru": "product_id должен  быть в дате",
+        "en": "product_id must be in data",
     },
     "ParamsMustList": {
         "uz": "< params > list(array) ko'rinishida bo'lishi kerak",

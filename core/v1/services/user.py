@@ -20,7 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 def set_lang(request, params):
     if not params.get('lang', False) or params.get("lang") not in ['uz', 'ru', 'en']:
-        return custom_response(False, message=MSG['Lang'][request.user.lang])
+        return custom_response(False, message=MSG['LangError'][request.user.lang])
     request.user.lang = params['lang']
     request.user.save()
     return custom_response(True, data=MSG['SuccessLangChanged'][lang_helper(request)],
