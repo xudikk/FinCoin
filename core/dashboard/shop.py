@@ -1,7 +1,7 @@
 from contextlib import closing
 from django.db import connection
 from django.shortcuts import render
-from methodism import custom_response, dictfetchall
+from methodism import dictfetchall
 from base.errors import MSG
 from base.helper import lang_helper
 from core.models import Product
@@ -15,7 +15,7 @@ def savat(request):
             return render(request, "page", context=MSG['product_id_not_in_params'][lang_helper(request)])
         product = Product.objects.filter(id=params['product_id']).first()
         if not product:
-            return custom_response(False, message=MSG['NotData'][lang_helper(request)])
+            return render(request, "page", context=MSG['NotData'][lang_helper(request)])
 
         backed = Backed.objects.get_or_create(product=product, user=request.user)[0]
         backed.quantity = params.get('quantity', backed.quantity)

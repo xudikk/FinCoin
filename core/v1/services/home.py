@@ -17,7 +17,6 @@ def home_page(request):
     SELECT SUM(card.balance) as balance, uu.id, uu.username, uu.phone, uu.first_name, uu.last_name, uu.avatar
     from core_user uu
     left join core_card card on card.user_id = uu.id 
-    where uu.id = {request.user.id}
     group by uu.id, uu.username, uu.phone, uu.first_name, uu.last_name, uu.avatar
     order by balance desc 
     limit {settings.PAGINATE_BY}
@@ -56,7 +55,7 @@ def algorithm(request):
     except:
         page = 1
     offset = (page - 1) * settings.PAGINATE_BY
-    print(request.user.id)
+    # print(request.user.id)
 
     algos = f""" 
             SELECT al.*, us.first_name, us.last_name, us.username  from core_algorithm al
