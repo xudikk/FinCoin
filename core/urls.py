@@ -23,4 +23,5 @@ urlpatterns = [
 
     # user actions
     path('user/list/<key>/<int:pk>/', list_user, name='update_user'),
+    path('user/list/<key>/<int:pk>/', list_user, name='get_user_info'),
 ]

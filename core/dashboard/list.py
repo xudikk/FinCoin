@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
 from base.helper import generate_number
-from core.models.monitoring import Card
+from core.models import Card
 from base.custom import permission_checker
 from core.models.auth import User
 
@@ -14,6 +14,7 @@ def list_user(request, key=None, pk=None):
     users = User.objects.all()
     try:
         update_user = User.objects.filter(id=pk).first()
+        card = Card.objects.filter(user=update_user)
     except Exception as e:
         HttpResponse("Xatolik yuzaga keldi >", e)
     if key == 'create':
@@ -54,5 +55,7 @@ def list_user(request, key=None, pk=None):
 
             update_user.save()
             return redirect('user_list')
+    if key == '_info':
+        pass
     return render(request, 'pages/list.html',
-                  {'roots': users, "update_user": update_user, "key": key, 'u_active': "active"})
+                  {'roots': users, "update_user": update_user, "card_user": card, "key": key, 'u_active': "active"})

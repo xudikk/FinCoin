@@ -8,12 +8,14 @@
 {% block content %}
 <!-- /.content -->
 <section class="content">
+
     <div class="row">
         <div class="col-12">
 
             <div class="card">
                 <!-- /.card-header -->
                 <div class="card-body">
+                    {% if roots and not key == '_info' %}
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
@@ -25,7 +27,6 @@
                         </tr>
                         </thead>
                         <tbody>
-
                         {% for i in roots %}
                         {% if i.ut == 1 %}
                         {% else %}
@@ -35,7 +36,7 @@
                             <td>{{ i.specialty }}</td>
                             <td>{{ i.phone }}</td>
                             <td>
-                                <a href="#" title="To'lliq ma'lumotlarni ko'rish"
+                                <a href="{% url 'get_user_info' key='_info' pk=i.id %}" title="To'lliq ma'lumotlarni ko'rish"
                                    class="btn btn-info btn-circle btn-sm">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
@@ -51,7 +52,25 @@
                         </tbody>
 
                     </table>
+                    {% else %}
+                    {% if card_user == None %}
+                    hich nima yo
+                    {% else %}
+                        {% for i in card_user %}
+                            <div class="card bg-dark text-light d-inline-block mr-2 pr-5 pb-2 pl-2" style="max-width: 28rem; width: 33%; border-radius: 20px">
+                                  <img src="{% static 'auth/Fintech.png' %}" alt="" class="mt-0 bg-light top-0 end-0 w-25" style="border-radius: 50%; margin-left: 230px;  margin-bottom: -90px">
+                              <div class="card-body">
+                                <h5 class="card-title">{{ i.name }}</h5>
+                                    <p class="card-text" style="font-size: 20px"><b>{{ i.balance }}</b></p>
+                                <p class="card-text text-uppercase">{{ i.user.full_name }}</p>
+                                <p class="card-text">{{ i.mask }} <span class="ml-5"> {{ i.expire }}</span></p>
 
+                              </div>
+
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    {% endif %}
                     <br>
                     <hr>
                     {% if key == 'create' %}
@@ -172,7 +191,7 @@
                                     </option>
                                 </select>
                             </div>
-                            <div class="col-md-4 ml-0 mt-5">
+                            <div class="col-md-4 p-0 mt-3">
                                 <div class="col-auto d-flex">
                                     <button type="submit" class="btn btn-success mb-3 mr-3"><i class="fa fa-check"></i>
                                         Saqlash
@@ -195,13 +214,16 @@
                     {% else %}
                     <div class="row">
                         <div class="col-xl-6 col-md-6 mb-4">
+                            {% if key == '_info' %}
+                            {% else %}
                             <a href="{% url 'create_user' key='create' %}" class="btn btn-success">
                             <span class="icon text-white-50">
                                 <i class="fas fa-check"></i>
                             </span>
-                                <span class="text">Yangi xizmat turini qo`shish</span>
+                                <span class="text">Yangi user qo`shish</span>
                             </a>
-                            <a href="{% url 'home' %}" class="btn btn-info">
+                            {% endif %}
+                            <a href="{% url 'user_list' %}" class="btn btn-info">
                            <span class="icon text-white-50">
                                 <i class="fas fa-home"></i>
                             </span>
