@@ -5,9 +5,30 @@
 #  Tashkent, Uzbekistan
 import datetime
 import uuid
+from contextlib import closing
+
+from django.db import connection
+from methodism import dictfetchall, dictfetchone
+
 from base.helper import generate_number
 from core.models import Card
 from django.shortcuts import redirect, render
+
+
+# def note():
+#     sql = 'select id,name,phone from core_user where new=true and not user_type = 1 limit 3'
+#     count = 'select count(*) as cnt from core_user where new = true and not user_type = 1'
+#
+#     with closing(connection.cursor()) as cursor:
+#         cursor.execute(sql)
+#         result = dictfetchall(cursor)
+#
+#     with closing(connection.cursor()) as cursor:
+#         cursor.execute(count)
+#         result_cnt = dictfetchone(cursor)
+#     return {'note': result,
+#             'count_not': result_cnt
+#             }
 
 
 def create_card(request):
