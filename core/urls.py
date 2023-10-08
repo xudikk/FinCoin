@@ -20,6 +20,7 @@ urlpatterns = [
     # list
     path('user/list/', list_user, name='user_list'),
     path('user/list/<key>/', list_user, name='create_user'),
+    path('user/list/<key>/', list_user, name='teacher'),
 
     # user actions
     path('user/list/<key>/<int:pk>/', list_user, name='update_user'),

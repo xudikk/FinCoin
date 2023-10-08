@@ -57,5 +57,7 @@ def list_user(request, key=None, pk=None):
             return redirect('user_list')
     if key == '_info':
         pass
+    if key == 'teacher':
+        pass
     return render(request, 'pages/list.html',
                   {'roots': users, "update_user": update_user, "card_user": card, "key": key, 'u_active': "active"})

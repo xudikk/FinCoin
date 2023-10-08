@@ -3,7 +3,7 @@ from contextlib import closing
 from django.conf import settings
 from django.contrib.auth import logout
 from django.db import connection
-from methodism import dictfetchone
+from methodism import dictfetchone, dictfetchall
 
 
 def main(requests):
@@ -47,4 +47,36 @@ def count(request):
 
     return {
         'count': result
+    }
+
+
+def balance_rating_news(request):
+    balance = f"""
+        select SUM(balance) as summ from core_card  
+        where user_id = {request.user.id}
+    """
+    rating = f"""
+        SELECT SUM(card.balance) as balance, uu.id, uu.username, uu.phone, uu.first_name, uu."level", uu.last_name, uu.avatar
+        from core_user uu
+        left join core_card card on card.user_id = uu.id 
+        group by uu.id, uu.username, uu.phone, uu.first_name, uu.last_name, uu.avatar
+        order by balance desc 
+        limit {settings.PAGINATE_BY}
+    """
+    news = "select id, img, title from core_new order by id desc limit 3"
+
+    with closing(connection.cursor()) as cursor:
+        cursor.execute(balance)
+        balance = dictfetchone(cursor)
+
+        cursor.execute(rating)
+        rating = dictfetchall(cursor)
+
+        cursor.execute(news)
+        news = dictfetchall(cursor)
+
+    return {
+        "balance": balance['summ'],
+        "rating": rating,
+        "news": news
     }

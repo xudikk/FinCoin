@@ -34,7 +34,7 @@ def home_page(request):
         cursor.execute(news)
         news = dictfetchall(cursor)
 
-    return render(request, "page", context={
+    return render(request, 'pages/index.html', context={
         "balance": balance['summ'],
         "rating": rating,
         "news": news
