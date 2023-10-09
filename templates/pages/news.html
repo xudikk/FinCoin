@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
-{% block title %} All Users Card {% endblock %}
-{% block pagetitle %} All Card {% endblock %}
+{% block title %} News {% endblock %}
+{% block pagetitle %} News {% endblock %}
 {% load static %}
 {% block content %}
 
@@ -29,7 +29,7 @@
       <!-- /.card-header -->
       <div class="card-body" style="display: block;">
         <a href="{% url 'news_view' key='view' pk=i.id %}">
-          <img class="img-fluid pad" src="{% static 'ddist/img/photo2.png' %}" alt="Photo">
+          <img class="img-fluid pad" src="http://127.0.0.1:8000/media/{{ i.img }}" alt="Photo">
         </a>
 
         <p><b>{{ i.title }}</b></p>

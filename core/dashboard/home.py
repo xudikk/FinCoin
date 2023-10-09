@@ -92,5 +92,12 @@ def news(request, key=None, pk=None):
 
         print(f"\n\n{view_news}\n\n")
         return render(request, 'pages/news.html', {"view_news": view_news, 'key': key})
+    print("here")
 
-    return render(request, 'pages/news.html', {'key': key})
+    news = "select id, img, title from core_new order by id desc"
+
+    with closing(connection.cursor()) as cursor:
+        cursor.execute(news)
+        news = dictfetchall(cursor)
+    print(news)
+    return render(request, 'pages/news.html', {"news": news,'key': key})
