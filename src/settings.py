@@ -176,4 +176,5 @@ RANGE = int(os.getenv('RANGE', 5))
 CUSTOM_HASHING = os.getenv("HASHING")
 UNHASH = os.getenv("UNHASH")
 
+HOST_URL = "http://127.0.0.1:8000"
 

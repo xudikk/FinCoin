@@ -32,3 +32,22 @@ def card_mask(number):
 
 def generate_number():
     return unique_card()
+
+
+def cusmot_dictfetchall(cursor):
+    "Return all rows from a cursor as a dict"
+    columns = []
+    for i in cursor.description:
+        columns.append(i[0])
+    a = cursor.fetchall()
+    img = None
+    if "img" in columns:
+        img = columns.index("img")
+    natija = []
+    for i in a:
+        i = list(i)
+        if img:
+            i[img] = f"{settings.HOST_URL}/media/" + i[img]
+        b = dict(zip(columns, i))
+        natija.append(b)
+    return natija

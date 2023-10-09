@@ -6,6 +6,7 @@ from django.shortcuts import render
 from methodism import custom_response, dictfetchone, dictfetchall
 from methodism.sqlpaginator import SqlPaginator
 
+from base.helper import cusmot_dictfetchall
 from core.models import New
 
 
@@ -90,14 +91,14 @@ def news(request, key=None, pk=None):
             cursor.execute(new)
             view_news = dictfetchone(cursor)
 
-        print(f"\n\n{view_news}\n\n")
+        # print(f"\n\n{view_news}\n\n")
         return render(request, 'pages/news.html', {"view_news": view_news, 'key': key})
-    print("here")
+    # print("here")
 
     news = "select id, img, title from core_new order by id desc"
 
     with closing(connection.cursor()) as cursor:
         cursor.execute(news)
-        news = dictfetchall(cursor)
-    print(news)
+        news = cusmot_dictfetchall(cursor)
+    # print(news)
     return render(request, 'pages/news.html', {"news": news,'key': key})

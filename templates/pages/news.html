@@ -29,7 +29,7 @@
       <!-- /.card-header -->
       <div class="card-body" style="display: block;">
         <a href="{% url 'news_view' key='view' pk=i.id %}">
-          <img class="img-fluid pad" src="http://127.0.0.1:8000/media/{{ i.img }}" alt="Photo">
+          <img class="img-fluid pad" src="{{ i.img }}" alt="Photo">
         </a>
 
         <p><b>{{ i.title }}</b></p>
