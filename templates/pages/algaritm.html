@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
-{% block title %} All Users Card {% endblock %}
-{% block pagetitle %} All Card {% endblock %}
+{% block title %} All Algarithm {% endblock %}
+{% block pagetitle %} Algarithm {% endblock %}
 {% block content %}
 
 <section class="content">
@@ -71,7 +71,11 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <div class="row">
-
+                {% if not all_algorithm %}
+                  <h2 class="text-danger">
+                    Algaritmlarga doir masalalar mavjud emas ☝
+                  </h2>
+                  {% endif %}
                 {% for i in all_algorithm %}
                   <div class="col-sm-4">
                     <div class="position-relative p-3 bg-dark" style="height: 180px">
@@ -86,7 +90,7 @@
                   </div>
                 {% endfor %}
                 </div>
-<a href="{% url 'home' %}" class="btn btn-info mt-2"><span class="icon text-white-50"><i class="fas fa-home"></i></span> Bosh Menu</a>
+                <a href="{% url 'home' %}" class="btn btn-info mt-2"><span class="icon text-white-50"><i class="fas fa-home"></i></span> Bosh Menu</a>
               </div>
               <!-- /.card-body -->
             </div>
@@ -99,6 +103,5 @@
       </div>
       <!-- /.container-fluid -->
     </section>
-
 
 {% endblock %}

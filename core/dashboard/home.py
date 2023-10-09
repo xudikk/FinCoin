@@ -79,3 +79,18 @@ def algorithm(request):
         pagging = paginator.get_paginated_response(per_page=settings.PAGINATE_BY, current_page=page)
 
     return render(request, "page", context={"algorithms": algos, "pagging": pagging})
+
+
+def news(request, key=None, pk=None):
+    if key == 'view':
+        new = f"""
+                select * from core_new c_n where c_n.id = {pk}
+                """
+        with closing(connection.cursor()) as cursor:
+            cursor.execute(new)
+            view_news = dictfetchone(cursor)
+
+        print(f"\n\n{view_news}\n\n")
+        return render(request, 'pages/news.html', {"view_news": view_news, 'key': key})
+
+    return render(request, 'pages/news.html', {'key': key})

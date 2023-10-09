@@ -64,7 +64,7 @@ def balance_rating_news(request):
             order by balance desc 
             limit {settings.PAGINATE_BY}
         """
-        news = "select id, img, title from core_new order by id desc limit 3"
+        news = "select id, img, title, view from core_new order by id desc limit 3"
 
         with closing(connection.cursor()) as cursor:
             cursor.execute(balance)
@@ -75,7 +75,7 @@ def balance_rating_news(request):
 
             cursor.execute(news)
             news = dictfetchall(cursor)
-
+        # print(f'\n\n{news}\n\n')
         return {
             "balance": balance['summ'],
             "rating": rating,

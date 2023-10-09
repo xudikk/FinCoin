@@ -202,13 +202,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="{% url 'user_list' %}" class="nav-link {{ u_active }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Userlar</p>
+                  <p>Userlar <i class="fa-solid fa-users"></i></p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link {{ b_active }}">
+                <a href="{% url 'news' %}" class="nav-link {{ b_active }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Boshqa Nom</p>
+                  <p>Yangiliklar <i class="fa-solid fa-newspaper"></i></p>
                 </a>
               </li>
             </ul>
