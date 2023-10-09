@@ -155,10 +155,8 @@
                     hich nima yo
                     {% else %}
                     {% for i in card_user %}
-                    <div class="card-body-1 card text-light d-inline-block mr-4 ml-5 mt-2 pr-5 pb-2 pl-2"
+                    <div class="card-body-1 card text-light d-inline-block mr-3 mt-2 w-auto"
                          style="max-width: 28rem; width: 26%; border-radius: 20px">
-<!--                        <img src="{% static 'auth/Fintech.png' %}" alt="" class="mt-0 bg-light top-0 end-0 w-25"-->
-<!--                             style="border-radius: 50%; margin-left: 230px;  margin-bottom: -90px">-->
                         <div class="card-body">
                             <h4 class="card-text">{{ i.name }}</h4>
                             <p class="card-text" ><b>{{ i.balance }} сум</b></p>
@@ -182,6 +180,11 @@
                                        placeholder="First name" aria-label="First name">
                             </div>
                             <div class="col-md-3">
+                                <label for="inputState2" class="form-label">Last name</label>
+                                <input required type="text" id="inputState2" class="form-control" name="last_name"
+                                       placeholder="Last name" aria-label="Last name">
+                            </div>
+                            <div class="col-md-3">
                                 <label for="inputEmail4" class="form-label">Email</label>
                                 <input required type="email" name="email" class="form-control" id="inputEmail4"
                                        placeholder="Email">
@@ -191,14 +194,13 @@
                                 <input type="text" required class="form-control" name="phone" id="inputphone3"
                                        maxlength="14" placeholder="Phone number">
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 mt-3">
                                 <label for="usertype" class="form-label">User turi</label>
                                 <select class="form-control border-1 p-2 form-select-sm" id="usertype" required
                                         name="ut" aria-label="Small select example">
-                                    <option selected disabled> -----------</option>
                                     <option value="1">Admin</option>
                                     <option value="2">Teacher</option>
-                                    <option value="3">Student</option>
+                                    <option selected value="3">Student</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mt-3">
@@ -264,6 +266,12 @@
                                        value="{{update_user.first_name}}">
                             </div>
                             <div class="col-md-3">
+                                <label for="inputState" class="form-label">Last name</label>
+                                <input required type="text" id="inputState" class="form-control" name="last_name"
+                                       placeholder="First name" aria-label="Last name"
+                                       value="{{update_user.last_name}}">
+                            </div>
+                            <div class="col-md-3">
                                 <label for="inputEmail4" class="form-label">Email</label>
                                 <input required type="email" name="email" class="form-control" id="inputEmail4"
                                        placeholder="Email" value="{{update_user.email}}">
@@ -288,7 +296,7 @@
                                     </option>
                                 </select>
                             </div>
-                            <div class="col-md-4 p-0 mt-3">
+                            <div class="col-md-4 pt-2 mt-4">
                                 <div class="col-auto d-flex">
                                     <button type="submit" class="btn btn-success mb-3 mr-3"><i class="fa fa-check"></i>
                                         Saqlash
@@ -337,8 +345,72 @@
         <!-- /.col -->
     </div>
     <!-- /.row -->
+    {% if key == 'all_card' %}
+    {% for i in all_card %}
+    <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Striped Full Width Table</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Task</th>
+                      <th>Progress</th>
+                      <th style="width: 40px">Label</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1.</td>
+                      <td>Update software</td>
+                      <td>
+                        <div class="progress progress-xs">
+                          <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-danger">55%</span></td>
+                    </tr>
+                    <tr>
+                      <td>2.</td>
+                      <td>Clean database</td>
+                      <td>
+                        <div class="progress progress-xs">
+                          <div class="progress-bar bg-warning" style="width: 70%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-warning">70%</span></td>
+                    </tr>
+                    <tr>
+                      <td>3.</td>
+                      <td>Cron job running</td>
+                      <td>
+                        <div class="progress progress-xs progress-striped active">
+                          <div class="progress-bar bg-primary" style="width: 30%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-primary">30%</span></td>
+                    </tr>
+                    <tr>
+                      <td>4.</td>
+                      <td>Fix and squish bugs</td>
+                      <td>
+                        <div class="progress progress-xs progress-striped active">
+                          <div class="progress-bar bg-success" style="width: 90%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-success">90%</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+    {% endfor %}
+    {% endif %}
 </section>
-
 {% endif %}
 
 {% endblock %}

@@ -5,6 +5,8 @@
 #  Tashkent, Uzbekistan
 
 from django.urls import path, include
+
+from core.dashboard.monitoring import algaritm
 from core.dashboard.view import index
 from core.dashboard.auth import sign_in, sign_out
 from core.dashboard.list import list_user
@@ -25,4 +27,8 @@ urlpatterns = [
     # user actions
     path('user/list/<key>/<int:pk>/', list_user, name='update_user'),
     path('user/list/<key>/<int:pk>/', list_user, name='get_user_info'),
+
+    # algaritm
+    path('algaritm/', algaritm, name='all_algaritm'),
+    path('algaritm/<key>/', algaritm, name='create_algaritm')
 ]

@@ -30,6 +30,7 @@ def list_user(request, key=None, pk=None):
             user = User.objects.create_user(
                 phone=data["phone"], password=data["pass"],
                 first_name=data["name"], gender=gender,
+                last_name=data['last_name'],
                 email=data["email"], ut=user_type
             )
             user.save()
@@ -37,7 +38,6 @@ def list_user(request, key=None, pk=None):
                 user=user,
                 number=generate_number(),
                 name=f"{user.full_name()}'s card",
-                balance=0.0,
                 expire=f"{datetime.datetime.now().month}/{str(datetime.datetime.now().year + 1)[2:]}",
                 is_primary=False,
                 card_registered_phone=user.phone
@@ -49,6 +49,7 @@ def list_user(request, key=None, pk=None):
             data = request.POST
             user_type = data.get("ut")
             update_user.first_name = data["name"]
+            update_user.last_name = data["last_name"]
             update_user.email = data["email"]
             update_user.ut = user_type
             update_user.phone = data["phone"]

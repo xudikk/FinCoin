@@ -51,14 +51,14 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>{{ count.count_card }}</h3>
+                <h3>{{ count.count_algorithm }}</h3>
 
-                <p>Kartalar</p>
+                <p>Algaritmlar</p>
               </div>
               <div class="icon">
-                <i class="fa-solid fa-credit-card"></i>
+                <i class="fa-solid fa-calculator"></i>
               </div>
-              <a href="#" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{% url 'all_algaritm' %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -69,139 +69,73 @@
       </div><!-- /.container-fluid -->
     </section>
 <!-- TABLE: LATEST ORDERS -->
-            <div class="card">
-              <div class="card-header border-transparent">
-                <h3 class="card-title">Top 5 ta ko'p ball to'plaganlar 💰💰</h3>
+<div class="card">
+  <div class="card-header border-transparent">
+    <h3 class="card-title">Top 5 ta ko'p ball to'plaganlar 💰💰</h3>
 
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <div class="table-responsive">
-                  <table class="table m-0">
-                    <thead>
-                    <tr>
-                      <th>User ID</th>
-                      <th>Username</th>
-                      <th>Level</th>
-                      <th>Ballance</th>
-                      <th>Phone</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for i in rating %}
-                    <tr>
-                      <td><a href="{% url 'get_user_info' key='_info' pk=i.id %}">User-{{ i.id }}</a></td>
-                      <td>{{ i.first_name }} {{ i.last_name }}</td>
-                      {% if i.level == 'Beginner' %}
-                      <td><span class="badge badge-danger">
-                        {{ i.level }}
-                      </span></td>
-                      {% elif i.level == 'Junior' %}
-                      <td><span class="badge badge-warning">
-                        {{ i.level }}
-                      </span></td>
-                      {% elif i.level == 'Middle' %}
-                      <td><span class="badge badge-success">
-                        {{ i.level }}
-                      </span></td>
-                      {% elif i.level == 'Senior' %}
-                      <td><span class="badge badge-info">
-                        {{ i.level }}
-                      </span></td>
-                      {% elif i.level == 'TeamLead' %}
-                      <td><span class="badge badge-dark">
-                        {{ i.level }}
-                      </span></td>
-                      {% endif %}
-                      <td>
-                        <div class="sparkbar" data-color="#00a65a" data-height="20">{{ i.balance }}</div>
-                      </td>
-                      <td>
-                        <div class="sparkbar" data-color="#00a65a" data-height="20">{{ i.phone }}</div>
-                      </td>
-                    </tr>
-                    {% endfor %}
-<!--                    <tr>-->
-<!--                      <td><a href="pages/examples/invoice.html">US-1848</a></td>-->
-<!--                      <td>Samsung Smart TV</td>-->
-<!--                      <td><span class="badge badge-warning">Pending</span></td>-->
-<!--                      <td>-->
-<!--                        <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>-->
-<!--                      </td>-->
-<!--                      <td>-->
-<!--                        <div class="sparkbar" data-color="#00a65a" data-height="20">+998 90 948 56 56</div>-->
-<!--                      </td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                      <td><a href="pages/examples/invoice.html">US-7429</a></td>-->
-<!--                      <td>iPhone 6 Plus</td>-->
-<!--                      <td><span class="badge badge-danger">Delivered</span></td>-->
-<!--                      <td>-->
-<!--                        <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>-->
-<!--                      </td>-->
-<!--                      <td>-->
-<!--                        <div class="sparkbar" data-color="#00a65a" data-height="20">+998 90 948 56 56</div>-->
-<!--                      </td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                      <td><a href="pages/examples/invoice.html">US-7429</a></td>-->
-<!--                      <td>Samsung Smart TV</td>-->
-<!--                      <td><span class="badge badge-info">Processing</span></td>-->
-<!--                      <td>-->
-<!--                        <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>-->
-<!--                      </td>-->
-<!--                      <td>-->
-<!--                        <div class="sparkbar" data-color="#00a65a" data-height="20">+998 90 948 56 56</div>-->
-<!--                      </td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                      <td><a href="pages/examples/invoice.html">US-1848</a></td>-->
-<!--                      <td>Samsung Smart TV</td>-->
-<!--                      <td><span class="badge badge-warning">Pending</span></td>-->
-<!--                      <td>-->
-<!--                        <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>-->
-<!--                      </td>-->
-<!--                      <td>-->
-<!--                        <div class="sparkbar" data-color="#00a65a" data-height="20">+998 90 948 56 56</div>-->
-<!--                      </td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                      <td><a href="pages/examples/invoice.html">US-7429</a></td>-->
-<!--                      <td>iPhone 6 Plus</td>-->
-<!--                      <td><span class="badge badge-danger">Delivered</span></td>-->
-<!--                      <td>-->
-<!--                        <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>-->
-<!--                      </td>-->
-<!--                      <td>-->
-<!--                        <div class="sparkbar" data-color="#00a65a" data-height="20">+998 90 948 56 56</div>-->
-<!--                      </td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                      <td><a href="pages/examples/invoice.html">US-9842</a></td>-->
-<!--                      <td>Call of Duty IV</td>-->
-<!--                      <td><span class="badge badge-success">Shipped</span></td>-->
-<!--                      <td>-->
-<!--                        <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>-->
-<!--                      </td>-->
-<!--                      <td>-->
-<!--                        <div class="sparkbar" data-color="#00a65a" data-height="20">+998 90 948 56 56</div>-->
-<!--                      </td>-->
-<!--                    </tr>-->
-                    </tbody>
-                  </table>
-                </div>
-                <!-- /.table-responsive -->
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
-                <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
-              </div>
-              <!-- /.card-footer -->
-            </div>
-            <!-- /.card -->
+    <div class="card-tools">
+      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+        <i class="fas fa-minus"></i>
+      </button>
+    </div>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table m-0">
+        <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Username</th>
+          <th>Level</th>
+          <th>Ballance</th>
+          <th>Phone</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in rating %}
+        <tr>
+          <td><a href="{% url 'get_user_info' key='_info' pk=i.id %}">User-{{ i.id }}</a></td>
+          <td>{{ i.first_name }} {{ i.last_name }}</td>
+          {% if i.level == 'Beginner' %}
+          <td><span class="badge badge-danger">
+            {{ i.level }}
+          </span></td>
+          {% elif i.level == 'Junior' %}
+          <td><span class="badge badge-warning">
+            {{ i.level }}
+          </span></td>
+          {% elif i.level == 'Middle' %}
+          <td><span class="badge badge-success">
+            {{ i.level }}
+          </span></td>
+          {% elif i.level == 'Senior' %}
+          <td><span class="badge badge-info">
+            {{ i.level }}
+          </span></td>
+          {% elif i.level == 'TeamLead' %}
+          <td><span class="badge badge-dark">
+            {{ i.level }}
+          </span></td>
+          {% endif %}
+          <td>
+            <div class="sparkbar" data-color="#00a65a" data-height="20">{{ i.balance }}</div>
+          </td>
+          <td>
+            <div class="sparkbar" data-color="#00a65a" data-height="20">{{ i.phone }}</div>
+          </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <!-- /.table-responsive -->
+  </div>
+  <!-- /.card-body -->
+  <div class="card-footer clearfix">
+    <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
+    <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+  </div>
+  <!-- /.card-footer -->
+</div>
+<!-- /.card -->

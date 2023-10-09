@@ -14,21 +14,7 @@ from base.helper import generate_number
 from core.models import Card
 from django.shortcuts import redirect, render
 
-
-# def note():
-#     sql = 'select id,name,phone from core_user where new=true and not user_type = 1 limit 3'
-#     count = 'select count(*) as cnt from core_user where new = true and not user_type = 1'
-#
-#     with closing(connection.cursor()) as cursor:
-#         cursor.execute(sql)
-#         result = dictfetchall(cursor)
-#
-#     with closing(connection.cursor()) as cursor:
-#         cursor.execute(count)
-#         result_cnt = dictfetchone(cursor)
-#     return {'note': result,
-#             'count_not': result_cnt
-#             }
+from core.models import Algorithm
 
 
 def create_card(request):
@@ -50,8 +36,29 @@ def create_card(request):
     return render(request, "page", context=card.response())
 
 
-def all_card(request):
-    cards = Card.objects.filter(user=request.user)
-    return render(request, "page", context={
-        x.response() for x in cards
-    })
+def algaritm(request, key=None):
+    all_algaritm = f""" select cor_al.id, cor_al.reward, cor_al.description, cor_al.bonus, user_c.first_name, user_c.last_name from core_algorithm cor_al
+                    left join core_user user_c on cor_al.creator_id == user_c.id
+                """
+    user = f"""
+            select c_user.id, c_user.first_name, c_user.last_name from core_user c_user
+            """
+    with closing(connection.cursor()) as cursor:
+        cursor.execute(all_algaritm)
+        algarithm = dictfetchall(cursor)
+
+        cursor.execute(user)
+        user = dictfetchall(cursor)
+
+    if key == 'create':
+        if request.method == 'POST':
+            data = request.POST
+            Algorithm.objects.create(
+                reward=data['reward'],
+                description=data['description'],
+                bonus=data['bonus'],
+                creator_id=data['created_by']
+            )
+            return redirect('all_algaritm')
+
+    return render(request, 'pages/algaritm.html', {"all_algorithm": algarithm, 'key': key, 'user': user})

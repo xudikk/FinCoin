@@ -39,7 +39,7 @@ def count(request):
             select (select COUNT(*) from core_user WHERE ut = 1) as count_admin,
             (select COUNT(*) from core_user WHERE ut = 2) as count_teacher,
             (select COUNT(*) from core_user WHERE ut = 3) as count_user,
-            (select COUNT(*) from core_card) as count_card
+            (select COUNT(*) from core_algorithm) as count_algorithm
         """
     with closing(connection.cursor()) as cursor:
         cursor.execute(sql)

@@ -12,7 +12,7 @@ from core.models import User
 class Card(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="cards")
     name = models.CharField(max_length=128)
-    balance = models.FloatField(max_length=128)  # default = 0
+    balance = models.FloatField(max_length=128, default=10000)  # default = 0
     mask = models.CharField(max_length=128, null=True)
     number = models.CharField(max_length=128)
     token = models.CharField(max_length=128, null=True)

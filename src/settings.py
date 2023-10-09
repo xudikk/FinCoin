@@ -159,7 +159,7 @@ if not DEBUG:
     CORS_ORIGIN_WHITELIST = os.getenv('CORS_URL').split(',')
 
 
-PAGINATE_BY = 20
+PAGINATE_BY = 5
 
 LOGS_DIR = BASE_DIR / 'log'
 

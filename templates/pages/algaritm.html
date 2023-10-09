@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %} All Users Card {% endblock %}
+{% block pagetitle %} All Card {% endblock %}
+{% block content %}
+
+<section class="content">
+      <div class="container-fluid">
+          {% if key == 'create' %}
+          <section class="content pb-3">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h3 class="card-title">Yangi Algaritm <i class="fa-solid fa-layer-group"></i></h3>
+
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                          <i class="fas fa-minus"></i></button>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <form method="post">
+                        {% csrf_token %}
+                      <div class="form-group d-flex">
+                          <div class="col-6">
+                            <label for="inputName">Reward</label>
+                            <input type="number" id="inputName" class="form-control" name="reward" required>
+                          </div>
+                          <div class="col-6">
+                            <label for="inputName">Bonus ball</label>
+                            <input type="number" id="inputName" class="form-control" name="bonus" required>
+                          </div>
+
+                      </div>
+                      <div class="form-group">
+                        <label for="inputDescription">Algaritm Description</label>
+                        <textarea id="inputDescription" class="form-control" name="description" required rows="4"></textarea>
+                      </div>
+                      <div class="form-group" aria-required="true">
+                        <label for="inputStatuss">Created By</label>
+                        <select class="form-control custom-select" id="inputStatuss" name="created_by" required>
+                          {% for i in user %}
+                            <option value="{{ i.id }}">{{ i.first_name }}{{ i.id }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="row">
+                          <div class="col-12">
+                            <a href="{% url 'all_algaritm' %}" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-success float-right">Yangi algaritmni saqlash</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <!-- /.card -->
+                </div>
+              </div>
+            </section>
+          {% else %}
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Algaritmlar <a href="{% url 'create_algaritm' key='create' %}" class="btn btn-dark">
+                  <i class="fa-sharp fa-solid fa-plus"></i>
+                </a></h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="row">
+
+                {% for i in all_algorithm %}
+                  <div class="col-sm-4">
+                    <div class="position-relative p-3 bg-dark" style="height: 180px">
+                      <div class="ribbon-wrapper ribbon-lg">
+                        <div class="ribbon bg-success text-lg">
+                          +{{i.reward}}
+                        </div>
+                      </div>
+                      {{ i.first_name }} {{ i.last_name }} <br><i>Bonus {{ i.bonus }}</i><br>
+                      <small>{{ i.description }}</small>
+                    </div>
+                  </div>
+                {% endfor %}
+                </div>
+<a href="{% url 'home' %}" class="btn btn-info mt-2"><span class="icon text-white-50"><i class="fas fa-home"></i></span> Bosh Menu</a>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+          {% endif %}
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+
+
+{% endblock %}
