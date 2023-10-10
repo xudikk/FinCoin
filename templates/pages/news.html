@@ -6,83 +6,86 @@
 {% block content %}
 
 <div class="row">
-  {% for i in news %}
-  {% if not key %}
-  <div class="col-md-6">
-    <!-- Box Comment -->
-    <div class="card card-widget">
-      <div class="card-header">
-        <div class="user-block">
-          <img class="img-circle" src="{% static 'auth/Logo1.PNG' %}" alt="User Image">
-          <span class="username"><a href="#">Fintech Coin</a></span>
-          <span class="description">Yangiliklardan lavhalar</span>
-          </div>
-        <!-- /.user-block -->
-        <div class="card-tools">
-          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-          </button>
-          <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
-          </button>
+    {% for i in news %}
+    {% if not key %}
+    <div class="col-md-6">
+        <!-- Box Comment -->
+        <div class="card card-widget">
+            <div class="card-header">
+                <div class="user-block">
+                    <img class="img-circle" src="{% static 'auth/Logo1.PNG' %}" alt="User Image">
+                    <span class="username"><a href="#">Fintech Coin</a></span>
+                    <span class="description">Yangiliklardan lavhalar</span>
+                </div>
+                <!-- /.user-block -->
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body" style="display: block;">
+                <a href="{% url 'news_view' key='view' pk=i.id %}">
+                    <img class="img-fluid pad" src="{{ i.img }}" alt="Photo">
+                </a>
+
+                <p><b>{{ i.title }}</b></p>
+                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i> Share</button>
+                <button type="button" class="btn btn-default btn-sm"><i class="far fa-thumbs-up"></i> Like</button>
+                <span class="float-right text-muted"><i class="fa-regular fa-eye"></i> {{ i.view }}</span>
+            </div>
+
         </div>
-        <!-- /.card-tools -->
-      </div>
-      <!-- /.card-header -->
-      <div class="card-body" style="display: block;">
-        <a href="{% url 'news_view' key='view' pk=i.id %}">
-          <img class="img-fluid pad" src="{{ i.img }}" alt="Photo">
-        </a>
-
-        <p><b>{{ i.title }}</b></p>
-        <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i> Share</button>
-        <button type="button" class="btn btn-default btn-sm"><i class="far fa-thumbs-up"></i> Like</button>
-        <span class="float-right text-muted"><i class="fa-regular fa-eye"></i> {{ i.view }}</span>
-      </div>
-
+        <!-- /.card -->
     </div>
-    <!-- /.card -->
-  </div>
-  {% endif %}
-  {% endfor %}
-  {% if key == 'view' %}
-  <div class="col-md-12">
-    <!-- Box Comment -->
-    <div class="card card-widget">
-      <div class="card-header">
-        <div class="user-block">
-          <img class="img-circle" src="{% static 'auth/Logo1.PNG' %}" alt="User Image">
-          <span class="username"><a href="#">Fintech Coin</a></span>
-          <span class="description">Yangiliklardan lavhalar</span>
-          </div>
-        <!-- /.user-block -->
-        <div class="card-tools">
-          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-          </button>
-          <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
-          </button>
+    {% endif %}
+    {% endfor %}
+    {% if key == 'view' %}
+    <div class="col-md-12">
+        <!-- Box Comment -->
+        <div class="card card-widget">
+            <div class="card-header">
+                <div class="user-block">
+                    <img class="img-circle" src="{% static 'auth/Logo1.PNG' %}" alt="User Image">
+                    <span class="username"><a href="#">Fintech Coin</a></span>
+                    <span class="description">Yangiliklardan lavhalar</span>
+                </div>
+                <!-- /.user-block -->
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body" style="display: block;">
+                <a href="#">
+                    <img class="img-fluid pad" src="{{ view_news.img }}" alt="{{ view_news.img }}">
+                </a>
+
+                <p><b>{{ view_news.title }}</b></p>
+                <p><i>{{ view_news.desc }}</i></p>
+                <a href="{% url 'news' %}">
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa-solid fa-backward-step"></i> Ortga
+                    </button>
+                </a>
+                <span class="float-right text-muted"><i class="fa-regular fa-eye"></i> {{ view_news.view }}</span>
+            </div>
+
         </div>
-        <!-- /.card-tools -->
-      </div>
-      <!-- /.card-header -->
-      <div class="card-body" style="display: block;">
-        <a href="#">
-          <img class="img-fluid pad" src="{% static 'ddist/img/photo2.png' %}" alt="Photo">
-        </a>
-
-        <p><b>{{ view_news.title }}</b></p>
-        <p><i>{{ view_news.desc }}</i></p>
-        <a href="{% url 'news' %}"><button type="button" class="btn btn-default btn-sm"> <i class="fa-solid fa-backward-step"></i> Ortga</button></a>
-        <span class="float-right text-muted"><i class="fa-regular fa-eye"></i> {{ view_news.view }}</span>
-      </div>
-
+        <!-- /.card -->
     </div>
-    <!-- /.card -->
-  </div>
-  {% elif not news %}
-  <h2 class="text-warning">
-    Yangiliklar mavjud emas 🧐
-  </h2>
-  {% endif %}
-  <!-- /.col -->
+    {% elif not news %}
+    <h2 class="text-warning">
+        Yangiliklar mavjud emas 🧐
+    </h2>
+    {% endif %}
+    <!-- /.col -->
 </div>
 
 {% endblock %}

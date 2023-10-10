@@ -51,3 +51,18 @@ def cusmot_dictfetchall(cursor):
         b = dict(zip(columns, i))
         natija.append(b)
     return natija
+
+
+def custom_dictfetchone(cursor):
+    columns = [i[0] for i in cursor.description]
+    row = cursor.fetchone()
+    if row is not None:
+        img = None
+        if "img" in columns:
+            img = columns.index("img")
+        row = list(row)
+        if img is not None:
+            row[img] = f"{settings.HOST_URL}/media/" + row[img]
+        return dict(zip(columns, row))
+    else:
+        return None

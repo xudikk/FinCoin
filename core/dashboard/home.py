@@ -6,7 +6,7 @@ from django.shortcuts import render
 from methodism import custom_response, dictfetchone, dictfetchall
 from methodism.sqlpaginator import SqlPaginator
 
-from base.helper import cusmot_dictfetchall
+from base.helper import cusmot_dictfetchall, custom_dictfetchone
 from core.models import New
 
 
@@ -84,16 +84,18 @@ def algorithm(request):
 
 def news(request, key=None, pk=None):
     if key == 'view':
+        view = f"""UPDATE core_new SET view = view + 1 WHERE id = 1"""
         new = f"""
                 select * from core_new c_n where c_n.id = {pk}
                 """
         with closing(connection.cursor()) as cursor:
             cursor.execute(new)
-            view_news = dictfetchone(cursor)
+            view_news = custom_dictfetchone(cursor)
 
-        # print(f"\n\n{view_news}\n\n")
+            cursor.execute(view)
+            view = dictfetchone(cursor)
+
         return render(request, 'pages/news.html', {"view_news": view_news, 'key': key})
-    # print("here")
 
     news = "select id, img, title from core_new order by id desc"
 
@@ -101,4 +103,4 @@ def news(request, key=None, pk=None):
         cursor.execute(news)
         news = cusmot_dictfetchall(cursor)
     # print(news)
-    return render(request, 'pages/news.html', {"news": news,'key': key})
+    return render(request, 'pages/news.html', {"news": news, 'key': key})
