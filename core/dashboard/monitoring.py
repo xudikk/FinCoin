@@ -25,7 +25,7 @@ def create_card(request):
         now = datetime.datetime.now()
         card = Card.objects.create(
             user=user,
-            name=f"{user.full_name()}'s card",
+            name=f"Fintech Coin Card",
             balance=10_000,
             number=generate_number(),
             token=uuid.uuid4(),

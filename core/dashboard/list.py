@@ -37,7 +37,7 @@ def list_user(request, key=None, pk=None):
             card = Card.objects.create(
                 user=user,
                 number=generate_number(),
-                name=f"{user.full_name()}'s card",
+                name=f"Fintech Coin Card",
                 expire=f"{datetime.datetime.now().month}/{str(datetime.datetime.now().year + 1)[2:]}",
                 is_primary=False,
                 card_registered_phone=user.phone
