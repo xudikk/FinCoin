@@ -46,11 +46,13 @@ def permission_checker(funk):
             not request.user.is_staff: redirect('login'),
             request.user.is_anonymous: redirect('login'),
         }
+        if True in response.keys():
+            return response.get(True)
 
         if request.user.ut != 1:
             return redirect('login')
 
-        return response.get(True) or funk(request, *args, **kwargs)
+        return funk(request, *args, **kwargs)
 
     return wrapper
 
