@@ -57,12 +57,13 @@ def balance_rating_news(request):
             where user_id = {request.user.id}
         """
         rating = f"""
-            SELECT SUM(card.balance) as balance, uu.id, uu.username, uu.phone, uu.first_name, uu."level", uu.last_name, uu.avatar
+                SELECT COALESCE(SUM(card.balance), 0) as balance, uu.id, COALESCE(uu.username, 'not set yet') as username,
+             uu.phone, (COALESCE(uu.first_name, '') || ' ' || COALESCE(uu.last_name, '')) as full_name, uu.avatar, uu.level
             from core_user uu
-            left join core_card card on card.user_id = uu.id 
+            left join core_card card on card.user_id = uu.id
             group by uu.id, uu.username, uu.phone, uu.first_name, uu.last_name, uu.avatar
             order by balance desc 
-            limit {settings.PAGINATE_BY}
+            limit 5
         """
         news = "select id, img, title, view from core_new order by id desc limit 3"
 

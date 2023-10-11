@@ -84,6 +84,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     def full_name(self):
         return f"{self.first_name} {self.last_name or ''}"
 
+    def __init__(self, *args, **kwargs):
+        super(User, self).__init__(*args, **kwargs)
+        self.fio = self.full_name()
+
     def personal(self):
         ut = {1: 'Admin',
               2: "Teacher",

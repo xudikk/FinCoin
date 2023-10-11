@@ -86,17 +86,18 @@
         <thead>
         <tr>
           <th>User ID</th>
+          <th>Full Name</th>
           <th>Username</th>
           <th>Level</th>
           <th>Ballance</th>
-          <th>Phone</th>
         </tr>
         </thead>
         <tbody>
         {% for i in rating %}
         <tr>
-          <td><a href="{% url 'get_user_info' key='_info' pk=i.id %}">User-{{ i.id }}</a></td>
-          <td>{{ i.first_name }} {{ i.last_name }}</td>
+          <td><a href="{% url 'get_user_info' key='_info' pk=i.id %}">User | {{ i.id }}</a></td>
+          <td>{{ i.full_name }}</td>
+          <td>{{ i.username }}</td>
           {% if i.level == 'Beginner' %}
           <td><span class="badge badge-danger">
             {{ i.level }}
@@ -121,9 +122,6 @@
           <td>
             <div class="sparkbar" data-color="#00a65a" data-height="20">{{ i.balance }}</div>
           </td>
-          <td>
-            <div class="sparkbar" data-color="#00a65a" data-height="20">{{ i.phone }}</div>
-          </td>
         </tr>
         {% endfor %}
         </tbody>
@@ -133,8 +131,7 @@
   </div>
   <!-- /.card-body -->
   <div class="card-footer clearfix">
-    <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
-    <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+    <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">Ko'roq ko'rsatish</a>
   </div>
   <!-- /.card-footer -->
 </div>
