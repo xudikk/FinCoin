@@ -57,7 +57,7 @@ def balance_rating_news(request):
             where user_id = {request.user.id}
         """
         rating = f"""
-                SELECT COALESCE(SUM(card.balance), 0) as balance, uu.id, COALESCE(uu.username, 'not set yet') as username,
+                SELECT cast(COALESCE(SUM(card.balance), 0) as int) as balance, uu.id, COALESCE(uu.username, 'not set yet') as username,
              uu.phone, (COALESCE(uu.first_name, '') || ' ' || COALESCE(uu.last_name, '')) as full_name, uu.avatar, uu.level
             from core_user uu
             left join core_card card on card.user_id = uu.id
@@ -66,7 +66,14 @@ def balance_rating_news(request):
             limit 5
         """
         news = "select id, img, title, view from core_new order by id desc limit 3"
-
+        balances = """
+            SELECT cast(COALESCE(SUM(card.balance), 0) as int) as balance
+            from core_user uu
+            left join core_card card on card.user_id = uu.id
+            group by uu.id, uu.username, uu.phone, uu.first_name, uu.last_name, uu.avatar
+            order by balance desc 
+            limit 5
+        """
         with closing(connection.cursor()) as cursor:
             cursor.execute(balance)
             balance = dictfetchone(cursor)
@@ -76,10 +83,15 @@ def balance_rating_news(request):
 
             cursor.execute(news)
             news = dictfetchall(cursor)
+
+            cursor.execute(balances)
+            balances = cursor.fetchall()
         # print(f'\n\n{news}\n\n')
         return {
             "balance": balance['summ'],
             "rating": rating,
-            "news": news
+            "news": news,
+            "balances": [x[0] for x in balances]
+
         }
     return {}

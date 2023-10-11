@@ -120,7 +120,7 @@
           </span></td>
           {% endif %}
           <td>
-            <div class="sparkbar" data-color="#00a65a" data-height="20">{{ i.balance }}</div>
+            <div class="sparkbar" data-color="#00a65a" style="text-wrap: balance;" id="balance{{ forloop.counter }}" data-height="20"></div>
           </td>
         </tr>
         {% endfor %}
@@ -136,3 +136,26 @@
   <!-- /.card-footer -->
 </div>
 <!-- /.card -->
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo"></p>
+
+<script>
+  function balanceView(id, number){
+    var formattedNumber = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    document.getElementById(id).innerHTML = formattedNumber;
+  };
+
+  var balances = {{ balances|safe }};
+
+  for (var i = 0; i < balances.length; i++) {
+    balanceView("balance" + (i + 1), balances[i]);
+  }
+</script>
+
+</body>
+</html>

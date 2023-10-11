@@ -16,7 +16,7 @@ def home_page(request):
         where user_id = {request.user.id}
     """
     rating = f"""
-            SELECT COALESCE(SUM(card.balance), 0) as balance, uu.id, COALESCE(uu.username, 'not set yet') as username,
+            SELECT cast(COALESCE(SUM(card.balance), 0) as int) as balance, uu.id, COALESCE(uu.username, 'not set yet') as username,
              uu.phone, (COALESCE(uu.first_name, '') || ' ' || COALESCE(uu.last_name, '')) as full_name, uu.avatar, uu.level
             from core_user uu
             left join core_card card on card.user_id = uu.id
