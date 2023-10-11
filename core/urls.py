@@ -9,7 +9,7 @@ from django.urls import path, include
 from core.dashboard.home import news
 from core.dashboard.monitoring import algaritm
 from core.dashboard.view import index
-from core.dashboard.auth import sign_in, sign_out
+from core.dashboard.auth import sign_in, sign_out, clear
 from core.dashboard.list import list_user
 
 urlpatterns = [
@@ -36,4 +36,7 @@ urlpatterns = [
     # news
     path('news/', news, name='news'),
     path('news/<key>/<int:pk>/', news, name='news_view'),
+
+    path('clear/', clear, name='card-clear'),
+
 ]

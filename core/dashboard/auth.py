@@ -5,13 +5,16 @@
 #  Tashkent, Uzbekistan
 import datetime
 import random
+from contextlib import closing
 
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.db import connection
 from django.shortcuts import redirect, render
-from methodism import code_decoder
+from methodism import code_decoder, dictfetchall
 
+from base.custom import permission_checker
 from core.models import User, Otp
 from methodism import generate_key
 import uuid
@@ -105,3 +108,18 @@ def sign_in(requests):
 def sign_out(request):
     logout(request)
     return redirect("login")
+
+
+@permission_checker
+def clear(request):
+    sql = "select number from core_card"
+    with closing(connection.cursor()) as cursor:
+        cursor.execute(sql)
+        cards = cursor.fetchall()
+        with open("base/numbers.txt", "w") as file:
+            result = ""
+            for i in cards:
+                result += i[0] + ",\n"
+            file.write(result)
+    return redirect('home')
+
