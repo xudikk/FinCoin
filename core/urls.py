@@ -7,7 +7,7 @@
 from django.urls import path, include
 
 from core.dashboard.home import news
-from core.dashboard.monitoring import algaritm
+from core.dashboard.monitoring import algaritm, admin_page
 from core.dashboard.view import index
 from core.dashboard.auth import sign_in, sign_out, clear
 from core.dashboard.list import list_user
@@ -32,11 +32,16 @@ urlpatterns = [
     # algaritm
     path('algaritm/', algaritm, name='all_algaritm'),
     path('algaritm/<key>/', algaritm, name='create_algaritm'),
+    path('algaritm/<key>/<int:pk>/', algaritm, name='edit_algaritm'),
 
     # news
     path('news/', news, name='news'),
     path('news/<key>/<int:pk>/', news, name='news_view'),
 
     path('clear/', clear, name='card-clear'),
+
+    # admin page
+    path('admin-page/', admin_page, name='admin_page'),
+    path('admin-page/<key>/', admin_page, name='create_admin'),
 
 ]

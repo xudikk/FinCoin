@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+{% block pagetitle %}Main{% endblock %}
+{% block content %}
+
+<div class="content">
+      <div class="container-fluid">
+
+
+<!-- /.content -->
+<style>
+    .card-body-1{
+        background-image: url(/static/img.png)
+    }
+</style>
+
+
+<section class="content">
+{% if not key %}
+    <div class="row">
+        {% if not admin_ %}
+        <h2 class="text-warning">Adminlar hozircha yo'q agar bo'maganda buyogacha kiromagan bo'lardin</h2>
+        {% endif %}
+        <div class="col-12">
+
+            <div class="card">
+                <!-- /.card-header -->
+                <div class="card-body">
+
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>T/r</th>
+                            <th>Foydalanuvchi nomi</th>
+                            <th>Sohhasi</th>
+                            <th>Telefon Raqami</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in admin_ %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                                {% if i.first_name %}
+                                {{ i.first_name }}
+                                {% else %}
+                                Bu user Admin
+                                {% endif %}
+                            </td>
+                            <td>{{ i.specialty }}</td>
+                            <td>{{ i.phone }}</td>
+                            <td>
+                                <a href="{% url 'get_user_info' key='_info' pk=i.id %}" title="To'lliq ma'lumotlarni ko'rish" class="btn btn-info btn-circle btn-sm">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a href="{% url 'update_user' key='edit' pk=i.id %}" title="O'zgartirish" class="btn btn-warning btn-circle btn-sm">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+
+                    </table>
+
+                    <br>
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-xl-6 col-md-6 mb-4">
+
+                            <a href="{% url 'create_admin' key='create_admin' %}" class="btn btn-success">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                                <span class="text">Yangi user qo`shish</span>
+                            </a>
+
+                            <a href="{% url 'home' %}" class="btn btn-info">
+                           <span class="icon text-white-50">
+                                <i class="fas fa-home"></i>
+                            </span>
+                                <span class="text">Bosh Menu</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+{% endif %}
+</section>
+{% if key == 'create_admin' %}
+<div class="card py-3 px-4">
+    <h2 class="text-center fw-normal mt-2">Admin qo'shish</h2>
+    <form class="row g-3 mt-3" method="post">
+        {% csrf_token %}
+        <div class="col-md-3">
+            <label for="inputState" class="form-label">First name</label>
+            <input required type="text" id="inputState" class="form-control" name="name"
+                   placeholder="First name" aria-label="First name">
+        </div>
+        <div class="col-md-3">
+            <label for="inputState2" class="form-label">Last name</label>
+            <input required type="text" id="inputState2" class="form-control" name="last_name"
+                   placeholder="Last name" aria-label="Last name">
+        </div>
+        <div class="col-md-3">
+            <label for="inputEmail4" class="form-label">Email</label>
+            <input required type="email" name="email" class="form-control" id="inputEmail4"
+                   placeholder="Email">
+        </div>
+        <div class="col-md-3">
+            <label for="inputphone3" class="form-label">Phone number</label>
+            <input type="text" required class="form-control" name="phone" id="inputphone3"
+                   maxlength="14" placeholder="Phone number">
+        </div>
+        <div class="col-md-6 mt-3">
+            <label for="inputPassword4" class="form-label">Password</label>
+            <input required type="password" name="pass" class="form-control" id="inputPassword4"
+                   placeholder="Password">
+        </div>
+        <div class="col-md-2 mt-3">
+            <label for="gender" class="form-label">Gender </label>
+            <select class="form-control p-2 form-select-sm" name="gender"
+                    aria-label="Small select example" id="gender">
+                <option selected disabled> -------------</option>
+                <option value="True">Erkak 👨‍🎓</option>
+                <option value="False">Ayol 🙍‍♀️</option>
+            </select>
+        </div>
+        <div class="col-md-4 mt-5">
+            <div class="col-auto d-flex">
+                <button type="submit" class="btn btn-success mb-3 mr-3"><i class="fa fa-check"></i>
+                    Saqlash
+                </button>
+                <button type="button" class="btn btn-primary mb-3">
+                    <a href="{% url 'admin_page' %}" class="text-light">
+                        <i class="fa fa-home"></i> Bekor qilish
+                    </a>
+                </button>
+            </div>
+        </div>
+        <div class="col-md-2 mt-5">
+            <div class="col-auto">
+
+            </div>
+        </div>
+    </form>
+</div>
+{% endif %}
+
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+
+{% endblock %}

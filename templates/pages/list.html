@@ -8,9 +8,9 @@
 {% block content %}
 <!-- /.content -->
 <style>
-.card-body-1{
-    background-image: url({% static "img.png" %})
-}
+    .card-body-1{
+        background-image: url({% static "img.png" %})
+    }
 </style>
 {% if key == 'teacher' %}
 
@@ -112,7 +112,7 @@
             <div class="card">
                 <!-- /.card-header -->
                 <div class="card-body">
-                    {% if roots and not key == '_info' %}
+                    {% if roots and not key == '_info' and not key == 'edit' %}
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
@@ -153,14 +153,14 @@
                     {% else %}
                     {% if card_user == None %}
                     hich nima yo
-                    {% else %}
+                    {% elif key != 'edit' %}
                     {% for i in card_user %}
                     <div class="card-body-1 card text-light d-inline-block mr-3 mt-2 w-auto"
                          style="max-width: 28rem; width: 26%; border-radius: 20px">
                         <div class="card-body">
                             <h4 class="card-text">{{ i.name }}</h4>
-                            <p class="card-text" ><b>{{ i.balance }} сум</b></p>
-                            <p class="card-text text-uppercase" >{{ i.user.full_name }}</p>
+                            <p class="card-text"><b>{{ i.balance }} сум</b></p>
+                            <p class="card-text text-uppercase">{{ i.user.full_name }}</p>
                             <p class="card-text">{{ i.mask }} <span class="ml-5"> {{ i.expire }}</span></p>
                         </div>
                     </div>
@@ -168,7 +168,6 @@
                     {% endif %}
                     {% endif %}
                     <br>
-                    <hr>
                     {% if key == 'create' %}
                     <div class="card py-3 px-4">
                         <h2 class="text-center fw-normal mt-2">User qo'shish</h2>
@@ -223,9 +222,15 @@
                                         Saqlash
                                     </button>
                                     <button type="submit" class="btn btn-primary mb-3">
+                                        {% if roots.ut == 1 %}
+                                        <a href="{% url 'admin_page' %}" class="text-light">
+                                            <i class="fa fa-home"></i> Bekor qilish
+                                        </a>
+                                        {% else %}
                                         <a href="{% url 'user_list' %}" class="text-light">
                                             <i class="fa fa-home"></i> Bekor qilish
                                         </a>
+                                        {% endif %}
                                     </button>
                                 </div>
                             </div>
@@ -285,13 +290,13 @@
                                 <label for="usertype" class="form-label">User turi</label>
                                 <select class="form-control border-1 p-2 form-select-sm" id="usertype" required
                                         name="ut" aria-label="Small select example">
-                                    <option disabled value="1">
+                                    <option value="1">
                                         Admin
                                     </option>
                                     <option value="2">
                                         Teacher
                                     </option>
-                                    <option selected value="3">
+                                    <option value="3">
                                         Student
                                     </option>
                                 </select>
@@ -301,10 +306,16 @@
                                     <button type="submit" class="btn btn-success mb-3 mr-3"><i class="fa fa-check"></i>
                                         Saqlash
                                     </button>
-                                    <button type="submit" class="btn btn-primary mb-3">
+                                    <button type="button" class="btn btn-primary mb-3">
+                                        {% if update_user.ut == 1 %}
+                                        <a href="{% url 'admin_page' %}" class="text-light">
+                                            <i class="fa fa-home"></i> Bekor qilish
+                                        </a>
+                                        {% else %}
                                         <a href="{% url 'user_list' %}" class="text-light">
                                             <i class="fa fa-home"></i> Bekor qilish
                                         </a>
+                                        {% endif %}
                                     </button>
                                 </div>
                             </div>
@@ -348,66 +359,66 @@
     {% if key == 'all_card' %}
     {% for i in all_card %}
     <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Striped Full Width Table</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th style="width: 10px">#</th>
-                      <th>Task</th>
-                      <th>Progress</th>
-                      <th style="width: 40px">Label</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1.</td>
-                      <td>Update software</td>
-                      <td>
+        <div class="card-header">
+            <h3 class="card-title">Striped Full Width Table</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Task</th>
+                    <th>Progress</th>
+                    <th style="width: 40px">Label</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1.</td>
+                    <td>Update software</td>
+                    <td>
                         <div class="progress progress-xs">
-                          <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
                         </div>
-                      </td>
-                      <td><span class="badge bg-danger">55%</span></td>
-                    </tr>
-                    <tr>
-                      <td>2.</td>
-                      <td>Clean database</td>
-                      <td>
+                    </td>
+                    <td><span class="badge bg-danger">55%</span></td>
+                </tr>
+                <tr>
+                    <td>2.</td>
+                    <td>Clean database</td>
+                    <td>
                         <div class="progress progress-xs">
-                          <div class="progress-bar bg-warning" style="width: 70%"></div>
+                            <div class="progress-bar bg-warning" style="width: 70%"></div>
                         </div>
-                      </td>
-                      <td><span class="badge bg-warning">70%</span></td>
-                    </tr>
-                    <tr>
-                      <td>3.</td>
-                      <td>Cron job running</td>
-                      <td>
+                    </td>
+                    <td><span class="badge bg-warning">70%</span></td>
+                </tr>
+                <tr>
+                    <td>3.</td>
+                    <td>Cron job running</td>
+                    <td>
                         <div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar bg-primary" style="width: 30%"></div>
+                            <div class="progress-bar bg-primary" style="width: 30%"></div>
                         </div>
-                      </td>
-                      <td><span class="badge bg-primary">30%</span></td>
-                    </tr>
-                    <tr>
-                      <td>4.</td>
-                      <td>Fix and squish bugs</td>
-                      <td>
+                    </td>
+                    <td><span class="badge bg-primary">30%</span></td>
+                </tr>
+                <tr>
+                    <td>4.</td>
+                    <td>Fix and squish bugs</td>
+                    <td>
                         <div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar bg-success" style="width: 90%"></div>
+                            <div class="progress-bar bg-success" style="width: 90%"></div>
                         </div>
-                      </td>
-                      <td><span class="badge bg-success">90%</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
+                    </td>
+                    <td><span class="badge bg-success">90%</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
     {% endfor %}
     {% endif %}
 </section>

@@ -6,6 +6,7 @@ from django.shortcuts import render
 from methodism import custom_response, dictfetchone, dictfetchall
 from methodism.sqlpaginator import SqlPaginator
 
+from base.custom import permission_checker
 from base.helper import cusmot_dictfetchall, custom_dictfetchone
 from core.models import New
 
@@ -83,6 +84,7 @@ def algorithm(request):
     return render(request, "page", context={"algorithms": algos, "pagging": pagging})
 
 
+@permission_checker
 def news(request, key=None, pk=None):
     if key == 'view':
         view = f"""UPDATE core_new SET view = view + 1 WHERE id = 1"""
