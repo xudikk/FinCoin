@@ -47,11 +47,14 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         if not self.discount_price:
             self.discount_price = self.cost
-        self.discount_percent = int(((self.cost - self.discount_price) / self.cost) * 100)
+        self.discount_percent = int(((int(self.cost) - int(self.discount_price)) / int(self.cost)) * 100)
         return super(Product, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = "C. Mahsulotlar"
+
+    def __str__(self):
+        return f"{self.name} | {self.discount_price}"
 
 
 class Algorithm(models.Model):

@@ -5,6 +5,8 @@ from django.contrib.auth import logout
 from django.db import connection
 from methodism import dictfetchone, dictfetchall
 
+from base.helper import cusmot_dictfetchall
+
 
 def main(requests):
     return {
@@ -93,5 +95,29 @@ def balance_rating_news(request):
             "news": news,
             "balances": [x[0] for x in balances]
 
+        }
+    return {}
+
+
+def product(request):
+    if not request.user.is_anonymous:
+        all_product = """
+            select cp.id, cp.name, cp.img, cp.cost, cp.discount_price, cp.discount_percent, cc.id ctg_id, cc.name ctg_name from core_product cp , core_category cc 
+            where cp.category_id = cc.id
+
+        """
+        ctgs = f"""select * from core_category cc """
+
+        with closing(connection.cursor()) as cursor:
+            cursor.execute(all_product)
+            products = cusmot_dictfetchall(cursor)
+
+            cursor.execute(ctgs)
+            category = cusmot_dictfetchall(cursor)
+
+
+        return {
+            "product": products,
+            'category': category
         }
     return {}

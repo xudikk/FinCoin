@@ -11,6 +11,8 @@ from core.dashboard.monitoring import algaritm, admin_page
 from core.dashboard.view import index
 from core.dashboard.auth import sign_in, sign_out, clear
 from core.dashboard.list import list_user
+from core.dashboard.shop import product
+
 
 urlpatterns = [
 
@@ -43,5 +45,11 @@ urlpatterns = [
     # admin page
     path('admin-page/', admin_page, name='admin_page'),
     path('admin-page/<key>/', admin_page, name='create_admin'),
+
+    # product
+    path('maxsulotlar/', product, name='product'),
+    path('maxsulotlar/<key>/', product, name='product_create'),
+    path('maxsulotlar/<key>/<int:pk>/', product, name='product_info'),
+    path('maxsulotlar/<key>/<int:pk>/', product, name='product_edit'),
 
 ]
