@@ -55,7 +55,7 @@
                         <div class="card-footer">
                             <div class="text-right">
 
-                                <a href="" title="To'lliq ma'lumotlarni ko'rish" class="btn btn-info btn-circle btn-sm">
+                                <a href="{% url 'get_user_info' key='_info' pk=i.id %}" title="To'lliq ma'lumotlarni ko'rish" class="btn btn-info btn-circle btn-sm">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
 
@@ -154,6 +154,48 @@
                     {% if card_user == None %}
                     hich nima yo
                     {% elif key != 'edit' %}
+                    <div class="card shadow-none">
+                        <div class="d-flex">
+                            <img {% if update_user.gender %}
+                             src="{% static 'ddist/img/avatar.png' %}"
+                             {% else %}
+                             src="{% static 'ddist/img/avatar2.png' %}"
+                             {% endif %} alt="" class="border" style="border-radius: 20px; width: 15%">
+                        <div class="w-100" >
+                            <div class="float-right" align="right">
+                                <a href="{% url 'update_user' key='edit' pk=update_user.id %}" title="O'zgartirish"
+                                   class="btn btn-outline-warning btn-circle btn-sm">
+                                    <i class="fas fa-pen"></i> User malumotlarini o'zgartirish
+                                </a><br>
+
+                                <a {% if update_user.ut == 2 %}
+                                   href="{% url 'teacher' key='teacher' %}"
+                                   {% elif update_user.ut == 1 %}
+                                   href="{% url 'admin_page' %}"
+                                   {% else %}
+                                   href="{% url 'user_list' %}"
+                                   {% endif %}
+                                   title="ortga"
+                                   class="btn btn-outline-primary mt-3 btn-circle btn-sm">
+                                    <i class="fa-solid fa-backward"></i> Ortga qaytish
+                                </a>
+                            </div>
+                            <div class="px-3 py-2" style="font-size: 1.2rem">{{ update_user.full_name }}</div>
+                            <div class="px-3" style="font-size: 0.9rem"><span style="font-weight: 600">Email: </span>{{ update_user.email }}</div>
+                            <div class="px-3" style="font-size: 0.9rem"><span style="font-weight: 600">Daraja: </span>{{ update_user.level }}</div>
+                            <div class="px-3" style="font-size: 0.9rem"><span style="font-weight: 600">Telefon raqami: </span>{{ update_user.phone }}</div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                    <nav class="w-100">
+                      <div class="nav nav-tabs" id="product-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="true">User Kartalari</a>
+                      </div>
+                    </nav>
+                    <div class="tab-content p-3" id="nav-tabContent">
+                      <div class="tab-pane fade active show" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
                     {% for i in card_user %}
                     <div class="card-body-1 card text-light d-inline-block mr-3 mt-2 w-auto"
                          style="max-width: 28rem; width: 26%; border-radius: 20px">
@@ -165,6 +207,12 @@
                         </div>
                     </div>
                     {% endfor %}
+
+                      </div>
+
+                    </div>
+                  </div>
+
                     {% endif %}
                     {% endif %}
                     <br>
