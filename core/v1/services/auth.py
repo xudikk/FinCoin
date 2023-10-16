@@ -6,8 +6,10 @@
 
 import datetime
 import random
+from contextlib import closing
 
 from django.conf import settings
+from django.db import connection
 from methodism import custom_response, code_decoder, exception_data, generate_key
 import uuid
 
@@ -91,3 +93,13 @@ def logout(request):
         ExpiredToken.objects.create(user=token.user, key=token.key)
         token.delete()
     return custom_response(True, message=MSG['LoggedOut'][lang_helper(request)])
+
+
+def add_bonus_to_all(request, params):
+    if request.user.ut == 1:
+        sql = f"""update core_card
+                set balance = balance + {int(params.get("bonus", 0))}
+        """
+        with closing(connection.cursor()) as cursor:
+            cursor.execute(sql)
+    return custom_response(True, message=MSG['Success'][lang_helper(request)])
