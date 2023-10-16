@@ -44,12 +44,17 @@ def algaritm(request, key=None, pk=None):
     user = f"""
             select c_user.id, c_user.first_name, c_user.last_name from core_user c_user
             """
+    bonuses = "select bonus from core_algorithm"
+
     with closing(connection.cursor()) as cursor:
         cursor.execute(all_algaritm)
         algarithm = dictfetchall(cursor)
 
         cursor.execute(user)
         user = dictfetchall(cursor)
+
+        cursor.execute(bonuses)
+        bonuses = cursor.fetchall()
 
     if key == 'create':
         if request.method == 'POST':
@@ -78,7 +83,7 @@ def algaritm(request, key=None, pk=None):
         return render(request, 'pages/algaritm.html',
                       {"all_algorithm": algarithm, 'key': key, 'user': user, "edited": edit_})
     return render(request, 'pages/algaritm.html',
-                  {"all_algorithm": algarithm, 'key': key, 'user': user})
+                  {"all_algorithm": algarithm, 'key': key, 'user': user, "bonuses": [x[0] for x in bonuses]})
 
 
 @permission_checker
