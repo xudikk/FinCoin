@@ -134,12 +134,11 @@
                           <div class="ribbon-wrapper ribbon-lg">
                               {% if i.bonus %}
                             <div class="ribbon bg-success text-lg">
-                              Bonus {{ i.bonus }}
+                                +{{ i.bonus }}
                             </div>
-                              {% elif i.bonus == 0 %}
                               {% endif %}
                           </div>
-                          {{ i.first_name }} {{ i.last_name }} <br><i>+{{i.reward}}</i><br>
+                          {{ i.first_name }} {{ i.last_name }} <br><i>{{i.reward}}</i><br>
                           <small>{{ i.description }}</small>
                       <div class="float-right mt-5">
                         <a href="{% url 'edit_algaritm' key='edit' pk=i.id %}" title="To'lliq ma'lumotlarni ko'rish" class="btn btn-info btn-circle btn-sm">
