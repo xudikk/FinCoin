@@ -99,23 +99,23 @@
           <td>{{ i.full_name }}</td>
           <td>{{ i.username }}</td>
           {% if i.level == 'Beginner' %}
-          <td><span class="badge badge-danger">
+          <td><span class="text-danger">
             {{ i.level }}
           </span></td>
           {% elif i.level == 'Junior' %}
-          <td><span class="badge badge-warning">
+          <td><span class="text-warning">
             {{ i.level }}
           </span></td>
           {% elif i.level == 'Middle' %}
-          <td><span class="badge badge-success">
+          <td><span class="text-success">
             {{ i.level }}
           </span></td>
           {% elif i.level == 'Senior' %}
-          <td><span class="badge badge-info">
+          <td><span class="text-info">
             {{ i.level }}
           </span></td>
           {% elif i.level == 'TeamLead' %}
-          <td><span class="badge badge-dark">
+          <td><span class="text-dark">
             {{ i.level }}
           </span></td>
           {% endif %}
