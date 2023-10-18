@@ -7,12 +7,15 @@ import datetime
 import uuid
 from contextlib import closing
 
+from django.conf import settings
+from django.core.paginator import Paginator
 from django.db import connection
 from methodism import dictfetchall, dictfetchone
 
 from base.custom import permission_checker
 from base.helper import generate_number
-from core.models import Card, User
+from core.forms.auto import ProductForm
+from core.models import Card, User, Product
 from django.shortcuts import redirect, render
 
 from core.models import Algorithm
@@ -35,6 +38,31 @@ def create_card(request):
             card_registered_phone=user.phone
         )
     return render(request, "page", context=card.response())
+
+
+# Ustoz mashi narsaga yordam bervorin shu Form bilan ishlashini
+# bitta yozib berin mg-transportda yozilganini ishlatomadim
+# yozib ko'rsatib bersez keyingilariniyam shundan ko'rib o'rganib qilardi
+def auto(request, status=None, pk=None):
+    pagination = Product.objects.all().order_by('-pk')
+    paginator = Paginator(pagination, settings.PAGINATE_BY)
+    page_number = request.GET.get("page", 1)
+    paginated = paginator.get_page(page_number)
+    ctx = {
+        "roots": paginated,
+        "pos": "list",
+        'mar_active': "active",
+    }
+    if status == 'form':
+        root = Product.objects.filter(pk=pk).first()
+        form = ProductForm(request.POST or None, instance=root or None)
+        if form.is_valid():
+            form.save()
+            return redirect('marks')
+        ctx["form"] = form
+        ctx['suggest_status'] = "form"
+
+    return render(request, f'pages/marka.html', ctx)
 
 
 def algaritm(request, key=None, pk=None):
@@ -63,7 +91,7 @@ def algaritm(request, key=None, pk=None):
                 reward=data['reward'],
                 description=data['description'],
                 bonus=data['bonus'],
-                creator_id=data['created_by']
+                creator_id=request.user.id
             )
             return redirect('all_algaritm')
     if key == 'edit':
@@ -75,13 +103,13 @@ def algaritm(request, key=None, pk=None):
             data = request.POST
             edit_.reward = data['reward']
             edit_.bonus = data['bonus']
-            edit_.creator_id = data['created_by']
             edit_.description = data['desc']
 
             edit_.save()
             return redirect('all_algaritm')
         return render(request, 'pages/algaritm.html',
                       {"all_algorithm": algarithm, 'key': key, 'user': user, "edited": edit_})
+
     return render(request, 'pages/algaritm.html',
                   {"all_algorithm": algarithm, 'key': key, 'user': user, "bonuses": [x[0] for x in bonuses]})
 
@@ -113,6 +141,7 @@ def admin_page(request, key=None):
                 user=user,
                 number=generate_number(),
                 name=f"Fintech Coin Card",
+                token=uuid.uuid4(),
                 expire=f"{datetime.datetime.now().month}/{str(datetime.datetime.now().year + 1)[2:]}",
                 is_primary=False,
                 card_registered_phone=user.phone

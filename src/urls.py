@@ -5,11 +5,21 @@
 #  Tashkent, Uzbekistan
 
 from django.contrib import admin
+from django.shortcuts import render
 from django.urls import path, include
 from core.v1.views import FcMain
 
 from django.conf.urls.static import static
 from django.conf import settings
+
+
+def page_not_found_view(request, exception):
+    return render(request, 'pages/404.html', context={"error": 404}, status=404)
+
+
+def error_500(request, *args, **kwargs):
+    return render(request, 'pages/500.html', context={"error": 500}, status=500)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -20,3 +30,5 @@ urlpatterns = [
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
+handler404 = "src.urls.page_not_found_view"
+handler500 = "src.urls.error_500"

@@ -36,14 +36,6 @@
                         <label for="inputDescription">Algaritm Description</label>
                         <textarea id="inputDescription" class="form-control" name="description" required rows="4"></textarea>
                       </div>
-                      <div class="form-group" aria-required="true">
-                        <label for="inputStatuss">Created By</label>
-                        <select class="form-control custom-select" id="inputStatuss" name="created_by" required>
-                          {% for i in user %}
-                            <option value="{{ i.id }}">{{ i.first_name }}</option>
-                          {% endfor %}
-                        </select>
-                      </div>
                       <div class="row">
                           <div class="col-12">
                             <a href="{% url 'all_algaritm' %}" class="btn btn-secondary">Cancel</a>
@@ -76,19 +68,11 @@
                     {% csrf_token %}
                   <div class="col-4">
                     <label for="">Reward</label>
-                    <input type="runmber" class="form-control" value="{{ edited.reward }}" name="reward">
+                    <input type="number" class="form-control" value="{{ edited.reward }}" name="reward">
                   </div>
                   <div class="col-4">
                     <label for="">Bonus</label>
-                    <input type="runmber" class="form-control" value="{{ edited.bonus }}" name="bonus">
-                  </div>
-                  <div class="col-4">
-                    <label for="">Creator</label>
-                    <select class="form-control custom-select" id="inputStatuss" name="created_by" required>
-                      {% for i in user %}
-                        <option value="{{ i.id }}">{{ i.first_name }}</option>
-                      {% endfor %}
-                    </select>
+                    <input type="number" class="form-control" value="{{ edited.bonus }}" name="bonus">
                   </div>
                   <div class="mt-3 col-12 input-group col">
                     <textarea class="form-control" id="" cols="30" rows="10" name="desc">{{ edited.description }}</textarea>

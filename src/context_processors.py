@@ -115,7 +115,6 @@ def product(request):
             cursor.execute(ctgs)
             category = cusmot_dictfetchall(cursor)
 
-
         return {
             "product": products,
             'category': category
