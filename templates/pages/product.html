@@ -78,100 +78,63 @@
 </section>
 {% else %}
 
-<!-- Main content -->
-<section class="content">
-    <div class="row">
-        <div class="col-12">
 
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Barcha Maxsulotlar</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>№</th>
-                            <th>Maxsulot nomi</th>
-                            <th>Maxsulot rasmi</th>
-                            <th>Maxsulot narxi</th>
-                            <th>Chegirma narxi 💰</th>
-                            <th>Category</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for i in roots %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ i.name }}</td>
-                            <td><a href="{{ i.img.url }}">Image</a></td>
-                            {% if i.discount_percent == 0 %}
-                            <td>{{ i.cost }}</td>
-                            {% else %}
-                            <td><span style="text-decoration: underline ;">{{ i.cost }}</span> <sup>-{{ i.discount_percent }} %</sup></td>
-                            {% endif %}
-                            <td>{{ i.discount_price }}</td>
-                            <td>{{ i.category }}</td>
-                            <td>
-                                <a href="{% url 'dashboard-auto-edit' key='product' pk=i.id %}" title="O'zgartirish"
-                                   class="btn btn-warning btn-circle btn-sm">
-                                    <i class="fas fa-pen"></i>
-                                </a>
-                            </td>
-
-                        </tr>
-                        {% endfor %}
-
-                        </tbody>
-
-                    </table>
-                    <br>
-                    <hr>
-                    <div class="pagination">
-                    <span class="step-links">
-                        {% if roots.has_previous %}
-                            <a href="?page=1" class="btn btn-primary btn-sm">&laquo;first</a>
-                            <a href="?page={{ roots.previous_page_number }}" class="btn btn-primary btn-sm">prev</a>
-                        {% endif %}
-
-                        <span class="current">
-                            Page {{ roots.number }} of {{ roots.paginator.num_pages }}.
-                        </span>
-
-                        {% if roots.has_next %}
-                            <a href="?page={{ roots.next_page_number }}" class="btn btn-primary btn-sm">next</a>
-                            <a href="?page={{ roots.paginator.num_pages }}"
-                               class="btn btn-primary btn-sm">last&raquo;</a>
-                        {% endif %}
-                    </span>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-xl-6 col-md-6 mb-4">
-                            <a href="{% url 'dashboard-auto-add' key='product' %}" class="btn btn-success">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-check"></i>
-                            </span>
-                                <span class="text">Maxsulot qo'shish</span>
-                            </a>
-                            <a href="{% url 'home' %}" class="btn btn-info">
-                           <span class="icon text-white-50">
-                                <i class="fas fa-home"></i>
-                            </span>
-                                <span class="text">Bosh Menu</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-        </div>
-        <!-- /.col -->
+<section class="content ml-3">
+    <div>
+        <a href="{% url 'dashboard-auto-add' key='product' %}" class="btn btn-outline-dark mb-3"><i
+                class="fa-solid fa-cart-plus"></i> Yangi maxsulot qo'shish</a>
     </div>
-    <!-- /.row -->
+    {% if not roots %}
+    <h3 class="text-warning">
+        Maxsulotlar mavjud emas yangi mahsulot qo'shing ☝
+    </h3>
+    {% endif %}
+    <div class="row">
+        {% for i in roots %}
+        <div class="card mr-3" style="width: 18rem;">
+            <img src="{{ i.img.url }}" class="card-img-top" alt="{{ i.img }}">
+            <div class="card-body">
+                <h5 class="card-title mb-3 w-100" style="font-size: 0.91rem">{{ i.category }} | {{ i.name }}</h5>
+                <div class="card-text px-3 rounded-pill w-auto"
+                     style="font-weight: 400; background-color: #EBE9E9"><span>
+                                    {% if i.discount_percent == 0 %}
+                            <div>Maxsulot narxi {{ i.cost }} coin</div>
+                            {% else %}
+                            <span style="text-decoration: line-through;">{{ i.cost }} </span> coin <sup> -{{ i.discount_percent }} %</sup>
+                            {% endif %}
+
+                </div>
+                <div style="font-weight: 600;" class="my-3">{{ i.discount_price }} Coin
+                    <div class="float-right">
+                        <a href="{% url 'dashboard-auto-edit' key='product' pk=i.id %}" title="O'zgartirish"
+                           class="btn btn-warning btn-circle btn-sm">
+                            <i class="fas fa-pen"></i>
+                        </a></div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+<!--    <hr>-->
+<!--    <div class="pagination">-->
+<!--        <span class="step-links">-->
+<!--            {% if roots.has_previous %}-->
+<!--                <a href="?page=1" class="btn btn-primary btn-sm">&laquo;first</a>-->
+<!--                <a href="?page={{ roots.previous_page_number }}" class="btn btn-primary btn-sm">prev</a>-->
+<!--            {% endif %}-->
+
+<!--            <span class="current">-->
+<!--                Page {{ roots.number }} of {{ roots.paginator.num_pages }}.-->
+<!--            </span>-->
+
+<!--            {% if roots.has_next %}-->
+<!--                <a href="?page={{ roots.next_page_number }}" class="btn btn-primary btn-sm">next</a>-->
+<!--                <a href="?page={{ roots.paginator.num_pages }}"-->
+<!--                   class="btn btn-primary btn-sm">last&raquo;</a>-->
+<!--            {% endif %}-->
+<!--        </span>-->
+<!--    </div>-->
+<!--    <hr>-->
 </section>
 
 

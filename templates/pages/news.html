@@ -1,14 +1,68 @@
 {% extends 'base.html' %}
 
 {% block title %} News | View {% endblock %}
-{% block page_title %} Yangililar {% endblock %}
+{% block page_title %}
+<a href="{% url 'dashboard-auto-add' key='news' %}" class="btn btn-outline-dark ">
+    <i class="fa-solid fa-newspaper"></i>
+    Yangilik qo'shish
+</a>
+{% endblock %}
 {% block pagetitle %} Yangililar {% endblock %}
 {% load bootstrap4 %}
-
+{% load static %}
 {% block content %}
 
 
-{% if pos == 'form' %}
+{% if pos == 'one' %}
+
+<div class="col-md-12">
+        <!-- Box Comment -->
+        <div class="card card-widget">
+            <div class="card-header">
+                <div class="user-block">
+                    <img class="img-circle" src="{% static 'auth/Logo1.PNG' %}" alt="User Image">
+                    <span class="username"><a href="#">Fintech Coin</a></span>
+                    <span class="description">Yangiliklardan lavhalar</span>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body" style="display: block;">
+                <a href="#">
+                    <img class="img-fluid pad" src="{{ root.img.url }}" alt="{{ root.img }}">
+                </a>
+
+                <p><b>{{ root.title }}</b></p>
+                <p><i>{{ root.desc }}</i></p>
+
+        <a href="{% url 'dashboard-auto-edit' key='news' pk=root.id %}" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-edit"></i>
+            </span>
+            <span class="text">Tahrirlash</span>
+        </a>
+        <a href="{% url 'dashboard-auto-list' key='news' %}" class="btn btn-warning btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-arrow-left"></i>
+            </span>
+            <span class="text">Listlarga qaytish</span>
+        </a>
+        <a href="{% url 'home' %}" class="btn btn-info btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-home"></i>
+            </span>
+            <span class="text">Bosh Menu</span>
+        </a>
+
+                <span class="float-right text-muted"><i class="fa-regular fa-eye"></i> {{ root.view }}</span>
+            </div>
+
+        </div>
+        <!-- /.card -->
+
+    </div>
+
+
+{% elif pos == 'form' %}
 
 <!-- Main content -->
 <section class="content">
@@ -75,95 +129,71 @@
 </section>
 {% else %}
 
-<!-- Main content -->
-<section class="content">
-    <div class="row">
-        <div class="col-12">
-
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Barcha yangiliklar</h3>
+<div class="row">
+    {% for i in roots %}
+    <div class="col-md-6">
+        <!-- Box Comment -->
+        <div class="card card-widget">
+            <div class="card-header">
+                <div class="user-block">
+                    <img class="img-circle" src="{% static 'auth/Logo1.PNG' %}" alt="User Image">
+                    <span class="username"><a href="#">Fintech Coin</a></span>
+                    <span class="description">Yangiliklardan lavhalar</span>
                 </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>№</th>
-                            <th>Yangilik nomi</th>
-                            <th>Yangilik rasmi</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for i in roots %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ i.title }}</td>
-                            <td><a href="{{ i.img.url }}">Image</a></td>
-
-                            <td>
-                                <a href="{% url 'dashboard-auto-edit' key='news' pk=i.id %}" title="O'zgartirish"
-                                   class="btn btn-warning btn-circle btn-sm">
-                                    <i class="fas fa-pen"></i>
-                                </a>
-                            </td>
-
-                        </tr>
-                        {% endfor %}
-
-                        </tbody>
-
-                    </table>
-                    <br>
-                    <hr>
-                    <div class="pagination">
-                    <span class="step-links">
-                        {% if roots.has_previous %}
-                            <a href="?page=1" class="btn btn-primary btn-sm">&laquo;first</a>
-                            <a href="?page={{ roots.previous_page_number }}" class="btn btn-primary btn-sm">prev</a>
-                        {% endif %}
-
-                        <span class="current">
-                            Page {{ roots.number }} of {{ roots.paginator.num_pages }}.
-                        </span>
-
-                        {% if roots.has_next %}
-                            <a href="?page={{ roots.next_page_number }}" class="btn btn-primary btn-sm">next</a>
-                            <a href="?page={{ roots.paginator.num_pages }}"
-                               class="btn btn-primary btn-sm">last&raquo;</a>
-                        {% endif %}
-                    </span>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-xl-6 col-md-6 mb-4">
-                            <a href="{% url 'dashboard-auto-add' key='news' %}" class="btn btn-success">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-check"></i>
-                            </span>
-                                <span class="text">Yangilik qo'shish</span>
-                            </a>
-                            <a href="{% url 'home' %}" class="btn btn-info">
-                           <span class="icon text-white-50">
-                                <i class="fas fa-home"></i>
-                            </span>
-                                <span class="text">Bosh Menu</span>
-                            </a>
-                        </div>
-                    </div>
+                <!-- /.user-block -->
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
                 </div>
-                <!-- /.card-body -->
+                <!-- /.card-tools -->
             </div>
-            <!-- /.card -->
-        </div>
-        <!-- /.col -->
-    </div>
-    <!-- /.row -->
-</section>
+            <!-- /.card-header -->
+            <div class="card-body" style="display: block;">
+                <a href="{% url 'dashboard-auto-detail' key='news' pk=i.id %}">
+                    <img class="img-fluid pad" src="{{ i.img.url }}" alt="Photo">
+                </a>
 
+                <p class="mt-3 text-capitalize"><b>{{ i.title }}</b><span class="float-right text-muted"><i
+                        class="fa-regular fa-eye"></i> {{ i.view }}
+
+
+                        <a href="{% url 'dashboard-auto-edit' key='news' pk=i.id %}" title="O'zgartirish"
+                           class="btn btn-warning btn-circle btn-sm ml-3">
+                            <i class="fas fa-pen"></i>
+                        </a>
+
+                </span></p>
+
+            </div>
+
+        </div>
+        <!-- /.card -->
+    </div>
+
+    {% endfor %}
+
+</div>
+<hr>
+    <div class="pagination">
+        <span class="step-links">
+            {% if roots.has_previous %}
+                <a href="?page=1" class="btn btn-primary btn-sm">&laquo;first</a>
+                <a href="?page={{ roots.previous_page_number }}" class="btn btn-primary btn-sm">prev</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ roots.number }} of {{ roots.paginator.num_pages }}.
+            </span>
+
+            {% if roots.has_next %}
+                <a href="?page={{ roots.next_page_number }}" class="btn btn-primary btn-sm">next</a>
+                <a href="?page={{ roots.paginator.num_pages }}"
+                   class="btn btn-primary btn-sm">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+<br>
 
 {% endif %}
-
 
 {% endblock %}

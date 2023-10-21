@@ -36,37 +36,3 @@ def savat(request):
     return render(request, "page")
 
 
-def product(request, key=None, pk=None):
-    if key == 'info':
-        product_get_id = Product.objects.filter(id=pk).first()
-
-        return render(request, 'pages/product.html', {"product_info": product_get_id, 'key': key})
-    elif key == 'edit':
-        edited = Product.objects.filter(id=pk).first()
-        if not edited:
-            return redirect('product')
-        if request.method == 'POST':
-            data = request.POST
-            edited.name = data['name']
-            edited.img = f"shop/{data['img']}"
-            edited.cost = data['cost']
-            edited.discount_price = data['discount_price']
-            edited.category_id = data.get('category_id', edited.category_id)
-            edited.save()
-            return redirect('product')
-        return render(request, 'pages/product.html', {'key': key, "edited": edited})
-
-    elif key == 'create':
-        if request.method == 'POST':
-            data = request.POST
-            Product.objects.create(
-                name=data['name'],
-                img=f"shop/{data['img']}",
-                cost=data['cost'],
-                discount_price=data['discount_price'],
-                category_id=data['category_id']
-            )
-            return redirect('product')
-        return render(request, 'pages/product.html', {'key': key})
-
-    return render(request, 'pages/product.html', {'key': key})

@@ -67,7 +67,6 @@ def balance_rating_news(request):
             order by balance desc 
             limit 5
         """
-        news = "select id, img, title, view from core_new order by id desc limit 3"
         balances = """
             SELECT cast(COALESCE(SUM(card.balance), 0) as int) as balance
             from core_user uu
@@ -83,16 +82,11 @@ def balance_rating_news(request):
             cursor.execute(rating)
             rating = dictfetchall(cursor)
 
-            cursor.execute(news)
-            news = dictfetchall(cursor)
-
             cursor.execute(balances)
             balances = cursor.fetchall()
-        # print(f'\n\n{news}\n\n')
         return {
             "balance": balance['summ'],
             "rating": rating,
-            "news": news,
             "balances": [x[0] for x in balances]
 
         }
