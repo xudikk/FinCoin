@@ -84,26 +84,3 @@ def algorithm(request):
     return render(request, "page", context={"algorithms": algos, "pagging": pagging})
 
 
-@permission_checker
-def news(request, key=None, pk=None):
-    if key == 'view':
-        view = f"""UPDATE core_new SET view = view + 1 WHERE id = 1"""
-        new = f"""
-                select * from core_new c_n where c_n.id = {pk}
-                """
-        with closing(connection.cursor()) as cursor:
-            cursor.execute(new)
-            view_news = custom_dictfetchone(cursor)
-
-            cursor.execute(view)
-            view = dictfetchone(cursor)
-
-        return render(request, 'pages/news.html', {"view_news": view_news, 'key': key})
-
-    news = "select id, img, title from core_new order by id desc"
-
-    with closing(connection.cursor()) as cursor:
-        cursor.execute(news)
-        news = cusmot_dictfetchall(cursor)
-    # print(news)
-    return render(request, 'pages/news.html', {"news": news, 'key': key})

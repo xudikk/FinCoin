@@ -5,9 +5,8 @@
 #  Tashkent, Uzbekistan
 
 from django.urls import path, include
-
-from core.dashboard.home import news
-from core.dashboard.monitoring import algaritm, admin_page
+from core.dashboard.auto import gets, auto_form
+from core.dashboard.monitoring import algaritm, admin_page, category
 from core.dashboard.view import index
 from core.dashboard.auth import sign_in, sign_out, clear
 from core.dashboard.list import list_user
@@ -17,6 +16,12 @@ from core.dashboard.shop import product
 urlpatterns = [
 
     path("", index, name='home'),
+
+    path("category/", category, name="category"),
+    path("category/<status>/", category, name="category_add"),
+    path("category/<status>/<int:pk>/", category, name="category_edit"),
+
+
 
     # auth
     path("login/", sign_in, name='login'),
@@ -36,10 +41,7 @@ urlpatterns = [
     path('algaritm/<key>/', algaritm, name='create_algaritm'),
     path('algaritm/<key>/<int:pk>/', algaritm, name='edit_algaritm'),
 
-    # news
-    path('news/', news, name='news'),
-    path('news/<key>/<int:pk>/', news, name='news_view'),
-
+    #
     path('clear/', clear, name='card-clear'),
 
     # admin page
@@ -51,5 +53,11 @@ urlpatterns = [
     path('maxsulotlar/<key>/', product, name='product_create'),
     path('maxsulotlar/<key>/<int:pk>/', product, name='product_info'),
     path('maxsulotlar/<key>/<int:pk>/', product, name='product_edit'),
+
+    # auto
+    path("<key>/", gets, name="dashboard-auto-list"),
+
+    path("auto/<key>/add/", auto_form, name="dashboard-auto-add"),
+    path("auto/<key>/edit/<int:pk>/", auto_form, name="dashboard-auto-edit"),
 
 ]

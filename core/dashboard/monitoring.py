@@ -14,8 +14,8 @@ from methodism import dictfetchall, dictfetchone
 
 from base.custom import permission_checker
 from base.helper import generate_number
-from core.forms.auto import ProductForm
-from core.models import Card, User, Product
+from core.forms.auto import ProductForm, CategoryForm
+from core.models import Card, User, Product, Category
 from django.shortcuts import redirect, render
 
 from core.models import Algorithm
@@ -43,8 +43,8 @@ def create_card(request):
 # Ustoz mashi narsaga yordam bervorin shu Form bilan ishlashini
 # bitta yozib berin mg-transportda yozilganini ishlatomadim
 # yozib ko'rsatib bersez keyingilariniyam shundan ko'rib o'rganib qilardi
-def auto(request, status=None, pk=None):
-    pagination = Product.objects.all().order_by('-pk')
+def category(request, status=None, pk=None):
+    pagination = Category.objects.all().order_by('-pk')
     paginator = Paginator(pagination, settings.PAGINATE_BY)
     page_number = request.GET.get("page", 1)
     paginated = paginator.get_page(page_number)
@@ -54,15 +54,16 @@ def auto(request, status=None, pk=None):
         'mar_active': "active",
     }
     if status == 'form':
-        root = Product.objects.filter(pk=pk).first()
-        form = ProductForm(request.POST or None, instance=root or None)
+        print("\nsalom\n")
+        root = Category.objects.filter(pk=pk).first()
+        form = CategoryForm(request.POST or None, instance=root or None)
         if form.is_valid():
             form.save()
-            return redirect('marks')
+            return redirect('category')
         ctx["form"] = form
         ctx['suggest_status'] = "form"
 
-    return render(request, f'pages/marka.html', ctx)
+    return render(request, f'pages/ctg.html', ctx)
 
 
 def algaritm(request, key=None, pk=None):

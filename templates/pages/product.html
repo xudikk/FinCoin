@@ -1,188 +1,181 @@
 {% extends 'base.html' %}
 
-{% block title %} List | Product {% endblock %}
-{% block pagetitle %}Product{% endblock %}
+{% block title %} Product | View {% endblock %}
+{% block page_title %} Maxsulotlar {% endblock %}
+{% block pagetitle %} Maxsulotlar {% endblock %}
+{% load bootstrap4 %}
+
 {% block content %}
 
-{% if key == 'info' %}
 
+{% if pos == 'form' %}
+
+<!-- Main content -->
 <section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-secondary">
+                    <div class="card-header">
+                        <h3 class="card-title">Maxsulotni saqlash</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form role="form" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <div class="form-row">
 
-      <!-- Default box -->
-      <div class="card card-solid">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-12 col-sm-6">
-              <h3 class="d-inline-block d-sm-none">asdasLOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
-              <div class="col-12">
-                <img src="{{ product_info.img.url }}" class="product-image" alt="{{ product_info.img.url }}">
-              </div>
+                                <div class="form-group col-md-4">
+                                    {% bootstrap_field form.name %}
+                                </div>
+                                <div class="form-group col-md-4">
+                                    {% bootstrap_field form.img %}
+                                </div>
+                                <div class="form-group col-md-4">
+                                    {% bootstrap_field form.cost %}
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    {% bootstrap_field form.discount_price %}
+                                </div>
+                                <div class="form-group col-md-4">
+                                    {% bootstrap_field form.category %}
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="form-row">
+                                    <div class="card-action right-align">
+                                        <button type="submit" class="btn btn-block btn-success">
+                                            <i class="fas fa-check"></i> O'zgarishlarni Saqlash
+                                        </button>
+                                    </div>
+                                    <a href="{% url 'dashboard-auto-list' key='product' %}">
+                                        <div class="card-action ml-1 right-align">
+                                            <button type="button" class="btn btn-block btn-info">
+                                                <i class="fas fa-home"></i> Listlarga qaytish
+                                            </button>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card -->
+
 
             </div>
-            <div class="col-12 col-sm-6">
-              <h3 class="my-3">{{ product_info.category.name }}</h3>
-              <p>{{ product_info.name }}</p>
+            <!--/.col (left) -->
+            <!-- right column -->
 
-              <hr>
-
-
-              <div class="bg-gray py-2 px-3 mt-4">
-                <h2 class="mb-0">
-                  {{ product_info.cost }} so'm
-                </h2>
-                <h4 class="mt-0">
-                  <small>Chegirma narxi: {{ product_info.discount_price }} so'm</small>
-                </h4>
-              </div>
-
-              <div class="mt-4 product-share">
-                <a href="#" class="text-gray">
-                  <i class="fab fa-facebook-square fa-2x"></i>
-                </a>
-                <a href="#" class="text-gray">
-                  <i class="fab fa-twitter-square fa-2x"></i>
-                </a>
-                <a href="#" class="text-gray">
-                  <i class="fas fa-envelope-square fa-2x"></i>
-                </a>
-                <a href="#" class="text-gray">
-                  <i class="fa-brands fa-telegram fa-2x"></i>
-                </a>
-              </div>
-              <div>
-                <a href="{% url 'product' %}" class="btn btn-light border my-3">
-                  <i class="fa-solid fa-backward"></i> Ortga qaytish
-                </a>
-              </div>
-            </div>
-          </div>
+            <!--/.col (right) -->
         </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+{% else %}
 
-    </section>
-
-{% elif key == 'edit' %}
-
-<form class="row g-3 needs-validation" novalidate method="post">
-  {% csrf_token %}
-  <div class="col-md-4">
-    <label for="validationCustom01" class="form-label">Maxsulot nomi</label>
-    <input type="text" required class="form-control" id="validationCustom01" name="name" value="{{edited.name}}" >
-    <div class="valid-feedback">
-      Looks good!
-    </div>
-  </div>
-  <div class="col-md-4">
-    <label for="validationCustom02" class="form-label">Narxi</label>
-    <input type="number" required class="form-control" id="validationCustom02" value="{{edited.cost}}"  name="cost">
-    <div class="valid-feedback">
-      Looks good!
-    </div>
-  </div>
-  <div class="col-md-4">
-    <label for="validationCustomUsername" class="form-label">Chegirma narxi</label>
-    <div class="input-group has-validation">
-      <span class="input-group-text" id="inputGroupPrepend"><i class="fa-solid fa-money-bill-trend-up"></i></span>
-      <input type="number" required class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend"  name="discount_price" value="{{edited.discount_price}}">
-      <div class="invalid-feedback">
-        Iltimos chegirma narxini kiriting banktor bo'lmaysiz.
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-6 mt-3">
-    <div class="input-group mb-3">
-      <input type="file" required class="form-control m-0 p-1 border" id="inputGroupFile02" name="img" >
-      <label class="input-group-text"><a href="{{edited.img.url}}">{{edited.img}}</a></label>
-  </div>
-  </div>
-  <div class="col-12">
-    <button class="btn btn-primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> Malumotlarni saqlash</button>
-
-    <a href="{% url 'product' %}" class="btn btn-secondary"><i class="fa-solid fa-backward"></i> Bekor qilish</a>
-
-  </div>
-</form>
-
-{% elif key == 'create' %}
-
-<form class="row g-3 needs-validation" novalidate method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  <div class="col-md-4">
-    <label for="validationCustom03" class="form-label">Maxsulot nomi</label>
-    <input type="text" class="form-control" id="validationCustom03" name="name" placeholder="Maxsulot nomi" required>
-    <div class="valid-feedback">
-      Looks good!
-    </div>
-  </div>
-  <div class="col-md-4">
-    <label for="validationCustom05" class="form-label">Narxi</label>
-    <input type="number" class="form-control" id="validationCustom05" placeholder="Maxsulot narxi" required name="cost">
-    <div class="valid-feedback">
-      Looks good!
-    </div>
-  </div>
-  <div class="col-md-4">
-    <label for="validationCustomUsernasme" class="form-label">Chegirma narxi</label>
-    <div class="input-group has-validation">
-      <span class="input-group-text" id="inputGroupsPrepend"><i class="fa-solid fa-money-bill-trend-up"></i></span>
-      <input type="number" class="form-control" id="validationCustomUsernasme" aria-describedby="inputGroupsPrepend" required name="discount_price" placeholder="Chegirma narxi">
-      <div class="invalid-feedback">
-        Iltimos chegirma narxini kiriting banktor bo'lmaysiz.
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-6 mt-3">
-    <div class="input-group mb-3">
-      <input type="file" class="form-control m-0 p-1 border" id="inputGroupFile0256" name="img">
-      <label class="input-group-text" for="inputGroupFile0256">Upload</label>
-  </div>
-  </div>
-  <div class="col-md-6 mt-3 ">
-    <select class="form-control" name="category_id" aria-label="Default select example">
-      <option selected>----------------------</option>
-      {% for i in category %}
-      <option value="{{i.id}}">{{i.name}}</option>
-      {% endfor %}
-    </select>
-  </div>
-  <div class="col-12">
-    <button class="btn btn-primary" type="submit"><i class="fa-solid fa-download"></i> Malumotlarni qo'shish</button>
-
-    <a href="{% url 'product' %}" class="btn btn-secondary"><i class="fa-solid fa-backward"></i> Bekor qilish</a>
-
-  </div>
-</form>
-
-{% elif key is None %}
-
+<!-- Main content -->
 <section class="content">
-  <div>
-    <a href="{% url 'product_create' key='create' %}" class="btn btn-outline-dark mb-3"><i class="fa-solid fa-cart-plus"></i> Yangi maxsulot qo'shish</a>
-  </div>
-  <div class="row">
-  {% for i in product %}
-    <div class="card mr-3" style="width: 18rem;">
-      <img src="{{ i.img }}" class="card-img-top" alt="{{ i.img }}">
-      <div class="card-body">
-        <h5 class="card-title mb-3 w-100" style="font-size: 0.91rem">{{ i.ctg_name }} | {{ i.name }}</h5>
-        <div class="card-text px-3 rounded-pill w-75" style="font-weight: 400; background-color: #EBE9E9"><span style="text-decoration: line-through;">{{ i.cost }} coin</span> / <span >{{i.discount_percent}} %</span></div>
-        <div style="font-weight: 600;" class="my-3">{{ i.discount_price }} so'm <div class="float-right"><a href="{% url 'product_info' key='info' pk=i.id %}"
-                                   title="To'lliq ma'lumotlarni ko'rish"
-                                   class="btn btn-info btn-circle btn-sm mr-2">
-                                    <i class="fas fa-info-circle"></i>
-                                </a><a href="{% url 'product_edit' key='edit' pk=i.id %}" title="O'zgartirish"
+    <div class="row">
+        <div class="col-12">
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Barcha Maxsulotlar</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Maxsulot nomi</th>
+                            <th>Maxsulot rasmi</th>
+                            <th>Maxsulot narxi</th>
+                            <th>Chegirma narxi 💰</th>
+                            <th>Category</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in roots %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.name }}</td>
+                            <td><a href="{{ i.img.url }}">Image</a></td>
+                            {% if i.discount_percent == 0 %}
+                            <td>{{ i.cost }}</td>
+                            {% else %}
+                            <td><span style="text-decoration: underline ;">{{ i.cost }}</span> <sup>-{{ i.discount_percent }} %</sup></td>
+                            {% endif %}
+                            <td>{{ i.discount_price }}</td>
+                            <td>{{ i.category }}</td>
+                            <td>
+                                <a href="{% url 'dashboard-auto-edit' key='product' pk=i.id %}" title="O'zgartirish"
                                    class="btn btn-warning btn-circle btn-sm">
                                     <i class="fas fa-pen"></i>
-                                </a></div></div>
-      </div>
-    </div>
-  {% endfor %}
-    </div>
+                                </a>
+                            </td>
 
+                        </tr>
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+                    <br>
+                    <hr>
+                    <div class="pagination">
+                    <span class="step-links">
+                        {% if roots.has_previous %}
+                            <a href="?page=1" class="btn btn-primary btn-sm">&laquo;first</a>
+                            <a href="?page={{ roots.previous_page_number }}" class="btn btn-primary btn-sm">prev</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ roots.number }} of {{ roots.paginator.num_pages }}.
+                        </span>
+
+                        {% if roots.has_next %}
+                            <a href="?page={{ roots.next_page_number }}" class="btn btn-primary btn-sm">next</a>
+                            <a href="?page={{ roots.paginator.num_pages }}"
+                               class="btn btn-primary btn-sm">last&raquo;</a>
+                        {% endif %}
+                    </span>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-6 col-md-6 mb-4">
+                            <a href="{% url 'dashboard-auto-add' key='product' %}" class="btn btn-success">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                                <span class="text">Maxsulot qo'shish</span>
+                            </a>
+                            <a href="{% url 'home' %}" class="btn btn-info">
+                           <span class="icon text-white-50">
+                                <i class="fas fa-home"></i>
+                            </span>
+                                <span class="text">Bosh Menu</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
 </section>
+
+
 {% endif %}
+
+
 {% endblock %}

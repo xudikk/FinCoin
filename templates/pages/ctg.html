@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %} News | View {% endblock %}
-{% block page_title %} Yangililar {% endblock %}
-{% block pagetitle %} Yangililar {% endblock %}
+{% block title %} Category {% endblock %}
+{% block page_title %} Category {% endblock %}
+{% block pagetitle %} Category {% endblock %}
 {% load bootstrap4 %}
 
 {% block content %}
 
 
-{% if pos == 'form' %}
+{% if suggest_status == 'form' %}
 
 <!-- Main content -->
 <section class="content">
@@ -19,7 +19,7 @@
                 <!-- general form elements -->
                 <div class="card card-secondary">
                     <div class="card-header">
-                        <h3 class="card-title">Yangilikni saqlash</h3>
+                        <h3 class="card-title">Categoryni saqlash</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
@@ -29,17 +29,7 @@
                             <div class="form-row">
 
                                 <div class="form-group col-md-4">
-                                    {% bootstrap_field form.title %}
-                                </div>
-                                <div class="form-group col-md-4">
-                                    {% bootstrap_field form.img %}
-                                </div>
-                                <div class="form-group col-md-4">
-                                    {% bootstrap_field form.view %}
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    {% bootstrap_field form.desc %}
+                                    {% bootstrap_field form.name %}
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -49,7 +39,7 @@
                                             <i class="fas fa-check"></i> O'zgarishlarni Saqlash
                                         </button>
                                     </div>
-                                    <a href="{% url 'dashboard-auto-list' key='news' %}">
+                                    <a href="{% url 'category' %}">
                                         <div class="card-action ml-1 right-align">
                                             <button type="button" class="btn btn-block btn-info">
                                                 <i class="fas fa-home"></i> Listlarga qaytish
@@ -82,7 +72,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Barcha yangiliklar</h3>
+                    <h3 class="card-title">Barcha Categorylar</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -90,8 +80,7 @@
                         <thead>
                         <tr>
                             <th>№</th>
-                            <th>Yangilik nomi</th>
-                            <th>Yangilik rasmi</th>
+                            <th>Category nomi</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -99,11 +88,9 @@
                         {% for i in roots %}
                         <tr>
                             <td>{{ forloop.counter }}</td>
-                            <td>{{ i.title }}</td>
-                            <td><a href="{{ i.img.url }}">Image</a></td>
-
+                            <td>{{ i.name }}</td>
                             <td>
-                                <a href="{% url 'dashboard-auto-edit' key='news' pk=i.id %}" title="O'zgartirish"
+                                <a href="{% url 'category_edit' status='form' pk=i.id %}" title="O'zgartirish"
                                    class="btn btn-warning btn-circle btn-sm">
                                     <i class="fas fa-pen"></i>
                                 </a>
@@ -138,11 +125,11 @@
                     <hr>
                     <div class="row">
                         <div class="col-xl-6 col-md-6 mb-4">
-                            <a href="{% url 'dashboard-auto-add' key='news' %}" class="btn btn-success">
+                            <a href="{% url 'category_add' status='form' %}" class="btn btn-success">
                             <span class="icon text-white-50">
                                 <i class="fas fa-check"></i>
                             </span>
-                                <span class="text">Yangilik qo'shish</span>
+                                <span class="text">Category qo'shish</span>
                             </a>
                             <a href="{% url 'home' %}" class="btn btn-info">
                            <span class="icon text-white-50">
@@ -167,3 +154,5 @@
 
 
 {% endblock %}
+
+

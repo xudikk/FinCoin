@@ -66,7 +66,6 @@ TEMPLATES = [
                 'src.context_processors.user_type',
                 'src.context_processors.count',
                 'src.context_processors.balance_rating_news',
-                'src.context_processors.product',
 
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
