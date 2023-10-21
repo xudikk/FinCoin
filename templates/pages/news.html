@@ -173,6 +173,9 @@
     {% endfor %}
 
 </div>
+{% if not roots %}
+<h3 class="text-primary">Yangiliklar mavjud emas yangilik qo'shing ☝</h3>
+{% else %}
 <hr>
     <div class="pagination">
         <span class="step-links">
@@ -193,7 +196,7 @@
         </span>
     </div>
 <br>
-
+{% endif %}
 {% endif %}
 
 {% endblock %}
