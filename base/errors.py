@@ -239,10 +239,20 @@ MSG = {
         "ru": "Переводы с этой карты невозможны",
         'en': "Transfers cannot be made using this card",
     },
+    "CantTransferUsingToCard": {
+        'uz': "Ushbu karta orqali o'tkazma qilib bo'lmaydi",
+        "ru": "Переводы с этой карты невозможны",
+        'en': "Transfers cannot be made using this card",
+    },
     "TransferToReceiverDenied": {
         'uz': "Ushbu kartaga o'tkazma qilib bo'lmaydi",
         "ru": "Переводы с для карты невозможны",
         'en': "Transfers cannot be made to this card"
+    },
+    "BalanceInfluence": {
+        'uz': "Mablag' yetarli emas",
+        "ru": "Баланс недостаточен",
+        'en': "Balance is insufficient"
     },
     'DeviceRevokeDenited': {
         "uz": "Ushbu qurulma boshqalarini chiqarib yubora olmaydi",

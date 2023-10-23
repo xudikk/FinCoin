@@ -66,3 +66,18 @@ def custom_dictfetchone(cursor):
         return dict(zip(columns, row))
     else:
         return None
+
+
+def look_at_params(params: dict, requires: list):
+    return set(requires) - set(params.keys())
+
+
+def make_transfer(sender, receiver, amount: int):
+    try:
+        sender.balance = sender.balance - amount
+        receiver.balance = receiver.balance + amount
+    except:
+        return False
+    sender.save(), receiver.save()
+    return True
+

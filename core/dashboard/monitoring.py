@@ -151,3 +151,6 @@ def admin_page(request, key=None):
             return redirect('admin_page')
 
     return render(request, 'pages/admin_page.html', {"admin_": admin_user, 'key': key})
+
+
+

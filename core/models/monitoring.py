@@ -50,3 +50,22 @@ class Card(models.Model):
             'created_at': self.created.strftime("%d %b, %Y"),
             'updated_at': self.updated.strftime("%d %b, %Y"),
         }
+
+
+class Monitoring(models.Model):
+    tr_id = models.CharField(max_length=512)
+    sender = models.ForeignKey(Card, on_delete=models.DO_NOTHING, null=True, blank=True, related_name='sender')
+    sender_token = models.CharField(max_length=128, null=True, blank=True, editable=False)
+    receiver = models.ForeignKey(Card, on_delete=models.DO_NOTHING, null=True, blank=True, related_name='receiver')
+    receiver_token = models.CharField(max_length=128, null=True, blank=True, editable=False)
+    amount = models.IntegerField(default=0)
+    status = models.SmallIntegerField(default=0)  # 0-created, 1-success, 2-canceled
+
+    def response(self):
+        return {
+            "transaction_id": self.tr_id,
+            "amount": self.amount,
+            "sender": self.sender.mask,
+            "receiver": self.sender.number,
+            "status": {0: "Created", 1: "Success", 2: "Canceled"}[self.status]
+        }

@@ -1,4 +1,5 @@
 import datetime
+import uuid
 
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -40,14 +41,15 @@ def list_user(request, key=None, pk=None):
                 name=f"Fintech Coin Card",
                 expire=f"{datetime.datetime.now().month}/{str(datetime.datetime.now().year + 1)[2:]}",
                 is_primary=False,
-                card_registered_phone=user.phone
+                card_registered_phone=user.phone,
+                token=uuid.uuid4()
             )
             card.save()
             return redirect('user_list')
     if key == 'edit':
         if request.method == 'POST':
             data = request.POST
-            user_type = data.get("ut")
+            user_type = data.get("ut", update_user.ut)
             update_user.first_name = data["name"]
             update_user.last_name = data["last_name"]
             update_user.email = data["email"]

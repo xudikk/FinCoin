@@ -6,11 +6,12 @@
 import datetime
 import uuid
 
-from methodism import custom_response
+from methodism import custom_response, generate_key
 
 from base.errors import MSG
-from base.helper import lang_helper, generate_number
+from base.helper import lang_helper, generate_number, look_at_params, make_transfer
 from core.models import User, Card
+from core.models.monitoring import Monitoring
 
 
 def create_card(request, params):
@@ -42,3 +43,65 @@ def all_card(request, params):
     return custom_response(True, data=[
         x.response() for x in cards
     ])
+
+
+def transfer(request, params):
+    res = look_at_params(params, ['token', 'to_card', 'amount'])
+    print(res)
+    if res:
+        return custom_response(False, message=MSG['ParamsNotFull'][lang_helper(request)])
+    sender_card = Card.objects.filter(token=params['token']).first()
+    reciever_card = Card.objects.filter(number=params['to_card']).first()
+    if not sender_card:
+        return custom_response(False, message=MSG['SenderCardNotFound'][lang_helper(request)])
+    if not reciever_card:
+        return custom_response(False, message=MSG['ReceiverCardNotFound'][lang_helper(request)])
+    if sender_card.blocked:
+        return custom_response(False, message=MSG['CantTransferUsingViaCard'][lang_helper(request)])
+    if reciever_card.blocked:
+        return custom_response(False, message=MSG['CantTransferUsingToCard'][lang_helper(request)])
+    if sender_card == reciever_card:
+        return custom_response(False, message=MSG['TransferToReceiverDenied'][lang_helper(request)])
+    if request.user != sender_card.user:
+        return custom_response(False, message=MSG['PermissionDenied'][lang_helper(request)])
+
+    if sender_card.balance < int(params['amount']):
+        return custom_response(False, message=MSG['BalanceInfluence'][lang_helper(request)])
+    data = {
+        "tr_id": generate_key(50),
+        'sender': sender_card,
+        'sender_token': sender_card.token,
+        'receiver': reciever_card,
+        'receiver_token': reciever_card.token,
+        'amount': params['amount'],
+    }
+    monitoring = Monitoring.objects.create(**data)
+    monitoring.status = 1 if make_transfer(sender_card, reciever_card, params['amount']) else 2
+    monitoring.save()
+
+    return custom_response(True, data=monitoring.response(), message=MSG['Success'][lang_helper(request)])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

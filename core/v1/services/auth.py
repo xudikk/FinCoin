@@ -33,7 +33,7 @@ def login(request, params):
                                                                            message=MSG['PasswordError'][lang_helper(request)])
 
     # otp create
-    otp = random.randint(int(f'1{"0" * (settings.RANGE - 1)}'), int('9' * settings.RANGE))
+    otp = random.randint(int(f'1{"0" * (settings.OTP_RANGE - 1)}'), int('9' * settings.OTP_RANGE))
     # shu yerda sms chiqib ketadi
     code = eval(settings.CUSTOM_HASHING)
     hash = code_decoder(code, l=settings.RANGE)
