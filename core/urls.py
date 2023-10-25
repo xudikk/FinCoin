@@ -7,6 +7,7 @@
 from django.urls import path, include
 from core.dashboard.auto import gets, auto_form
 from core.dashboard.monitoring import algaritm, admin_page, category
+from core.dashboard.user import create_user, change_password, grader, create_cart
 from core.dashboard.view import index
 from core.dashboard.auth import sign_in, sign_out, clear
 from core.dashboard.list import list_user
@@ -21,19 +22,23 @@ urlpatterns = [
     path("category/form/<int:pk>/", category, name="category_edit"),
 
 
+    # real users
+    path("u/<int:type>/", create_user, name="user"),
+    path("u/<int:type>/<status>/", create_user, name="user_add"),
+    path("u/<int:type>/<status>/<int:pk>/", create_user, name="user_edit"),
+    path("change/password/<int:user_id>/", change_password, name="change-password"),
+    path("grader/<int:gr>/<int:pk>/", grader, name="grader"),
+
+    # create_cart
+    path("cart/<user_id>/", create_cart, name="create-cart"),
 
     # auth
     path("login/", sign_in, name='login'),
     path('logout/', sign_out, name='log-out'),
 
-    # list
-    path('user/list/', list_user, name='user_list'),
-    path('user/list/<key>/', list_user, name='create_user'),
-    path('user/list/<key>/', list_user, name='teacher'),
 
     # user actions
-    path('user/list/<key>/<int:pk>/', list_user, name='update_user'),
-    path('user/list/<key>/<int:pk>/', list_user, name='get_user_info'),
+    path('user/info/<int:pk>/', list_user, name='get_user_info'),
 
     # algaritm
     path('algaritm/', algaritm, name='all_algaritm'),
@@ -49,8 +54,8 @@ urlpatterns = [
 
 
     # auto
-    path("<key>/", gets, name="dashboard-auto-list"),
-    path("<key>/<int:pk>/", gets, name="dashboard-auto-detail"),
+    path("auto/<key>/", gets, name="dashboard-auto-list"),
+    path("auto/<key>/<int:pk>/", gets, name="dashboard-auto-detail"),
     path("auto/<key>/add/", auto_form, name="dashboard-auto-add"),
     path("auto/<key>/edit/<int:pk>/", auto_form, name="dashboard-auto-edit"),
 

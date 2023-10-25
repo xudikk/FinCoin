@@ -206,7 +206,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{% url 'user_list' %}" class="nav-link {{ u_active }}">
+                                <a href="{% url 'user' type=3 %}" class="nav-link {{ u_active }}">
                                     <i class="fa-solid fa-users"></i>
                                     <p>Userlar </p>
                                 </a>
@@ -267,8 +267,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
-
-                {% block content %} {% endblock %}
+                {% if error == 404 %}
+                  {% include 'pages/404.html' %}
+                {% else %}
+                  {% block content %} {% endblock %}
+                {% endif %}
 
                 <!-- /.row -->
             </div><!-- /.container-fluid -->

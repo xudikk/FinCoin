@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+
+{% block title %} User {% endblock %}
+{% block page_title %} Barcha Xodimlar {% endblock %}
+{% block pagetitle %} Memberlar {% endblock %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-12">
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Xodimlar</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nomi</th>
+                    <th>Foydalanuvchi nomi</th>
+                    <th>A'zolik turi</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in roots %}
+
+                    <tr>
+                            <td >{{ i.id }}</td>
+                        {% if i == request.user %}
+                            <td>{{ i.full_name }} <sup class="badge badge-primary">bu siz</sup></td>
+                        {% else %}
+                            <td>{{ i.full_name }}</td>
+                        {% endif %}
+
+
+                        <td>{{ i.get_uname }}</td>
+                        <td>{% if i.ut == 1  %} Admin {% elif i.ut == 2 %} Teacher {% else %} Student {% endif %}</td>
+                        <td>
+                            <a href="{% url 'get_user_info' pk=i.id %}"
+                               title="To'lliq ma'lumotlarni ko'rish"
+                               class="btn btn-info btn-circle btn-sm">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="{% url 'user_edit' type=type status='form' pk=i.id %}" title="O'zgartirish" class="btn btn-warning btn-circle btn-sm">
+                                <i class="fas fa-pen"></i>
+                            </a>
+                             <a  href="" data-toggle="modal" data-target="#ChangePasswordModal{{ i.id }}" title="Parolni o'zgartirish" class="btn btn-primary btn-circle btn-sm">
+                                <i class="fas fa-key"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+
+
+                {% endfor %}
+
+                </tbody>
+
+              </table>
+                <br>
+                <hr>
+        <!--    **********************************************************************************************************  -->
+                {% if suggest_status == 'form' %}
+                    <div class="row">
+                      <!-- left column -->
+                      <div class="col-md-12">
+                        <!-- general form elements -->
+                        <div class="card card-success">
+
+
+                          <form role="form" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="card-body">
+                                <h2 class="form-group text-center">Tezkor Forma</h2>
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-3">
+                                        {% bootstrap_field form.first_name %}
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        {% bootstrap_field form.last_name %}
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        {% bootstrap_field form.phone %}
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        {% bootstrap_field form.gender %}
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        {% bootstrap_field form.level %}
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        {% bootstrap_field form.specialty %}
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        {% bootstrap_field form.username %}
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        {% bootstrap_field form.email %}
+                                    </div>
+
+                                    {% if not editing %}
+                                    <div class="form-group col-md-3">
+                                        {% bootstrap_field form.password %}
+                                    </div>
+                                    {% endif %}
+
+                                </div>
+                                <div class="card-footer">
+                                <div class="form-row">
+                                    <div class="card-action right-align">
+                                          <button type="submit" class="btn btn-block btn-success">
+                                            <i class="fas fa-check"></i>Saqlash
+                                          </button>
+                                    </div>
+                                    <a href="{% url 'user' type=type %}">
+                                        <div class="card-action ml-1 right-align">
+                                              <button type="button" class="btn btn-block btn-info">
+                                                    <i class="fas fa-home"></i> Bekor qilish
+                                              </button>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            </div>
+
+                          </form>
+                        </div>
+                      </div>
+
+                    </div>
+
+            <!--    **********************************************************************************************************  -->
+                {% endif %}
+
+                {% if suggest_status != 'form' %}
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if roots.has_previous %}
+                            <a href="?page=1" class="btn btn-primary btn-sm">&laquo;first</a>
+                            <a href="?page={{ roots.previous_page_number }}"  class="btn btn-primary btn-sm">prev</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ roots.number }} of {{ roots.paginator.num_pages }}.
+                        </span>
+
+                        {% if roots.has_next %}
+                            <a href="?page={{ roots.next_page_number }}" class="btn btn-primary btn-sm">next</a>
+                            <a href="?page={{ roots.paginator.num_pages }}" class="btn btn-primary btn-sm">last&raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-xl-6 col-md-6 mb-4">
+                        <a href="{% url 'user_add' type=type status='form' %}" class="btn btn-success" >
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">Yangi qo'shish</span>
+                        </a>
+                        <a href="{% url 'home' %}"  class="btn btn-info" >
+                           <span class="icon text-white-50">
+                                <i class="fas fa-home"></i>
+                            </span>
+                            <span class="text">Bosh Menu</span>
+                       </a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+
+
+
+{% for i in roots %}
+    <!-- Password Modal-->
+    <div class="modal fade" id="ChangePasswordModal{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Parolni O'zgartirish</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form role="form" method="post" action="{% url 'change-password' user_id=i.id %}" enctype="multipart/form-data">
+                     {% csrf_token %}
+
+                    <div class="modal-body">Yangi Parolni kiriting</div>
+                    <div class="form-group col-md-3">
+                        <input type="text" name="password" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Saqlash</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}
+
+

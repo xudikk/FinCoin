@@ -3,7 +3,7 @@
 #  Please contact before making any changes
 #
 #  Tashkent, Uzbekistan
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from methodism import METHODISM, custom_response, MESSAGE, exception_data
 from re import compile as re_compile
 
@@ -50,7 +50,7 @@ def permission_checker(funk):
             return response.get(True)
 
         if request.user.ut != 1:
-            return redirect('login')
+            return render(request, 'base.html', {'error': 404})
 
         return funk(request, *args, **kwargs)
 

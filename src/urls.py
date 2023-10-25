@@ -11,14 +11,14 @@ from core.v1.views import FcMain
 
 from django.conf.urls.static import static
 from django.conf import settings
-
+from django.views.static import serve
 
 def page_not_found_view(request, exception):
-    return render(request, 'pages/404.html', context={"error": 404}, status=404)
+    return render(request, 'pages/abs404.html', context={"error": 404}, status=404)
 
 
 def error_500(request, *args, **kwargs):
-    return render(request, 'pages/500.html', context={"error": 500}, status=500)
+    return render(request, 'pages/abs500.html', context={"error": 500}, status=500)
 
 
 urlpatterns = [
@@ -28,6 +28,12 @@ urlpatterns = [
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+urlpatterns += [
+    path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+]
 
 
 handler404 = "src.urls.page_not_found_view"

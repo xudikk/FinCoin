@@ -32,7 +32,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=255, null=True)
     email = models.CharField(max_length=255, null=True)
     avatar = models.ImageField(max_length=255, null=True, upload_to='avatar')
-    gender = models.BooleanField(default=True)
+    gender = models.BooleanField(default=True, choices=[(True, "Erkak 👨‍🎓"), (False, "Ayol 🙍‍♀")])
     username = models.CharField(max_length=50, null=True, blank=True)
 
     level = models.CharField(max_length=128, choices=[
@@ -87,6 +87,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __init__(self, *args, **kwargs):
         super(User, self).__init__(*args, **kwargs)
         self.fio = self.full_name()
+
+    def get_uname(self):
+        return self.username or "not set yet"
+
+    def show_phone(self):
+        return f"{self.phone[:3]}" + " ** *** ** " + f"{self.phone[-2:]}"
 
     def personal(self):
         ut = {1: 'Admin',

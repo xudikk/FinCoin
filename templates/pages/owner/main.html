@@ -13,7 +13,7 @@
               <div class="icon">
                 <i class="fa-solid fa-person-chalkboard"></i>
               </div>
-              <a href="{% url 'teacher' key='teacher' %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{% url 'user' type=2 %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -28,7 +28,7 @@
               <div class="icon">
                 <i class="fa-solid fa-user-secret"></i>
               </div>
-              <a href="{% url 'admin_page' %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{% url 'user' type=1 %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -43,7 +43,7 @@
               <div class="icon">
                 <i class="fa-solid fa-users"></i>
               </div>
-              <a href="{% url 'user_list' %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{% url 'user' type=3 %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -95,7 +95,7 @@
         <tbody>
         {% for i in rating %}
         <tr>
-          <td><a href="{% url 'get_user_info' key='_info' pk=i.id %}">User | {{ i.id }}</a></td>
+          <td><a href="{% url 'get_user_info' pk=i.id %}">User | {{ i.id }}</a></td>
           <td>{{ i.full_name }}</td>
           <td>{{ i.username }}</td>
           {% if i.level == 'Beginner' %}
