@@ -8,62 +8,7 @@
 {% block content %}
 
 
-{% if suggest_status == 'form' %}
 
-<!-- Main content -->
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <!-- left column -->
-            <div class="col-md-12">
-                <!-- general form elements -->
-                <div class="card card-secondary">
-                    <div class="card-header">
-                        <h3 class="card-title">Categoryni saqlash</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <!-- form start -->
-                    <form role="form" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="card-body">
-                            <div class="form-row">
-
-                                <div class="form-group col-md-4">
-                                    {% bootstrap_field form.name %}
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <div class="form-row">
-                                    <div class="card-action right-align">
-                                        <button type="submit" class="btn btn-block btn-success">
-                                            <i class="fas fa-check"></i> O'zgarishlarni Saqlash
-                                        </button>
-                                    </div>
-                                    <a href="{% url 'category' %}">
-                                        <div class="card-action ml-1 right-align">
-                                            <button type="button" class="btn btn-block btn-info">
-                                                <i class="fas fa-home"></i> Listlarga qaytish
-                                            </button>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <!-- /.card -->
-
-
-            </div>
-            <!--/.col (left) -->
-            <!-- right column -->
-
-            <!--/.col (right) -->
-        </div>
-        <!-- /.row -->
-    </div><!-- /.container-fluid -->
-</section>
-{% else %}
 
 <!-- Main content -->
 <section class="content">
@@ -90,7 +35,7 @@
                             <td>{{ forloop.counter }}</td>
                             <td>{{ i.name }}</td>
                             <td>
-                                <a href="{% url 'category_edit' status='form' pk=i.id %}" title="O'zgartirish"
+                                <a data-toggle="modal" data-target="#editModal{{ i.id }}" title="O'zgartirish"
                                    class="btn btn-warning btn-circle btn-sm">
                                     <i class="fas fa-pen"></i>
                                 </a>
@@ -125,7 +70,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-xl-6 col-md-6 mb-4">
-                            <a href="{% url 'category_add' status='form' %}" class="btn btn-success">
+                            <a data-toggle="modal" data-target="#addModal" class="btn btn-success">
                             <span class="icon text-white-50">
                                 <i class="fas fa-check"></i>
                             </span>
@@ -150,7 +95,59 @@
 </section>
 
 
-{% endif %}
+
+
+<!-- Delete Modal-->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="AddModalLabel">Yangi Categoriya</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form action="{% url 'category_add' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group col-md-4">
+                    {% bootstrap_field form.name %}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Ha</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% for i in roots %}
+
+<div class="modal fade" id="editModal{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Chiqish so'rovi</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+             <form action="{% url 'category_edit' pk=i.id %}" method="post">
+                {% csrf_token %}
+                <div class="form-group col-md-4">
+                    <input type="text" value="{{ i.name }}" name="name" >
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Saqlash</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
 
 
 {% endblock %}

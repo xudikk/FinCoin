@@ -33,6 +33,7 @@ def gets(requests, key, pk=None):
             "roots": paginated,
             "pos": "list"
         }
+    ctx.update({f"{key}_active": "active"})
 
     return render(requests, f'pages/{key}.html', ctx)
 

@@ -17,8 +17,8 @@ urlpatterns = [
     path("", index, name='home'),
 
     path("category/", category, name="category"),
-    path("category/<status>/", category, name="category_add"),
-    path("category/<status>/<int:pk>/", category, name="category_edit"),
+    path("category/form/", category, name="category_add"),
+    path("category/form/<int:pk>/", category, name="category_edit"),
 
 
 

@@ -43,7 +43,7 @@ def create_card(request):
 # Ustoz mashi narsaga yordam bervorin shu Form bilan ishlashini
 # bitta yozib berin mg-transportda yozilganini ishlatomadim
 # yozib ko'rsatib bersez keyingilariniyam shundan ko'rib o'rganib qilardi
-def category(request, status=None, pk=None):
+def category(request, pk=None):
     pagination = Category.objects.all().order_by('-pk')
     paginator = Paginator(pagination, settings.PAGINATE_BY)
     page_number = request.GET.get("page", 1)
@@ -51,17 +51,16 @@ def category(request, status=None, pk=None):
     ctx = {
         "roots": paginated,
         "pos": "list",
-        'mar_active': "active",
+        'ctg_active': "active",
     }
-    if status == 'form':
-        print("\nsalom\n")
-        root = Category.objects.filter(pk=pk).first()
-        form = CategoryForm(request.POST or None, instance=root or None)
-        if form.is_valid():
-            form.save()
-            return redirect('category')
-        ctx["form"] = form
-        ctx['suggest_status'] = "form"
+
+    root = Category.objects.filter(pk=pk).first()
+    form = CategoryForm(request.POST or None, instance=root or None)
+    if form.is_valid():
+        form.save()
+        return redirect('category')
+    ctx["form"] = form
+    ctx['suggest_status'] = "form"
 
     return render(request, f'pages/ctg.html', ctx)
 
