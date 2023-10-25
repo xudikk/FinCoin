@@ -6,8 +6,8 @@
 
 from django.urls import path, include
 from core.dashboard.auto import gets, auto_form
-from core.dashboard.monitoring import algaritm, admin_page, category
-from core.dashboard.user import create_user, change_password, grader, create_cart
+from core.dashboard.home import algaritm, category
+from core.dashboard.auth import create_user, change_password, grader, create_cart
 from core.dashboard.view import index
 from core.dashboard.auth import sign_in, sign_out, clear
 from core.dashboard.list import list_user
@@ -47,10 +47,6 @@ urlpatterns = [
 
     #
     path('clear/', clear, name='card-clear'),
-
-    # admin page
-    path('admin-page/', admin_page, name='admin_page'),
-    path('admin-page/<key>/', admin_page, name='create_admin'),
 
 
     # auto

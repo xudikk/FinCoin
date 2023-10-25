@@ -1,14 +1,16 @@
 from contextlib import closing
 
 from django.conf import settings
+from django.core.paginator import Paginator
 from django.db import connection
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from methodism import custom_response, dictfetchone, dictfetchall
 from methodism.sqlpaginator import SqlPaginator
 
 from base.custom import permission_checker
 from base.helper import cusmot_dictfetchall, custom_dictfetchone
-from core.models import New
+from core.forms.auto import AlgorithmForm, CategoryForm
+from core.models import New, Algorithm, Category
 
 
 def home_page(request):
@@ -44,43 +46,60 @@ def home_page(request):
     })
 
 
-def mentors(request):
-    mentors = "select * from core_user where ut=2 order by id desc"
-    with closing(connection.cursor()) as cursor:
-        cursor.execute(mentors)
-        mentors = dictfetchall(cursor)
+def category(request, pk=None):
+    pagination = Category.objects.all().order_by('-pk')
+    paginator = Paginator(pagination, settings.PAGINATE_BY)
+    page_number = request.GET.get("page", 1)
+    paginated = paginator.get_page(page_number)
+    ctx = {
+        "roots": paginated,
+        "pos": "list",
+        'ctg_active': "active",
+    }
 
-    return custom_response(True, data=mentors)
+    root = Category.objects.filter(pk=pk).first()
+    form = CategoryForm(request.POST or None, instance=root or None)
+    if form.is_valid():
+        form.save()
+        return redirect('category')
+    ctx["form"] = form
+    ctx['suggest_status'] = "form"
+
+    return render(request, f'pages/ctg.html', ctx)
 
 
-def algorithm(request):
-    try:
-        page = int(request.GET.get('page', 1))
-    except:
-        page = 1
-    offset = (page - 1) * settings.PAGINATE_BY
-    print(request.user.id)
-
-    algos = f""" 
-            SELECT al.*, us.first_name, us.last_name, us.username  from core_algorithm al
-            inner join core_user us on al.creator_id = us.id
-            LIMIT {settings.PAGINATE_BY} OFFSET {offset}
-            """
-    cnt = "SELECT COUNT(*) as cnt from core_algorithm"
-
-    with closing(connection.cursor()) as cursor:
-        cursor.execute(algos)
-        algos = dictfetchall(cursor)
-        cursor.execute(cnt)
-        cnt = dictfetchone(cursor)
-
-        if cnt:
-            count_records = cnt['cnt']
+def algaritm(request, key=None, pk=None):
+    if key == 'form':
+        root = Algorithm.objects.filter(pk=pk).first()
+        kwar = {
+            'instance': root or None,
+            'creator': request.user
+        }
+        form = AlgorithmForm(request.POST or None, **kwar)
+        if form.is_valid():
+            form.save()
+            return redirect('all_algaritm')
         else:
-            count_records = 0
-        paginator = SqlPaginator(request, page=page, per_page=settings.PAGINATE_BY, count=count_records)
-        pagging = paginator.get_paginated_response(per_page=settings.PAGINATE_BY, current_page=page)
+            print(form.errors)
+        return render(request, 'pages/algaritm.html', {'key': key, "form": form})
 
-    return render(request, "page", context={"algorithms": algos, "pagging": pagging})
+    all_algaritm = f""" select cor_al.id, cor_al.reward, cor_al.description, cor_al.bonus, user_c.first_name, user_c.last_name from core_algorithm cor_al
+                    left join core_user user_c on cor_al.creator_id == user_c.id
+                """
+    user = f"""
+            select c_user.id, c_user.first_name, c_user.last_name from core_user c_user
+            """
+    bonuses = "select bonus from core_algorithm"
 
+    with closing(connection.cursor()) as cursor:
+        cursor.execute(all_algaritm)
+        algarithm = dictfetchall(cursor)
 
+        cursor.execute(user)
+        user = dictfetchall(cursor)
+
+        cursor.execute(bonuses)
+        bonuses = cursor.fetchall()
+
+    return render(request, 'pages/algaritm.html',
+                  {"all_algorithm": algarithm, 'key': key, 'user': user, "bonuses": [x[0] for x in bonuses]})
