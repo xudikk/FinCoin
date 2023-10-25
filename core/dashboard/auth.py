@@ -210,7 +210,7 @@ def change_password(request, user_id):
             request.user.set_password(request.POST.get("password"))
             request.user.save()
 
-    return redirect('user', ut=3 if not root else root.ut)
+    return redirect('user', type=3 if not root else root.ut)
 
 
 @permission_checker
