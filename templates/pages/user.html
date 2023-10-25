@@ -40,7 +40,6 @@
                             <td>{{ i.full_name }}</td>
                         {% endif %}
 
-
                         <td>{{ i.get_uname }}</td>
                         <td>{% if i.ut == 1  %} Admin {% elif i.ut == 2 %} Teacher {% else %} Student {% endif %}</td>
                         <td>
@@ -52,9 +51,11 @@
                             <a href="{% url 'user_edit' type=type status='form' pk=i.id %}" title="O'zgartirish" class="btn btn-warning btn-circle btn-sm">
                                 <i class="fas fa-pen"></i>
                             </a>
+                            {% if request.user.is_staff and request.user.is_superuser %}
                              <a  href="" data-toggle="modal" data-target="#ChangePasswordModal{{ i.id }}" title="Parolni o'zgartirish" class="btn btn-primary btn-circle btn-sm">
                                 <i class="fas fa-key"></i>
                             </a>
+                            {% endif %}
                         </td>
 
                     </tr>

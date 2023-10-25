@@ -57,6 +57,19 @@ def permission_checker(funk):
     return wrapper
 
 
+def admin_permission_checker(funk):
+    def wrapper(request, *args, **kwargs):
+
+        if request.user.is_anonymous:
+            return redirect('login')
+
+        if request.user.ut != 1:
+            return render(request, 'base.html', {'error': 404})
+
+        return funk(request, *args, **kwargs)
+    return wrapper
+
+
 class CustomMETHODISM(METHODISM):
 
     @method_params_checker

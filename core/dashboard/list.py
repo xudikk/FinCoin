@@ -6,11 +6,11 @@ from django.shortcuts import redirect, render
 
 from base.helper import generate_number
 from core.models import Card
-from base.custom import permission_checker
+from base.custom import permission_checker, admin_permission_checker
 from core.models.auth import User
 
 
-@permission_checker
+@admin_permission_checker
 def list_user(request,  pk=None):
     try:
         update_user = User.objects.filter(id=pk).first()

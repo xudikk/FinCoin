@@ -16,7 +16,7 @@ from django.db import connection
 from django.shortcuts import redirect, render
 from methodism import code_decoder, dictfetchall
 
-from base.custom import permission_checker
+from base.custom import permission_checker, admin_permission_checker
 from base.helper import generate_number
 from core.models import User, Otp, Card
 from methodism import generate_key
@@ -113,7 +113,7 @@ def sign_out(request):
     return redirect("login")
 
 
-@permission_checker
+@admin_permission_checker
 def clear(request):
     sql = "select number from core_card"
     with closing(connection.cursor()) as cursor:
@@ -133,8 +133,9 @@ class UserForm(forms.ModelForm):
         fields = '__all__'
 
 
-@permission_checker
+@admin_permission_checker
 def create_user(request, status=None, pk=None, type=0):
+    print(">>>>>>>>>>>>>>>>>>>", request.user.ut)
     if type:
         pagination = User.objects.filter(ut=type)
     else:

@@ -7,12 +7,13 @@ from django.shortcuts import render, redirect
 from methodism import custom_response, dictfetchone, dictfetchall
 from methodism.sqlpaginator import SqlPaginator
 
-from base.custom import permission_checker
+from base.custom import permission_checker, admin_permission_checker
 from base.helper import cusmot_dictfetchall, custom_dictfetchone
 from core.forms.auto import AlgorithmForm, CategoryForm
 from core.models import New, Algorithm, Category
 
 
+@admin_permission_checker
 def home_page(request):
     balance = f"""
         select SUM(balance) as summ from core_card  
@@ -46,6 +47,7 @@ def home_page(request):
     })
 
 
+@admin_permission_checker
 def category(request, pk=None):
     pagination = Category.objects.all().order_by('-pk')
     paginator = Paginator(pagination, settings.PAGINATE_BY)
@@ -68,6 +70,7 @@ def category(request, pk=None):
     return render(request, f'pages/ctg.html', ctx)
 
 
+@admin_permission_checker
 def algaritm(request, key=None, pk=None):
     if key == 'form':
         root = Algorithm.objects.filter(pk=pk).first()
