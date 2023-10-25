@@ -71,7 +71,7 @@ def create_user(request, status=None, pk=None, type=0):
     if status == 'form':
         root = User.objects.filter(pk=pk).first()
         form = UserForm(instance=root or None)
-        if request.method == "POST" :
+        if request.method == "POST":
             if not root:
                 data = {
                     'first_name': request.POST.get('first_name'),
@@ -137,7 +137,7 @@ def grader(request, gr, pk):
     if request.user.ut == 1:
         root.ut = gr
         root.save()
-    return redirect('user')
+    return redirect('get_user_info', pk=root.id)
 
 
 @permission_checker
