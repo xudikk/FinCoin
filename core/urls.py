@@ -8,6 +8,7 @@ from django.urls import path, include
 from core.dashboard.auto import gets, auto_form
 from core.dashboard.home import algaritm, category
 from core.dashboard.auth import create_user, change_password, grader, create_cart
+from core.dashboard.monitoring import award
 from core.dashboard.view import index
 from core.dashboard.auth import sign_in, sign_out, clear
 from core.dashboard.list import list_user
@@ -29,8 +30,11 @@ urlpatterns = [
     path("change/password/<int:user_id>/", change_password, name="change-password"),
     path("grader/<int:gr>/<int:pk>/", grader, name="grader"),
 
-    # create_cart
+    # bonus actions
     path("cart/<user_id>/", create_cart, name="create-cart"),
+    path("award/", award, name="award_for_all"),
+    path("award/<int:pk>/", award, name="award_for_one"),
+
 
     # auth
     path("login/", sign_in, name='login'),

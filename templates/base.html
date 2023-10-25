@@ -260,7 +260,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED SCRIPTS -->
 
 
-<!-- Delete Modal-->
+<!-- Logout Modal-->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -279,6 +279,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
     </div>
 </div>
+
+
+
+<!-- Bonus Modal-->
+<div class="modal fade" id="bonusForAllModal" tabindex="-1" role="dialog" aria-labelledby="BonusForALlModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="BonusForALlModalLabel">Hammaga Bonus berish</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form action="{% url 'award_for_all' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group col-md-4">
+                    <label for="award">Bonus Qiymatini yozing</label><br>
+                    <input type="number" id="award" name="reward">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Barchaga qo'shish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 
 
 <!-- jQuery -->

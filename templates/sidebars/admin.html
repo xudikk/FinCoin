@@ -31,5 +31,16 @@
                 <p>Categorylar</p>
             </a>
         </li>
+
     </ul>
+
 </li>
+{% if request.user.is_staff and request.user.is_superuser %}
+<li class="nav-item">
+    <a href="" data-toggle="modal" data-target="#bonusForAllModal" class="nav-link">
+        <i class="fa fa-gift"></i>
+        <p>Barchaga bonus berish</p>
+    </a>
+</li>
+{% endif %}
+

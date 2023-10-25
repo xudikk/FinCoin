@@ -74,6 +74,11 @@
                                             <i class="fas fa-angle-double-down"></i> Adminlar safidan chiqarish(o'quvchi)
                                         </a>
                                     {% endif %}
+                                       <br>
+                                        <a class="btn btn-outline-success mt-3 btn-circle btn-sm" data-toggle="modal" data-target="#bonusForOneModal">
+                                            <i class="fas fa-gift"></i> Bonus berish
+                                        </a>
+
                                 {% endif %}
                             </div>
                             <div class="px-3 py-2" style="font-size: 1.7rem"><mark>{{ update_user.full_name }}</mark></div>
@@ -152,5 +157,33 @@
         <!-- /.col -->
     </div>
 </section>
+
+
+
+
+<!-- Bonus Modal-->
+<div class="modal fade" id="bonusForOneModal" tabindex="-1" role="dialog" aria-labelledby="BonusForALlModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="BonusForALlModalLabel">{{ update_user.full_name }}ga bonus</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form action="{% url 'award_for_one' pk=update_user.id %}" method="post">
+                {% csrf_token %}
+                <div class="form-group col-md-4">
+                    <label for="award">Bonus Qiymatini yozing</label><br>
+                    <input type="number" id="award" name="reward">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Bonus berish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
