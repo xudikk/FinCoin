@@ -200,6 +200,7 @@ def create_user(request, status=None, pk=None, type=0):
 
 @permission_checker
 def change_password(request, user_id):
+    root = 0
     if request.POST and request.user.ut == 1:
         root = User.objects.filter(pk=user_id).first()
         if root and root.ut != 1:
@@ -209,7 +210,7 @@ def change_password(request, user_id):
             request.user.set_password(request.POST.get("password"))
             request.user.save()
 
-    return redirect('user')
+    return redirect('user', ut=3 if not root else root.ut)
 
 
 @permission_checker
