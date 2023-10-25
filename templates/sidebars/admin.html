@@ -1,0 +1,35 @@
+<li class="nav-item has-treeview menu-open">
+    <a href="#" class="nav-link active">
+        <i class="nav-icon fas fa-tachometer-alt"></i>
+        <p>
+            Menular paneli
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{% url 'user' type=3 %}" class="nav-link {{ u_active }}">
+                <i class="fa-solid fa-users"></i>
+                <p>Userlar </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'dashboard-auto-list' key='news' %}" class="nav-link {{ news_active }}">
+                <i class="fa-solid fa-newspaper"></i>
+                <p>Yangiliklar </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'dashboard-auto-list' key='product' %}" class="nav-link {{ product_active }}">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <p>Maxsulotlar</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'category' %}" class="nav-link {{ ctg_active }}">
+                <i class="fa-solid fa-sliders"></i>
+                <p>Categorylar</p>
+            </a>
+        </li>
+    </ul>
+</li>

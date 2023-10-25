@@ -159,10 +159,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i
-                        class="fas fa-th-large"></i></a>
-            </li>
         </ul>
     </nav>
     <!-- /.navbar -->
@@ -196,41 +192,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
 
-                    <li class="nav-item has-treeview menu-open">
-                        <a href="#" class="nav-link active">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>
-                                Starter Pages
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{% url 'user' type=3 %}" class="nav-link {{ u_active }}">
-                                    <i class="fa-solid fa-users"></i>
-                                    <p>Userlar </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{% url 'dashboard-auto-list' key='news' %}" class="nav-link {{ news_active }}">
-                                    <i class="fa-solid fa-newspaper"></i>
-                                    <p>Yangiliklar </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{% url 'dashboard-auto-list' key='product' %}" class="nav-link {{ product_active }}">
-                                    <i class="fa-solid fa-cart-shopping"></i>
-                                    <p>Maxsulotlar</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{% url 'category' %}" class="nav-link {{ ctg_active }}">
-                                    <i class="fa-solid fa-sliders"></i>
-                                    <p>Categorylar</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    {% include pages_html_type.1 %}
                     <li class="nav-item">
                         <a href="" data-toggle="modal" data-target="#logoutModal" class="nav-link">
                             <i class="fas fa-sign-out-alt "></i>

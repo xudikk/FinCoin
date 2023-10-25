@@ -20,15 +20,15 @@ def user_type(request):
 
     try:
         types = {
-            1: "pages/owner/main.html",
-            2: "pages/teacher/main.html",
-            3: "pages/default_user/main.html",
+            1: ["pages/owner/main.html", "sidebars/admin.html"],
+            2: ["pages/teacher/main.html", "sidebars/mentor.html"],
+            3: ["pages/default_user/main.html", "sidebars/student.html"],
 
-        }.get(request.user.ut, ["pages/default_user/main.html"])
+        }.get(request.user.ut, ["pages/default_user/main.html", "sidebars/student.html"])
     except:
-        types = ["pages/client/main.html"]
+        types = ["pages/default_user/main.html", "sidebars/student.html"]
     ctx = {
-        "type": types,
+        "pages_html_type": types,
         'app_name': settings.APP_NAME
     }
     if not request.user.is_anonymous:

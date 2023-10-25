@@ -82,6 +82,7 @@ def create_user(request, status=None, pk=None, type=0):
                     "specialty": request.POST.get('specialty'),
                     "username": request.POST.get('username'),
                     "password": request.POST.get('password'),
+                    "email": request.POST.get('email'),
                     "ut": type or 3
                 }
                 user = User.objects.create_user(**data)
@@ -103,6 +104,7 @@ def create_user(request, status=None, pk=None, type=0):
                 root.level = request.POST.get('level')
                 root.specialty = request.POST.get('specialty')
                 root.username = request.POST.get('username')
+                root.email = request.POST.get('email')
                 root.save()
 
             return redirect('user', type=type)
