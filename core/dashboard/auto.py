@@ -8,6 +8,7 @@ from core.forms.auto import ProductForm, NewForm
 
 @login_required(login_url='sign-in')
 def gets(requests, key, pk=None):
+    # print(">>>>>>>>>>>", key, pk)
     try:
         Model = {
             "news": New,
@@ -17,6 +18,9 @@ def gets(requests, key, pk=None):
         return render(requests, 'base.html', {"error": 404})
     if pk:
         root = Model.objects.filter(pk=pk).first()
+        if key == "news":
+            root.view += 1
+            root.save()
         ctx = {
             "pos": "one",
             'root': root,
@@ -34,12 +38,13 @@ def gets(requests, key, pk=None):
             "pos": "list"
         }
     ctx.update({f"{key}_active": "active"})
-
+    # print(">>>>>>>>", ctx, key, pk)
     return render(requests, f'pages/{key}.html', ctx)
 
 
 @login_required(login_url='sign-in')
 def auto_form(requests, key, pk=None):
+    # print(">>>>>>>>>>>", key, pk)
     try:
         Model = {
             "news": "New",
@@ -56,6 +61,7 @@ def auto_form(requests, key, pk=None):
 
     form = eval(f"{Model}Form")(requests.POST or None, requests.FILES or None, instance=root)
     if form.is_valid():
+        # print("YES Valid", key, pk, form)
         form.save()
         return redirect('dashboard-auto-list', key=key)
 
@@ -63,5 +69,5 @@ def auto_form(requests, key, pk=None):
         "form": form,
         "pos": 'form'
     }
+    # print(">>>>>>>>", ctx, key, pk)
     return render(requests, f'pages/{key}.html', ctx)
-

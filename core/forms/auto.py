@@ -11,7 +11,7 @@ class ProductForm(forms.ModelForm):
 class NewForm(forms.ModelForm):
     class Meta:
         model = New
-        fields = '__all__'
+        exclude = ["view"]
 
 
 class CategoryForm(forms.ModelForm):
