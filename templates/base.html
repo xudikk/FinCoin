@@ -230,7 +230,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="content">
             <div class="container-fluid">
                 {% if error == 404 %}
-                  {% include 'pages/404.html' %}
+                  {% include 'pages/abs404.html' %}
                 {% else %}
                   {% block content %} {% endblock %}
                 {% endif %}

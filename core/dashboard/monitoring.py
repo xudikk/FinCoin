@@ -20,7 +20,7 @@ def award(request, pk=None):
         sql = f"""
             UPDATE core_card 
             set balance = balance + {request.POST.get('reward', 0)}
-            {f'where user_id = {pk} ' if pk else ""} 
+            {f'where user_id = {pk} ' if pk else ""}
         """
         with closing(connection.cursor()) as cursor:
             cursor.execute(sql)

@@ -104,16 +104,32 @@
                       <div class="tab-pane fade active show" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
                       {% if card_user %}
                             {% for i in card_user %}
-                            <div class="card-body-1 card text-light d-inline-block mr-3 mt-2 w-auto"
-                                 style="max-width: 28rem; width: 26%; border-radius: 20px">
-                                <div class="card-body">
-                                    <h4 class="card-text">{{ i.name }}</h4>
-                                    <p class="card-text"><b>{{ i.balance }} сум</b></p>
-                                    <p class="card-text text-uppercase">{{ i.user.full_name }}</p>
-                                    <p class="card-text">{{ i.mask }} <span class="ml-5"> {{ i.expire }}</span></p>
-                                </div>
-                            </div>
-                            {% endfor %}
+                                {% if card_len > 1 %}
+                                    <div class="card-body-1 card text-light d-inline-block mr-3 mt-2 w-auto"
+                                         style="max-width: 28rem; width: 26%; border-radius: 20px">
+                                        <div class="card-body">
+                                            <h4 class="card-text">{{ i.name }}
+                                                <a href="{% url 'del-card' pk=i.id user=update_user.id%}" title="Kartani Ochirish" class="btn btn-danger ml-4 btn-circle btn-wd">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </h4>
+                                            <p class="card-text"><b>{{ i.balance }} сум</b></p>
+                                            <p class="card-text text-uppercase">{{ i.user.full_name }}</p>
+                                            <p class="card-text">{{ i.mask }} <span class="ml-5"> {{ i.expire }}</span></p>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                  <div class="card-body-1 card text-light d-inline-block mr-3 mt-2 w-auto"
+                                       style="max-width: 28rem; width: 26%; border-radius: 20px">
+                                      <div class="card-body">
+                                          <h4 class="card-text">{{ i.name }}</h4>
+                                          <p class="card-text"><b>{{ i.balance }} сум</b></p>
+                                          <p class="card-text text-uppercase">{{ i.user.full_name }}</p>
+                                          <p class="card-text">{{ i.mask }} <span class="ml-5"> {{ i.expire }}</span></p>
+                                      </div>
+                                  </div>
+                                {% endif %}
+                          {% endfor %}
                       {% else %}
                           <div class="card-body bg-secondary card text-light d-inline-block mr-3 mt-2 w-auto"
                                  style="max-width: 28rem; width: 26%; border-radius: 20px">

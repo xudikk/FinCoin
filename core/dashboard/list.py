@@ -11,12 +11,26 @@ from core.models.auth import User
 
 
 @admin_permission_checker
-def list_user(request,  pk=None):
+def list_user(request, pk=None):
     try:
+        # print("1")
         update_user = User.objects.filter(id=pk).first()
         card = Card.objects.filter(user=update_user)
+        # print(">>>>>>>>>", len(card))
+        return render(request, 'pages/list.html',
+                      {"update_user": update_user, "card_user": card, 'u_active': "active", "card_len": len(card)})
     except Exception as e:
-        return render(request, 'base.html', {"error": 404})
+        # print("2", e)
+        return render(request, 'pages/abs404.html')
+    # print("3")
+    # return render(request, 'pages/list.html')
 
-    return render(request, 'pages/list.html',
-                  {"update_user": update_user, "card_user": card, 'u_active': "active"})
+
+def delCard(request, pk, user):
+    try:
+        Card.objects.filter(pk=pk).first().delete()
+        return redirect("get_user_info", pk=user)
+    except Exception as e:
+        return render(request, "pages/abs404.html")
+
+    # return render(request, "pages/list.html")

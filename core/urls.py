@@ -11,8 +11,7 @@ from core.dashboard.auth import create_user, change_password, grader, create_car
 from core.dashboard.monitoring import award
 from core.dashboard.view import index
 from core.dashboard.auth import sign_in, sign_out, clear
-from core.dashboard.list import list_user
-
+from core.dashboard.list import list_user, delCard
 
 urlpatterns = [
 
@@ -58,5 +57,8 @@ urlpatterns = [
     path("auto/<key>/<int:pk>/", gets, name="dashboard-auto-detail"),
     path("auto/<key>/add/", auto_form, name="dashboard-auto-add"),
     path("auto/<key>/edit/<int:pk>/", auto_form, name="dashboard-auto-edit"),
+
+    #card
+    path("del-card/<int:user>/<int:pk>/", delCard, name="del-card"),
 
 ]
