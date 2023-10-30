@@ -1,3 +1,165 @@
-<h2>
-    Bu user Paneli
-</h2>
+{% load static %}
+{% load bootstrap4 %}
+<style>
+    .card-body-1{
+        background-image: url({% static "img.png" %})
+    }
+
+</style>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Algaritmlar</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for i in all_algo %}
+                    <div class="col-sm-3 mt-2">
+                        <div class="position-relative p-3 bg-dark" style="height: 180px">
+                            <div class="ribbon-wrapper ribbon-lg">
+                                {% if i.bonus %}
+                                <div class="ribbon bg-success text-lg" id="bonus{{forloop.counter}}">
+                                    +{{ i.bonus }}
+                                </div>
+                                {% endif %}
+                            </div>
+                            {{ i.first_name }} {{ i.last_name }} <br><i>{{i.reward}}</i><br>
+                            <small>{{ i.description }}</small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+</div>
+
+<hr>
+
+<div class="row">
+    {% for i in all_news %}
+    <div class="col-md-6">
+        <!-- Box Comment -->
+        <div class="card card-widget">
+            <div class="card-header">
+                <div class="user-block">
+                    <img class="img-circle" src="{% static 'auth/Logo1.PNG' %}" alt="User Image">
+                    <span class="username"><a href="#">Fintech Coin</a></span>
+                    <span class="description">Yangiliklardan lavhalar</span>
+                </div>
+                <!-- /.user-block -->
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body" style="display: block;">
+                <a href="{% url 'dashboard-auto-detail' key='news' pk=i.id %}">
+                    <img class="img-fluid pad" src="{{ i.img.url }}" alt="Photo" width="350px">
+                </a>
+
+                <p class="mt-3 text-capitalize"><b>{{ i.title }}</b><span class="float-right text-muted"><i
+                        class="fa-regular fa-eye"></i> {{ i.view }}
+
+
+                </span></p>
+
+            </div>
+
+        </div>
+        <!-- /.card -->
+    </div>
+
+    {% endfor %}
+
+
+</div>
+{% if not all_news %}
+<h3 class="text-primary">Yangiliklar mavjud emas yangilik qo'shing ☝</h3>
+{% else %}
+<hr>
+    <div class="pagination">
+        <span class="step-links">
+            {% if all_news.has_previous %}
+                <a href="?page=1" class="btn btn-primary btn-sm">&laquo;first</a>
+                <a href="?page={{ roots.previous_page_number }}" class="btn btn-primary btn-sm">prev</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ all_news.number }} of {{ all_news.paginator.num_pages }}.
+            </span>
+
+            {% if all_news.has_next %}
+                <a href="?page={{ roots.next_page_number }}" class="btn btn-primary btn-sm">next</a>
+                <a href="?page={{ roots.paginator.num_pages }}"
+                   class="btn btn-primary btn-sm">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+<br>
+{% endif %}
+
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="card shadow-none">
+                        <div class="d-flex">
+                            <img {% if user_info.gender %}
+                             src="{% static 'ddist/img/avatar.png' %}"
+                             {% else %}
+                             src="{% static 'ddist/img/avatar2.png' %}"
+                             {% endif %} alt="" class="border" style="border-radius: 20px; width: 15%">
+                        <div class="w-100" >
+                            <div class="px-3 py-2" style="font-size: 1.7rem"><mark>{{ user_info.full_name }}</mark></div>
+                            <div class="px-3" style="font-size: 1.1rem"><span style="font-weight: 600">Email: </span><mark>{{ update_user.email }}</mark></div>
+                            <div class="px-3" style="font-size: 1.1rem"><span style="font-weight: 600">Daraja: </span><mark>{{ update_user.level }}</mark></div>
+                            <div class="px-3" style="font-size: 1.1rem"><span style="font-weight: 600">Username: </span><mark>{{ update_user.get_uname }}</mark></div>
+                            <div class="px-3" style="font-size: 1.1rem"><span style="font-weight: 600">User Type: </span><mark>{% if update_user.ut == 1  %} Admin {% elif update_user.ut == 2 %} Teacher {% else %} Student {% endif %}</mark></div>
+                            <div class="px-3" style="font-size: 1.1rem"><span style="font-weight: 600">Mutaxasisligi: </span><mark>{{ update_user.specialty }}</mark></div>
+                            <div class="px-3" style="font-size: 1.1rem"><span style="font-weight: 600">Email tasdiqlanganmi?: </span><mark>{{ update_user.everf }}</mark></div>
+                            <div class="px-3" style="font-size: 1.1rem"><span style="font-weight: 600">Telefon raqami: </span><mark>{{ update_user.show_phone }}</mark></div>
+<!--                            <div class="px-3" style="font-size: 1.1rem"><span style="font-weight: 600">Orginal Phone: </span><mark>{{ update_user.phone }}</mark></div>-->
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <nav class="w-100">
+                            <div class="nav nav-tabs" id="product-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="product-comments-tab" data-toggle="tab"
+                                   href="#product-comments" role="tab" aria-controls="product-comments"
+                                   aria-selected="true">User Kartalari</a>
+                            </div>
+                        </nav>
+                    </div>
+
+                    <br>
+
+                    <div class="row">
+                        <div class="col-xl-6 col-md-6 mb-4">
+                            <a href="{% url 'home' %}" class="btn btn-info">
+                           <span class="icon text-white-50">
+                                <i class="fas fa-home"></i>
+                            </span>
+                                <span class="text">Bosh Menu</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+</section>

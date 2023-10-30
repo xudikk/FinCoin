@@ -13,6 +13,8 @@ from core.dashboard.view import index
 from core.dashboard.auth import sign_in, sign_out, clear
 from core.dashboard.list import list_user, delCard
 
+
+
 urlpatterns = [
 
     path("", index, name='home'),
@@ -44,6 +46,7 @@ urlpatterns = [
     path('user/info/<int:pk>/', list_user, name='get_user_info'),
 
     # algaritm
+
     path('algaritm/', algaritm, name='all_algaritm'),
     path('algaritm/<key>/', algaritm, name='create_algaritm'),
     path('algaritm/<key>/<int:pk>/', algaritm, name='edit_algaritm'),
