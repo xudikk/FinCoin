@@ -29,7 +29,7 @@ def home_page(request):
             limit 5
     """
     news = "select id, img, title from core_new order by id desc limit 3"
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>", rating)
+
     with closing(connection.cursor()) as cursor:
         cursor.execute(balance)
         balance = dictfetchone(cursor)

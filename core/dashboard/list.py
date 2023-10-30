@@ -13,16 +13,12 @@ from core.models.auth import User
 @admin_permission_checker
 def list_user(request, pk=None):
     try:
-        # print("1")
         update_user = User.objects.filter(id=pk).first()
         card = Card.objects.filter(user=update_user)
-        # print(">>>>>>>>>", len(card))
         return render(request, 'pages/list.html',
                       {"update_user": update_user, "card_user": card, 'u_active': "active", "card_len": len(card)})
     except Exception as e:
-        # print("2", e)
         return render(request, 'pages/abs404.html')
-    # print("3")
     # return render(request, 'pages/list.html')
 
 
