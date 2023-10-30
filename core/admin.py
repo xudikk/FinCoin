@@ -4,7 +4,7 @@
 #
 #  Tashkent, Uzbekistan
 from django.contrib import admin
-from core.models import User, Token, Otp, Card, ExpiredToken, Algorithm, Done, Product, Category, New, Student, Teacher
+from core.models import User, Token, Otp, Card, ExpiredToken, Algorithm, Done, Product, Category, New
 
 # Register your models here.
 admin.site.register(User)
@@ -17,5 +17,3 @@ admin.site.register(Done)
 admin.site.register(Product)
 admin.site.register(Category)
 admin.site.register(New)
-admin.site.register(Student)
-admin.site.register(Teacher)
