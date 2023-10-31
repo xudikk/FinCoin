@@ -13,6 +13,7 @@ from base.custom import admin_permission_checker
 from core.forms.auto import AlgorithmForm
 from core.models import Algorithm, User, Card, New
 
+
 @login_required(login_url='login')
 def index(request, pk=None):
     if request.user.ut == 3:
@@ -30,14 +31,9 @@ def index(request, pk=None):
             page_number = request.GET.get("page", 1)
             paginated = paginator.get_page(page_number)
             all_algo = Algorithm.objects.all()
-            user_info = User.objects.filter(pk=pk).first()
-            card = Card.objects.filter(user=user_info)
             ctx = {
                 "all_algo": all_algo,
                 "all_news": paginated,
-                'user_info': user_info,
-                'card': card,
-
             }
             return render(request, 'pages/index.html', ctx)
     return render(request, 'pages/index.html', {'active': "active"})
