@@ -181,7 +181,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="" class="d-block">{{ request.user.get_uname }}</a>
+                    <a href="" class="d-block">
+                        {% if request.user.username %}
+                        {{ request.user.username }}
+                        {% else %}
+                        {{ request.user.get_uname }}
+                        {% endif %}
+                    </a>
                 </div>
             </div>
 

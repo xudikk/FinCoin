@@ -8,109 +8,119 @@
 
 </style>
 
-<div class="row">
-    <div class="col-12">
-        <div class="card card-primary">
-            <div class="card-header">
-                <h3 class="card-title">Algaritmlar</h3>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    {% for i in all_algo %}
-                    <div class="col-sm-3 mt-2">
-                        <div class="position-relative p-3 bg-dark" style="height: 180px">
-                            <div class="ribbon-wrapper ribbon-lg">
-                                {% if i.bonus %}
-                                <div class="ribbon bg-success text-lg" id="bonus{{forloop.counter}}">
-                                    +{{ i.bonus }}
+<div class="">
+    <div class="row">
+        <div class="col-12">
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Algaritmlar </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% if not all_algo and not edited %}
+                        <h2 class="text-success">
+                            Algaritmlarga doir masalalar mavjud emas
+                        </h2>
+                        {% endif %}
+                        {% for i in all_algo %}
+                        <div class="col-sm-3 mt-2">
+                            <div class="position-relative p-3 bg-dark" style="height: 180px">
+                                <div class="ribbon-wrapper ribbon-lg">
+                                    {% if i.bonus %}
+                                    <div class="ribbon bg-success text-lg" id="bonus{{forloop.counter}}">
+                                        +{{ i.bonus }}
+                                    </div>
+                                    {% endif %}
                                 </div>
-                                {% endif %}
+                                <span class="text-capitalize">
+                                    {{ i.first_name }} {{ i.last_name }}
+                                </span>
+                                <br><i>Ball: {{i.reward}}</i><br>
+                                <small>{{ i.description }}</small>
                             </div>
-                            {{ i.first_name }} {{ i.last_name }} <br><i>{{i.reward}}</i><br>
-                            <small>{{ i.description }}</small>
                         </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
             </div>
-            <!-- /.card-body -->
         </div>
-        <!-- /.card -->
     </div>
-    <!-- /.col -->
+</div>
+<hr>
+<div class="card card-purple">
+    <div class="card-header border-transparent">
+        <h3 class="card-title">Top 5 ta ko'p ball to'plaganlar 💰💰💰</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table m-0">
+                <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Username</th>
+                    <th>Level</th>
+                    <th>Ballance</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in rating %}
+                <tr>
+                    <td>{{ i.full_name }}</td>
+                    <td>{{ i.username }}</td>
+                    {% if i.level == 'Beginner' %}
+                    <td>
+                        <span class="text-danger">
+                        {{ i.level }}
+                        </span>
+                    </td>
+                    {% elif i.level == 'Junior' %}
+                    <td>
+                        <span class="text-warning">
+                        {{ i.level }}
+                        </span>
+                    </td>
+                    {% elif i.level == 'Middle' %}
+                    <td>
+                        <span class="text-success">
+                        {{ i.level }}
+                        </span>
+                    </td>
+                    {% elif i.level == 'Senior' %}
+                    <td>
+                        <span class="text-info">
+                        {{ i.level }}
+                        </span>
+                    </td>
+                    {% elif i.level == 'TeamLead' %}
+                    <td>
+                        <span class="text-dark">
+                        {{ i.level }}
+                        </span>
+                    </td>
+                    {% endif %}
+                    <td>
+                        <div class="sparkbar" data-color="#00a65a" data-height="20">
+                            {{ i.balance }}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <hr>
 
-<div class="card">
-  <div class="card-header border-transparent">
-    <h3 class="card-title">Top 5 ta ko'p ball to'plaganlar 💰💰</h3>
 
-    <div class="card-tools">
-      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-        <i class="fas fa-minus"></i>
-      </button>
-    </div>
-  </div>
-  <!-- /.card-header -->
-  <div class="card-body p-0">
-    <div class="table-responsive">
-      <table class="table m-0">
-        <thead>
-        <tr>
-          <th>User ID</th>
-          <th>Full Name</th>
-          <th>Username</th>
-          <th>Level</th>
-          <th>Ballance</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for i in rating %}
-        <tr>
-          <td><a href="#">User | {{ i.id }}</a></td>
-          <td>{{ i.full_name }}</td>
-          <td>{{ i.username }}</td>
-          {% if i.level == 'Beginner' %}
-          <td><span class="text-danger">
-            {{ i.level }}
-          </span></td>
-          {% elif i.level == 'Junior' %}
-          <td><span class="text-warning">
-            {{ i.level }}
-          </span></td>
-          {% elif i.level == 'Middle' %}
-          <td><span class="text-success">
-            {{ i.level }}
-          </span></td>
-          {% elif i.level == 'Senior' %}
-          <td><span class="text-info">
-            {{ i.level }}
-          </span></td>
-          {% elif i.level == 'TeamLead' %}
-          <td><span class="text-dark">
-            {{ i.level }}
-          </span></td>
-          {% endif %}
-          <td>
-            <div class="sparkbar" data-color="#00a65a" style="text-wrap: balance;" id="balance{{ forloop.counter }}" data-height="20"></div>
-          </td>
-        </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    <!-- /.table-responsive -->
-  </div>
-  <!-- /.card-body -->
-  <div class="card-footer clearfix">
-    <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">Ko'roq ko'rsatish</a>
-  </div>
-  <!-- /.card-footer -->
-</div>
-
-<hr>
-
+{% if all_news %}
 <div class="row">
     {% for i in all_news %}
     <div class="col-md-6">
@@ -132,7 +142,7 @@
             <!-- /.card-header -->
             <div class="card-body" style="display: block;">
                 <a href="{% url 'dashboard-auto-detail' key='news' pk=i.id %}">
-                    <img class="img-fluid pad" src="{{ i.img.url }}" alt="Photo" width="350px">
+                    <img class="img-fluid pad w-auto" src="{{ i.img.url }}" alt="Photo">
                 </a>
 
                 <p class="mt-3 text-capitalize"><b>{{ i.title }}</b><span class="float-right text-muted"><i
@@ -151,10 +161,6 @@
 
 
 </div>
-{% if not all_news %}
-<h3 class="text-primary">Yangiliklar mavjud emas yangilik qo'shing ☝</h3>
-{% else %}
-<hr>
 <div class="pagination">
         <span class="step-links">
             {% if all_news.has_previous %}
@@ -173,113 +179,10 @@
             {% endif %}
         </span>
 </div>
-<br>
+{% else %}
+<h3 class="text-info">
+    Yangiliklar mavjud emas
+</h3>
 {% endif %}
 
-<section class="content">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <div class="card shadow-none">
-                        <div class="d-flex">
-                            <img {% if request.user.gender %}
-                                 src="{% static 'ddist/img/avatar.png' %}"
-                                 {% else %}
-                                 src="{% static 'ddist/img/avatar2.png' %}"
-                                 {% endif %} alt="" class="border w-auto" style="border-radius: 20px; width: 15%">
-                            <div class="w-100">
-                                <div class="px-3 py-2" style="font-size: 1.7rem">
-                                    <mark>{{ request.user.full_name }}</mark>
-                                </div>
-                                <div class="px-3" style="font-size: 1.1rem"><span
-                                        style="font-weight: 600">Email: </span>
-                                    <mark>{{ request.user.email }}</mark>
-                                </div>
-                                <div class="px-3" style="font-size: 1.1rem"><span
-                                        style="font-weight: 600">Daraja: </span>
-                                    <mark>{{ request.user.level }}</mark>
-                                </div>
-                                <div class="px-3" style="font-size: 1.1rem"><span
-                                        style="font-weight: 600">Username: </span>
-                                    <mark>{{ request.user.get_uname }}</mark>
-                                </div>
-                                <div class="px-3" style="font-size: 1.1rem"><span
-                                        style="font-weight: 600">User Type: </span>
-                                    <mark>{% if update_user.ut == 1 %} Admin {% elif update_user.ut == 2 %} Teacher {%else %} Student {% endif %}</mark>
-                                </div>
-                                <div class="px-3" style="font-size: 1.1rem"><span style="font-weight: 600">Mutaxasisligi: </span>
-                                    <mark>{{ request.user.specialty }}</mark>
-                                </div>
-                                <div class="px-3" style="font-size: 1.1rem"><span style="font-weight: 600">Email tasdiqlanganmi?: </span>
-                                    <mark>{{ request.user.everf }}</mark>
-                                </div>
-                                <div class="px-3" style="font-size: 1.1rem"><span style="font-weight: 600">Telefon raqami: </span>
-                                    <mark>{{ request.user.show_phone }}</mark>
-                                </div>
-                                <!--<div class="px-3" style="font-size: 1.1rem"><span style="font-weight: 600">Orginal Phone: </span><mark>{{ update_user.phone }}</mark></div>-->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <nav class="w-100">
-                            <div class="nav nav-tabs" id="product-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="product-comments-tab" data-toggle="tab"
-                                   href="#product-comments" role="tab" aria-controls="product-comments"
-                                   aria-selected="true">User Kartalari</a>
-                            </div>
-                        </nav>
-                        <div class="tab-content p-3" id="nav-tabContent">
-                            <div class="tab-pane fade active show" id="product-comments" role="tabpanel"
-                                 aria-labelledby="product-comments-tab">
-                                {% if card_user %}
-                                    {% for i in card_user %}
-                                        {% if card_len > 1 %}
-                                <div class="card-body-1 card text-light d-inline-block mr-3 mt-2 w-auto"
-                                     style="max-width: 28rem; width: 26%; border-radius: 20px">
-                                    <div class="card-body">
-                                        <h4 class="card-text">{{ i.name }}</h4>
-                                        <p class="card-text"><b>{{ i.balance }} сум</b></p>
-                                        <p class="card-text text-uppercase">{{ i.user.full_name }}</p>
-                                        <p class="card-text">{{ i.mask }} <span class="ml-5"> {{ i.expire }}</span></p>
-                                    </div>
-                                </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% else %}
-                                <div class="card-body bg-secondary card text-light d-inline-block mr-3 mt-2 w-auto"
-                                     style="max-width: 28rem; width: 26%; border-radius: 20px">
-                                    <div class="card-body">
-                                        <h5 class="card-text">Bu Foydalanuvchida hech qanday karta topilmadi</h5>
-                                    </div>
-                                </div>
-
-                                {% endif %}
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <br>
-
-                    <div class="row">
-                        <div class="col-xl-6 col-md-6 mb-4">
-                            <a href="{% url 'home' %}" class="btn btn-info">
-                           <span class="icon text-white-50">
-                                <i class="fas fa-home"></i>
-                            </span>
-                                <span class="text">Bosh Menu</span>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-        </div>
-        <!-- /.col -->
-    </div>
-</section>
+<br>

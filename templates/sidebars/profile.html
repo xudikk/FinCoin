@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} User Profile {% endblock %}
+{% block pagetitle %} User Profile {% endblock %}
+
+{% block content %}
+
+<style>
+    .card-body-1{
+        background-image: url({% static "img.png" %})
+    }
+</style>
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img {% if not update_user.gender %}
+                                 src="{% static 'ddist/img/avatar.png' %}"
+                                 {% else %}
+                                 src="{% static 'ddist/img/avatar2.png' %}"
+                                 {% endif %} alt="" class="border w-auto" style="border-radius: 20px; width: 15%">
+                        </div>
+
+                        <h3 class="profile-username text-center">{{ request.user.full_name }}</h3>
+
+                        <p class="text-muted text-center">{{ request.user.specialty }}</p>
+
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>Ball</b> <a class="float-right">{{ balance }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Daraja</b> <a class="float-right">{{ request.user.level }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Phone</b> <a class="float-right">{{ request.user.phone }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active bg-purple" href="#activity"
+                                                    data-toggle="tab">User kartasi</a></li>
+                        </ul>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show" id="product-comments" role="tabpanel"
+                                 aria-labelledby="product-comments-tab">
+                                {% if card_user %}
+                                {% for i in card_user %}
+                                <div class="card-body-1 card text-light d-inline-block mr-3 mt-2 w-auto"
+                                     style="max-width: 28rem; width: 26%; border-radius: 20px">
+                                    <div class="card-body">
+                                        <h4 class="card-text">{{ i.name }}</h4>
+                                        <p class="card-text"><b>{{ i.balance }} сум</b></p>
+                                        <p class="card-text text-uppercase">{{ i.user.full_name }}</p>
+                                        <p class="card-text">{{ i.mask }} <span class="ml-5"> {{ i.expire }}</span></p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% else %}
+                                <h3 class="text-info">
+                                    Sizning nomingizga karta ochilmagan
+                                </h3>
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+                        <div class="post">
+                            <div class="user-block">
+                                <img class="img-circle img-bordered-sm" src="{% static 'auth/logo1.png' %}"
+                                     alt="user image">
+                                <span class="username">
+                            <span class="text-primary">Fintech Inavation hub</span>
+                            </span>
+                                <span class="description">Ish vaqti 9:00 dan 20:00 gacha</span>
+                            </div>
+                            <p>
+                                Lorem ipsum represents a long-held tradition for designers,
+                                typographers and the like. Some people hate it and argue for
+                                its demise, but others ignore the hate as they create awesome
+                                tools to help create filler text for everyone from bacon lovers
+                                to Charlie Sheen fans.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

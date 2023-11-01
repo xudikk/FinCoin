@@ -22,6 +22,14 @@ def list_user(request, pk=None):
     # return render(request, 'pages/list.html')
 
 
+def profile(request):
+    if request.user.is_anonymous:
+        return redirect('login')
+
+    card = Card.objects.filter(user=request.user)
+    return render(request, 'sidebars/profile.html', {"card_user": card})
+
+
 def delCard(request, pk, user):
     try:
         Card.objects.filter(pk=pk).first().delete()

@@ -11,9 +11,7 @@ from core.dashboard.auth import create_user, change_password, grader, create_car
 from core.dashboard.monitoring import award
 from core.dashboard.view import index
 from core.dashboard.auth import sign_in, sign_out, clear
-from core.dashboard.list import list_user, delCard
-
-
+from core.dashboard.list import list_user, delCard, profile
 
 urlpatterns = [
 
@@ -44,6 +42,7 @@ urlpatterns = [
 
     # user actions
     path('user/info/<int:pk>/', list_user, name='get_user_info'),
+    path('user-profile/', profile, name='user_profile'),
 
     # algaritm
 

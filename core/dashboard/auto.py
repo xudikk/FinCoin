@@ -2,13 +2,14 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
+
+from base.custom import admin_permission_checker, permission_checker
 from core.models import Product, New
 from core.forms.auto import ProductForm, NewForm
 
 
 @login_required(login_url='sign-in')
 def gets(requests, key, pk=None):
-
     try:
         Model = {
             "news": New,
@@ -42,9 +43,8 @@ def gets(requests, key, pk=None):
     return render(requests, f'pages/{key}.html', ctx)
 
 
-@login_required(login_url='sign-in')
+@permission_checker
 def auto_form(requests, key, pk=None):
-
     try:
         Model = {
             "news": "New",
@@ -61,7 +61,6 @@ def auto_form(requests, key, pk=None):
 
     form = eval(f"{Model}Form")(requests.POST or None, requests.FILES or None, instance=root)
     if form.is_valid():
-
         form.save()
         return redirect('dashboard-auto-list', key=key)
 
