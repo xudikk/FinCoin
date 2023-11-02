@@ -138,12 +138,6 @@
 <!-- /.card -->
 
 
-<!DOCTYPE html>
-<html>
-<body>
-
-<p id="demo"></p>
-
 <script>
   function balanceView(id, number){
     var formattedNumber = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -156,6 +150,3 @@
     balanceView("balance" + (i + 1), balances[i]);
   }
 </script>
-
-</body>
-</html>
