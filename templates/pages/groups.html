@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Group | View{% endblock %}
+{% block pagetitle %}Guruhlar{% endblock %}
+{% block page_title %}Guruh Turlari{% endblock %}
 
 {% load bootstrap4 %}
 {% block content %}
@@ -77,10 +79,10 @@
                             {% endif %}
 
                             <td>
-                                <a href="{% url 'admin-member-edit' edit_id=i.id %}" title="Manage member" class="btn btn-success btn-circle btn-sm">
+                                <a href="#" title="Manage member" class="btn btn-success btn-circle btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="{% url 'admin-member-one' _id=i.id %}" title="Member Info" class="btn btn-info btn-circle btn-sm">
+                                <a href="#" title="Member Info" class="btn btn-info btn-circle btn-sm">
                                     <i class="fas fa-info"></i>
                                 </a>
                                 <a href="{% url 'admin-group-del-student' group_id=group.id student_id=i.id %}" title="Remove From Group" class="btn btn-danger btn-circle btn-sm">
@@ -306,9 +308,6 @@
 
     <div class="container-fluid">
 
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Guruh Turlari</h1>
-        </div>
 
         <div class="row">
 

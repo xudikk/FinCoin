@@ -198,10 +198,11 @@ def create_user(request, status=None, pk=None, type=0):
     return render(request, f'pages/user.html', ctx)
 
 
-@permission_checker
 def change_password(request, user_id):
+    if request.user.is_anonymous:
+        return redirect('login')
     root = 0
-    if request.POST and request.user.ut == 1:
+    if request.POST and request.user.ut == 1 or request.user.ut == 3:
         root = User.objects.filter(pk=user_id).first()
         if root and root.ut != 1:
             root.set_password(request.POST.get("password"))

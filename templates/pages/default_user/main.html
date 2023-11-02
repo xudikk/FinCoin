@@ -123,7 +123,7 @@
 {% if all_news %}
 <div class="row">
     {% for i in all_news %}
-    <div class="col-md-6">
+    <div class="col-md-3">
         <!-- Box Comment -->
         <div class="card card-widget">
             <div class="card-header">
@@ -149,6 +149,11 @@
                         class="fa-regular fa-eye"></i> {{ i.view }}
 
 
+                        <a href="{% url 'dashboard-auto-edit' key='news' pk=i.id %}" title="O'zgartirish"
+                           class="btn btn-warning btn-circle btn-sm ml-3">
+                            <i class="fas fa-pen"></i>
+                        </a>
+
                 </span></p>
 
             </div>
@@ -158,7 +163,6 @@
     </div>
 
     {% endfor %}
-
 
 </div>
 <div class="pagination">

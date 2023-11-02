@@ -10,8 +10,6 @@
         background-image: url({% static "img.png" %})
     }
 </style>
-
-
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -32,7 +30,7 @@
 
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                                <b>Ball</b> <a class="float-right">{{ balance }}</a>
+                                <b>Ball</b> <a class="float-right">{% for i in card_user %}{{i.balance}}{% endfor %}</a>
                             </li>
                             <li class="list-group-item">
                                 <b>Daraja</b> <a class="float-right">{{ request.user.level }}</a>
@@ -49,13 +47,15 @@
                 <div class="card">
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
-                            <li class="nav-item"><a class="nav-link active bg-purple" href="#activity"
+                            <li class="nav-item"><a class="nav-link active mr-3" href="#action"
+                                                    data-toggle="tab">User Malumotlari </a></li>
+                            <li class="nav-item"><a class="nav-link " href="#activity"
                                                     data-toggle="tab">User kartasi</a></li>
                         </ul>
                     </div><!-- /.card-header -->
                     <div class="card-body">
                         <div class="tab-content">
-                            <div class="tab-pane fade active show" id="product-comments" role="tabpanel"
+                            <div class="tab-pane show" id="activity" role="tabpanel"
                                  aria-labelledby="product-comments-tab">
                                 {% if card_user %}
                                 {% for i in card_user %}
@@ -74,11 +74,7 @@
                                     Sizning nomingizga karta ochilmagan
                                 </h3>
                                 {% endif %}
-
-                            </div>
-
-                        </div>
-                        <div class="post">
+                                <div class="post">
                             <div class="user-block">
                                 <img class="img-circle img-bordered-sm" src="{% static 'auth/logo1.png' %}"
                                      alt="user image">
@@ -95,7 +91,36 @@
                                 to Charlie Sheen fans.
                             </p>
                         </div>
-
+                            </div>
+                            <div class="tab-pane active" id="action" role="tabpanel"
+                                 aria-labelledby="product-comments-tab">
+                                <form method="post" class="form-group">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label for="firstn">First name</label>
+                                            <input class="form-control" id="firstn" type="text" value="{{ request.user.first_name }}" name="first_name" required>
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="lastn">Last name</label>
+                                            <input class="form-control" id="lastn" type="text" value="{{ request.user.last_name }}" name="last_name" required>
+                                        </div>
+                                    </div>
+                                    <label for="username">Username</label>
+                                    <input class="form-control" id="username" type="text" value="{{ request.user.username }}" name="username" placeholder="Your username" required>
+                                    <label for="email">Email</label>
+                                    <input class="form-control" id="email" type="text" value="{{ request.user.email }}" name="email">
+                                    <label for="phone">Phone</label>
+                                    <input class="form-control " id="phone" type="text" value="{{ request.user.phone }}" disabled>
+                                    <button type="submit" class="btn btn-outline-success float-right mt-4">
+                                        Malumotlarni o'zgartirish <i class="fas fa-save"></i>
+                                    </button>
+                                    <a href="" data-toggle="modal" data-target="#ChangePasswordModal{{ request.user.id }}" title="Parolni o'zgartirish" class="btn btn-primary mt-4 mr-3 float-right">
+                                        Parolni o'zgartirish <i class="fas fa-key"></i>
+                                    </a>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -103,5 +128,29 @@
     </div>
 </section>
 
+<div class="modal fade" id="ChangePasswordModal{{ request.user.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Parolni O'zgartirish</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form role="form" method="post" action="{% url 'change-password' user_id=request.user.id %}" enctype="multipart/form-data">
+                     {% csrf_token %}
 
+                    <div class="modal-body">Yangi Parolni kiriting</div>
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control form-control-sm" name="password" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Saqlash</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
 {% endblock %}

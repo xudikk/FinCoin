@@ -27,6 +27,16 @@ def profile(request):
     if request.user.is_anonymous:
         return redirect('login')
 
+    if request.method == 'POST':
+        data = request.POST
+        user = User.objects.filter(id=request.user.id).first()
+        user.username = data['username']
+        user.first_name = data['first_name']
+        user.last_name = data['last_name']
+        user.email = data['email']
+        user.save()
+        return redirect('user_profile')
+
     card = Card.objects.filter(user=request.user)
     return render(request, 'sidebars/profile.html', {"card_user": card})
 
