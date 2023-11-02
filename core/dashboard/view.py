@@ -42,5 +42,5 @@ def index(request, pk=None):
     ctx = {'active': "active"}
     ctx.update(count())
     ctx.update(balance_rating_news(request))
-    return render(request, 'pages/index.html', )
+    return render(request, 'pages/index.html', ctx)
 
