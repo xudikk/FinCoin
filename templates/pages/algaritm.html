@@ -79,7 +79,7 @@
                             </div>
                               {% endif %}
                           </div>
-                          {{ i.first_name }} {{ i.last_name }} <br><i>{{i.reward}}</i><br>
+                          {{ i.full_name }} <br><i>{{i.reward}}</i><br>
                           <small>{{ i.description }}</small>
                       <div class="float-right mt-5">
                         <a href="{% url 'edit_algaritm' key='form' pk=i.id %}" title="To'lliq ma'lumotlarni ko'rish" class="btn btn-info btn-circle btn-sm">

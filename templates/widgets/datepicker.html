@@ -1,0 +1,6 @@
+<div class="input-group date" id="{{ widget.attrs.id }}date" data-provide="datepicker">
+    <input type="text" class="form-control datepicker-input" name="{{ widget.name }}"{% if widget.value != None and widget.value != "" %} value="{{ widget.value }}"{% endif %} {% include "django/forms/widgets/attrs.html" %}/>
+    <div class="input-group-append input-group-addon">
+        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+    </div>
+</div>

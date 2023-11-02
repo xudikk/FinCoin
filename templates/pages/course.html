@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+
+{% block title %}Course | View {% endblock %}
+{% load bootstrap4 %}
+{% block content %}
+
+
+{% if position == 'one' %}
+
+<div class="card mb-4 border-left-warning">
+    <div class="card-body">
+        <h4>Name: <mark><i>{{ root.name }}</i></mark></h4>
+    </div>
+</div>
+<div class="card mb-4 border-left-warning">
+    <div class="card-body">
+        <h4>Mentor: <mark><i>{{ root.mentor }}</i></mark></h4>
+    </div>
+</div>
+
+<hr class="border-warning" >
+
+
+<div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-success">Cursga Tegishli Guruhlar listi</h6>
+        </div>
+        {% if groups %}
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in groups %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.name }}</td>
+                            {% if i.status == 1 %}
+                                <td><mark class="text-info">Boshlanmoqda</mark></td>
+                            {% elif i.status == 2 %}
+
+                                <td><mark class="text-success">Davom Qilyabdi</mark></td>
+                            {% elif i.status == 3 %}
+                                <td><mark class="text-warning">Guruh Yopilgan</mark></td>
+                            {% else %}
+                                <td><mark class="text-danger">Aniq Emas</mark></td>
+                            {% endif %}
+
+                            <td>
+                                <a href="#" title="Manage Group" class="btn btn-success btn-circle btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{% url 'admin-group-one' group_id=i.id %}" title="Group Info" class="btn btn-info btn-circle btn-sm">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                            </td>
+                        </tr>
+                       {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-info">Bu kursga tegishli hech qanday guruh topilmadi</h6>
+        </div>
+        {% endif %}
+    </div>
+
+<div class="card mb-4 border-bottom-warning">
+    <div class="card-body">
+
+        <a href="{% url 'admin-course' %}" class="btn btn-warning btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-arrow-left"></i>
+            </span>
+            <span class="text">Listlarga qaytish</span>
+        </a>
+        <a class="btn btn-danger btn-icon-split" href="" data-toggle="modal" data-target="#delete_{{ root.id }}">
+            <span class="icon text-white-50">
+                <i class="fas fa-trash"></i>
+            </span>
+            <span class="text">Delete</span>
+        </a>
+        <a href="{% url 'home' %}" class="btn btn-info btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-home"></i>
+            </span>
+            <span class="text">Bosh Menu</span>
+        </a>
+    </div>
+</div>
+
+
+<div class="modal fade" id="delete_{{ root.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info ">
+                <h5 class="modal-title" id="exampleModalLabel">O'chirishni tasdiqlash</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-plus grade-30"></i></span>
+                </button>
+            </div>
+            <div class="modal-body"> rostdan ham {{ root }} ni o'chirmoqchimisz? </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="{% url 'admin-course-delete' del_id=root.id %}">yes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% elif position == 'edit' %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-info">
+                <form class="form" method="post" id="form-profession" enctype="multipart/form-data" novalidate>
+
+                    {% csrf_token %}
+
+                    <div class="card-body">
+                        <h2 class="form-group text-center">Yangi Guruh qo'shish bo'limi</h2>
+                        <h3 class="form-group text-center">Guruh qo'shish uchun barcha ma'lumotlarni to'ldiring</h3>
+                        <div class="form-row">
+
+                            <div class="form-group col-md-4">
+                                {% bootstrap_field form.name %}
+                            </div>
+                            <div class="form-group col-md-4">
+                                {% bootstrap_field form.mentor %}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="card-action right-align">
+                                  <button type="submit" class="btn btn-block btn-success">
+                                    <i class="fas fa-check"></i>O'zgarishlarni Saqlash
+                                  </button>
+                            </div>
+                            <a href="{% url 'admin-course' %}">
+                                <div class="card-action ml-1 right-align">
+                                      <button type="button" class="btn btn-block btn-secondary">
+                                            <i class="fas fa-arrow-left"></i> Back to list
+                                      </button>
+                                </div>
+                            </a>
+                            <a href="{% url 'home' %}">
+                                <div class="card-action ml-1 right-align">
+                                      <button type="button" class="btn btn-block btn-info">
+                                            <i class="fas fa-home"></i> Bosh menu
+                                      </button>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% else %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-warning">Kurslar Ro'yxati</h6>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                {% if error %}
+                <h5 class="m-0 font-weight-bold text-danger">Qandaydir Xatolik</h5>
+                {% endif %}
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Name</th>
+                            <th>Mentor</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in courses %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.name }}</td>
+                            <td>{{ i.mentor }}</td>
+                            <td>
+                                <a href="{% url 'admin-course-edit' edit_id=i.id %}" title="Edit Course" class="btn btn-warning btn-circle btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{% url 'admin-course-one' pk=i.id %}" title="Member Info" class="btn btn-info btn-circle btn-sm">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                            </td>
+                        </tr>
+                       {% endfor %}
+
+                    </tbody>
+
+                </table>
+                 <a href="{% url 'admin-course-edit' edit_id=0 %}" class="btn btn-warning bg-gradient-warning btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span class="text">Yangi Kurs Qo'shish</span>
+                </a>
+                 <a href="{% url 'home' %}" class="btn btn-secondary bg-gradient-dark btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-home"></i>
+                    </span>
+                    <span class="text">Bosh Menu</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endif %}
+
+{% endblock %}

@@ -86,7 +86,8 @@ def algaritm(request, key=None, pk=None):
             print(form.errors)
         return render(request, 'pages/algaritm.html', {'key': key, "form": form})
 
-    all_algaritm = f""" select cor_al.id, cor_al.reward, cor_al.description, cor_al.bonus, user_c.first_name, user_c.last_name from core_algorithm cor_al
+    all_algaritm = f""" select cor_al.id, cor_al.reward, cor_al.description, cor_al.bonus, (COALESCE(user_c.first_name, '') || ' ' || COALESCE(user_c.last_name, '')) as full_name
+                from core_algorithm cor_al
                     left join core_user user_c on cor_al.creator_id == user_c.id
                 """
     user = f"""

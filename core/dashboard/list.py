@@ -18,7 +18,8 @@ def list_user(request, pk=None):
         return render(request, 'pages/list.html',
                       {"update_user": update_user, "card_user": card, 'u_active': "active", "card_len": len(card)})
     except Exception as e:
-        return render(request, 'pages/abs404.html')
+        return render(request, "base.html", {"error": 404})
+
     # return render(request, 'pages/list.html')
 
 
@@ -30,11 +31,12 @@ def profile(request):
     return render(request, 'sidebars/profile.html', {"card_user": card})
 
 
+@permission_checker
 def delCard(request, pk, user):
     try:
         Card.objects.filter(pk=pk).first().delete()
         return redirect("get_user_info", pk=user)
     except Exception as e:
-        return render(request, "pages/abs404.html")
+        return render(request, "base.html", {"error": 404})
 
     # return render(request, "pages/list.html")

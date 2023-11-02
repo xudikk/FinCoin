@@ -8,7 +8,7 @@ from core.models import Product, New
 from core.forms.auto import ProductForm, NewForm
 
 
-@login_required(login_url='sign-in')
+@admin_permission_checker
 def gets(requests, key, pk=None):
     try:
         Model = {
@@ -43,7 +43,7 @@ def gets(requests, key, pk=None):
     return render(requests, f'pages/{key}.html', ctx)
 
 
-@permission_checker
+@admin_permission_checker
 def auto_form(requests, key, pk=None):
     try:
         Model = {

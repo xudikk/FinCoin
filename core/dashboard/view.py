@@ -13,6 +13,7 @@ from django.shortcuts import redirect, render
 from methodism import dictfetchall
 
 from base.custom import admin_permission_checker
+from base.helper import count, balance_rating_news
 from core.forms.auto import AlgorithmForm
 from core.models import Algorithm, User, Card, New
 
@@ -36,6 +37,10 @@ def index(request, pk=None):
             "all_algo": algarithm,
             "all_news": paginated,
         }
+        ctx.update(balance_rating_news(request))
         return render(request, 'pages/index.html', ctx)
-    return render(request, 'pages/index.html', {'active': "active"})
+    ctx = {'active': "active"}
+    ctx.update(count())
+    ctx.update(balance_rating_news(request))
+    return render(request, 'pages/index.html', )
 

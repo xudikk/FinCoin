@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}New Interested | View {% endblock %}
+{% block content %}
+
+
+{% if position == 'one' %}
+
+<div class="card mb-4 border-left-warning">
+    <div class="card-body">
+        <h4>Name: <mark><i>{{ inst.name }}</i></mark></h4>
+    </div>
+</div>
+
+<div class="card mb-4 border-left-warning">
+    <div class="card-body">
+        <h4>Phone: <mark><i>{{ inst.phone }}</i></mark></h4>
+    </div>
+</div>
+<div class="card mb-4 border-left-warning">
+    <div class="card-body">
+        <h4>Telegram Contact: <mark><i>{{ inst.telegram }}</i></mark></h4>
+    </div>
+</div>
+
+<div class="card mb-4 border-left-warning">
+    <div class="card-body">
+        <h4>Qo'shimcha Contact: <mark><i>{{ inst.extra_contact }}</i></mark></h4>
+    </div>
+</div>
+<div class="card mb-4 border-left-warning">
+    <div class="card-body">
+        <h4>Qo'shimcha ma'lumot: <mark><i>{{ inst.additional }}</i></mark></h4>
+    </div>
+</div>
+<div class="card mb-4 border-left-warning">
+    <div class="card-body">
+        <h4>Aloqaga chiqilgan manba: <mark><i>{{ inst.via }}</i></mark></h4>
+    </div>
+</div>
+<div class="card mb-4 border-left-warning">
+    <div class="card-body">
+        <h4>Aloqaga chiqqan admin: <mark><i>{{ inst.who_contacted }}</i></mark></h4>
+    </div>
+</div>
+<div class="card mb-4 border-left-warning">
+    <div class="card-body">
+        <h4>Holat: {% if inst.contacted %} <mark class="text-warning"><i>Bog'lanilgan</i></mark> {% else %}
+            <mark class="text-danger"><i>Bog'lanilmagan</i></mark> {% endif %}</h4>
+
+    </div>
+</div>
+
+<div class="card mb-4 border-bottom-warning">
+    <div class="card-body">
+        {% if not inst.contacted %}
+        <a href="{% url 'admin-interested-contacted' contac_id=inst.id %}" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-edit"></i>
+            </span>
+            <span class="text">Bog'lanildi deb belgilash</span>
+        </a>
+        {% endif %}
+        <a href="{% url 'admin-interested' %}" class="btn btn-warning btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-arrow-left"></i>
+            </span>
+            <span class="text">Listlarga qaytish</span>
+        </a>
+        <a href="{% url 'home' %}" class="btn btn-info btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-home"></i>
+            </span>
+            <span class="text">Bosh Menu</span>
+        </a>
+    </div>
+</div>
+
+{% else %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-warning">Kurslarga qiziqqanlar</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            {% if error %}
+            <h5 class="m-0 font-weight-bold text-danger">Qandaydir Xatolik</h5>
+            {% endif %}
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Name</th>
+                        <th>Via</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in intres %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ i.name }}</td>
+                        <td>{{ i.via }}</td>
+                        <td>{% if i.contacted %} <mark class="text-warning">Bog'lanilgan </mark> {% else %} <mark class="text-danger">Bog'lanilmagan</mark> {% endif %}</td>
+                        <td>
+                            {% if not i.contacted %}
+                            <a href="{% url 'admin-interested-contacted' contac_id=i.id %}" title="Bo'glanilgan holatga o'rqazish" class="btn btn-warning btn-circle btn-sm">
+                                <i class="fas fa-check"></i>
+                            </a>
+                            {% endif %}
+                            <a href="{% url 'admin-inters-detail' pk=i.id %}" title="To'lliq ma'lumotlarni ko'rish" class="btn btn-info btn-circle btn-sm">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                        </td>
+                    </tr>
+                   {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+{% endblock %}

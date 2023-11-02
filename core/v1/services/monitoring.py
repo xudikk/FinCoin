@@ -76,7 +76,7 @@ def transfer(request, params):
         'amount': params['amount'],
     }
     monitoring = Monitoring.objects.create(**data)
-    monitoring.status = 1 if make_transfer(sender_card, reciever_card, params['amount']) else 2
+    monitoring.status = 1 if make_transfer(sender_card, reciever_card, int(params['amount'])) else 2
     monitoring.save()
 
     return custom_response(True, data=monitoring.response(), message=MSG['Success'][lang_helper(request)])
