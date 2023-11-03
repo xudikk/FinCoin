@@ -75,22 +75,22 @@
                                 </h3>
                                 {% endif %}
                                 <div class="post">
-                            <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="{% static 'auth/logo1.png' %}"
-                                     alt="user image">
-                                <span class="username">
+                                    <div class="user-block">
+                                        <img class="img-circle img-bordered-sm" src="{% static 'auth/logo1.png' %}"
+                                             alt="user image">
+                                        <span class="username">
                             <span class="text-primary">Fintech Inavation hub</span>
                             </span>
-                                <span class="description">Ish vaqti 9:00 dan 20:00 gacha</span>
-                            </div>
-                            <p>
-                                Lorem ipsum represents a long-held tradition for designers,
-                                typographers and the like. Some people hate it and argue for
-                                its demise, but others ignore the hate as they create awesome
-                                tools to help create filler text for everyone from bacon lovers
-                                to Charlie Sheen fans.
-                            </p>
-                        </div>
+                                        <span class="description">Ish vaqti 9:00 dan 20:00 gacha</span>
+                                    </div>
+                                    <p>
+                                        Lorem ipsum represents a long-held tradition for designers,
+                                        typographers and the like. Some people hate it and argue for
+                                        its demise, but others ignore the hate as they create awesome
+                                        tools to help create filler text for everyone from bacon lovers
+                                        to Charlie Sheen fans.
+                                    </p>
+                                </div>
                             </div>
                             <div class="tab-pane active" id="action" role="tabpanel"
                                  aria-labelledby="product-comments-tab">
@@ -99,23 +99,31 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <label for="firstn">First name</label>
-                                            <input class="form-control" id="firstn" type="text" value="{{ request.user.first_name }}" name="first_name" required>
+                                            <input class="form-control" id="firstn" type="text"
+                                                   value="{{ request.user.first_name }}" name="first_name" required>
                                         </div>
                                         <div class="col-6">
                                             <label for="lastn">Last name</label>
-                                            <input class="form-control" id="lastn" type="text" value="{{ request.user.last_name }}" name="last_name" required>
+                                            <input class="form-control" id="lastn" type="text"
+                                                   value="{{ request.user.last_name }}" name="last_name" required>
                                         </div>
                                     </div>
                                     <label for="username">Username</label>
-                                    <input class="form-control" id="username" type="text" value="{{ request.user.username }}" name="username" placeholder="Your username" required>
+                                    <input class="form-control" id="username" type="text"
+                                           value="{{ request.user.username }}" name="username"
+                                           placeholder="Your username" required>
                                     <label for="email">Email</label>
-                                    <input class="form-control" id="email" type="text" value="{{ request.user.email }}" name="email">
+                                    <input class="form-control" id="email" type="text" value="{{ request.user.email }}"
+                                           name="email">
                                     <label for="phone">Phone</label>
-                                    <input class="form-control " id="phone" type="text" value="{{ request.user.phone }}" disabled>
+                                    <input class="form-control " id="phone" type="text" value="{{ request.user.phone }}"
+                                           disabled>
                                     <button type="submit" class="btn btn-outline-success float-right mt-4">
                                         Malumotlarni o'zgartirish <i class="fas fa-save"></i>
                                     </button>
-                                    <a href="" data-toggle="modal" data-target="#ChangePasswordModal{{ request.user.id }}" title="Parolni o'zgartirish" class="btn btn-primary mt-4 mr-3 float-right">
+                                    <a href="" data-toggle="modal"
+                                       data-target="#ChangePasswordModal{{ request.user.id }}"
+                                       title="Parolni o'zgartirish" class="btn btn-primary mt-4 mr-3 float-right">
                                         Parolni o'zgartirish <i class="fas fa-key"></i>
                                     </a>
                                 </form>
@@ -128,29 +136,94 @@
     </div>
 </section>
 
-<div class="modal fade" id="ChangePasswordModal{{ request.user.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Parolni O'zgartirish</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+<div class="modal fade" id="ChangePasswordModal{{ request.user.id }}" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Parolni O'zgartirish</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form role="form" method="post" action="{% url 'change-password' user_id=request.user.id %}"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="modal-body">Yangi Parolni kiriting</div>
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control form-control-sm" name="password" required>
                 </div>
-                <form role="form" method="post" action="{% url 'change-password' user_id=request.user.id %}" enctype="multipart/form-data">
-                     {% csrf_token %}
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Saqlash</button>
+                </div>
+            </form>
 
-                    <div class="modal-body">Yangi Parolni kiriting</div>
-                    <div class="form-group col-md-6">
-                        <input type="text" class="form-control form-control-sm" name="password" required>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Saqlash</button>
-                    </div>
-                </form>
+        </div>
+    </div>
+</div>
+<hr>
 
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+
+            <div class="card">
+                {% if done %}
+                <div class="card-header">
+                    <h3 class="card-title">Algaritmlar</h3>
+                </div>
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Algaritm ID</th>
+                            <th>Bonus</th>
+                            <th>Ball</th>
+                            <th>Holati</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in done %}
+
+                        <tr>
+                            <td>
+                                <a href="#">{{ i.algarithm_id }} <sup><span class="bg-purple rounded text-sm p-1">Masala ishlangan</span></sup></a>
+                            </td>
+                            <td>{{ i.bonus }} <i class="fa-solid fa-coins"></i></td>
+                            <td>{{ i.ball }} </td>
+                            {% if i.status == 'Bajarilmoqda' %}
+                            <td><span class="text-info">
+                                Bajarilmoqda
+                                <a href="#" class="bg-success rounded text-sm p-1">Bajarildi</a>
+                              </span></td>
+                            {% elif i.status == 'Tekshirilmoqda' %}
+                            <td><span class="text-primary">
+                                Tekshirilmoqda
+                              </span></td>
+                            {% elif i.status == 'Muaffaqiyatli' %}
+                            <td><span class="text-success">
+                                Muaffaqiyatli
+                              </span></td>
+                            {% elif i.status == 'Xato' %}
+                            <td><span class="text-danger">
+                                Xato
+                              </span></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="card-header">
+                    <h3 class="card-title text-dark">Siz hech qanday Algaritm ishlamagansiz 🤔 <i class="fa-regular fa-hand-point-right"></i></h3>
+                    <a href="#" class="float-right btn btn-outline-success btn-sm">Malasa ishlash</a>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
+</section>
 {% endblock %}

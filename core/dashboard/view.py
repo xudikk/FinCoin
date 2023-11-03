@@ -22,10 +22,6 @@ from core.models import Algorithm, User, Card, New
 def index(request, pk=None):
     if request.user.ut == 3:
         pagination = New.objects.all().order_by('-pk')
-        paginator = Paginator(pagination[:4], settings.PAGINATE_BY)
-        page_number = request.GET.get("page", 1)
-        paginated = paginator.get_page(page_number)
-
         all_algaritm = f""" select cor_al.id, cor_al.reward, cor_al.description, cor_al.bonus, user_c.first_name, user_c.last_name from core_algorithm cor_al
                             left join core_user user_c on cor_al.creator_id == user_c.id order by -(cor_al.id ) limit 4
                         """
@@ -34,8 +30,8 @@ def index(request, pk=None):
             algarithm = dictfetchall(cursor)
 
         ctx = {
-            "all_algo": algarithm[:4],
-            "all_news": paginated,
+            "all_algo": algarithm,
+            "all_news": pagination[:4],
         }
         ctx.update(balance_rating_news(request))
         return render(request, 'pages/index.html', ctx)
@@ -43,4 +39,3 @@ def index(request, pk=None):
     ctx.update(count())
     ctx.update(balance_rating_news(request))
     return render(request, 'pages/index.html', ctx)
-

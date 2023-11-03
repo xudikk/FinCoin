@@ -1,8 +1,11 @@
 import datetime
 import uuid
+from contextlib import closing
 
+from django.db import connection
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from methodism import dictfetchall
 
 from base.helper import generate_number
 from core.models import Card
@@ -36,9 +39,20 @@ def profile(request):
         user.email = data['email']
         user.save()
         return redirect('user_profile')
+    done = f"""
+                    select done.id, done.status, ca.id algarithm_id, ca.reward ball, ca.bonus bonus from core_done done , core_algorithm ca
+                    where done.algorithm_id = ca.id and done.user_id = {request.user.id}
+                    """
+    with closing(connection.cursor()) as cursor:
+        cursor.execute(done)
+        done = dictfetchall(cursor)
 
     card = Card.objects.filter(user=request.user)
-    return render(request, 'sidebars/profile.html', {"card_user": card})
+    ctx = {
+        "done": done,
+        "card_user": card
+    }
+    return render(request, 'sidebars/profile.html', ctx)
 
 
 @permission_checker

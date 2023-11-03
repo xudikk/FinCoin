@@ -83,6 +83,9 @@ class Done(models.Model):
     class Meta:
         verbose_name_plural = "C. Bajarilgan Algoritmlar"
 
+    def __str__(self):
+        return f"{self.status} | {self.user}"
+
 
 class Backed(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
