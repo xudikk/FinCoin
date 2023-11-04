@@ -10,6 +10,7 @@ from core.dashboard.education import manage_group, manage_course, interested
 from core.dashboard.home import algaritm, category
 from core.dashboard.auth import create_user, change_password, grader, create_cart
 from core.dashboard.monitoring import award
+from core.dashboard.shop import savat
 from core.dashboard.view import index
 from core.dashboard.auth import sign_in, sign_out, clear
 from core.dashboard.list import list_user, delCard, profile
@@ -79,4 +80,6 @@ urlpatterns = [
     path("ins/<int:contac_id>", interested, name="admin-interested-contacted"),
     path("ins/detail/<int:pk>/", interested, name="admin-inters-detail"),
 
+    # shop
+    path('mahsulotlar/', savat, name='shop')
 ]

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %} Shop {% endblock %}
+{% block pagetitle %}Shop{% endblock %}
+{% block page_title %}Maxsulotlar {% endblock %}
+{% block content %}
+
+{% if root %}
+{% for i in root %}
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <div class="card">
+            <div class="">
+                <div class="card-body d-flex">
+                    <div class="float-left w-100">
+                        <img src="{{ i.img.url }}" alt="" class="w-100 rounded">
+                    </div>
+                    <div class="float-right w-100 ml-3">
+                        <h5 class="card-text">Mahsulot nomi: {{ i.name }}</h5>
+                        <p class="card-text">Mahsulot turi: {{ i.category }}</p>
+                        <p class="card-text">
+                            {% if i.discount_percent == 0 %}
+                            <div>
+                                Maxsulot narxi: {{ i.cost }} coin
+                            </div>
+                            {% else %}
+                            Mahsulot narxi: <span>{{ i.cost }} </span> coin <sup class="text-sm bg-purple rounded p-1"> -{{ i.discount_percent }} %</sup>
+                            {% endif %}</p>
+                        <p class="card-text">Cherigma narxi: {{ i.discount_price }} coin <i class="fa-solid fa-coins"></i></p>
+
+
+                        <button class="mt-2 btn rounded-pill bg-purple btn-sm" onclick="decrementScore(1)"><<</button>
+                        <a href="#" class="mt-2 btn rounded-circle btn-primary"><span id="score"> 1 </span></a>
+                        <button class="mt-2 btn rounded-pill bg-purple btn-sm" onclick="incrementScore(1)"> >> </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var score = 1;
+
+    function incrementScore(value) {
+      score += value;
+      var scoreObject = document.getElementById('score');
+      scoreObject.innerHTML = score;
+    }
+
+    function decrementScore(value) {
+      if (score > 1) {
+        score -= value;
+        var scoreObject = document.getElementById('score');
+        scoreObject.innerHTML = score;
+      }
+    }
+</script>
+
+{% endfor %}
+{% else %}
+<h2 class="text-success">Mahsulotlar mavjud emas</h2>
+{% endif %}
+
+
+{% endblock %}

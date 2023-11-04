@@ -100,3 +100,6 @@ class Backed(models.Model):
 
     class Meta:
         verbose_name_plural = "C. Savatlar"
+
+    def __str__(self):
+        return f"{self.product} // {self.user}"
