@@ -8,8 +8,8 @@
 {% if root %}
 {% for i in root %}
 
-<div class="row">
-    <div class="col-md-6 mb-3">
+<div class="row col-md-6 mb-3">
+    <div class="">
         <div class="card">
             <div class="">
                 <div class="card-body d-flex">
@@ -17,6 +17,9 @@
                         <img src="{{ i.img.url }}" alt="" class="w-100 rounded">
                     </div>
                     <div class="float-right w-100 ml-3">
+                    <form method="post">
+                        {% csrf_token %}
+                        <input name="product_id" value="{{i.id}}" hidden=""></input>
                         <h5 class="card-text">Mahsulot nomi: {{ i.name }}</h5>
                         <p class="card-text">Mahsulot turi: {{ i.category }}</p>
                         <p class="card-text">
@@ -30,10 +33,11 @@
                         <p class="card-text">Cherigma narxi: {{ i.discount_price }} coin <i class="fa-solid fa-coins"></i></p>
 
 
-                        <button class="mt-2 btn rounded-pill bg-purple btn-sm" onclick="decrementScore(1)"><<</button>
-                        <a href="#" class="mt-2 btn rounded-circle btn-primary"><span id="score"> 1 </span></a>
-                        <button class="mt-2 btn rounded-pill bg-purple btn-sm" onclick="incrementScore(1)"> >> </button>
-
+                        <button type="button" class="mt-2 btn rounded-pill bg-purple btn-sm" onclick="decrementScore(1, score_{{ i.id }})"><<</button>
+                        <a href="#" name="quantity" class="mt-2 btn rounded-circle btn-primary"><span data-model-name="quantity" id="score_{{ i.id }}"> 1 </span></a>
+                        <button type="button" class="mt-2 btn rounded-pill bg-purple btn-sm" onclick="incrementScore(1, score_{{ i.id }})"> >> </button>
+                        <button type="submit" class="mt-2 ml-4 btn rounded-circle btn-primary"> Buy </button>
+                    </form>
                     </div>
                 </div>
             </div>
@@ -41,28 +45,29 @@
     </div>
 </div>
 
-<script>
-    var score = 1;
-
-    function incrementScore(value) {
-      score += value;
-      var scoreObject = document.getElementById('score');
-      scoreObject.innerHTML = score;
-    }
-
-    function decrementScore(value) {
-      if (score > 1) {
-        score -= value;
-        var scoreObject = document.getElementById('score');
-        scoreObject.innerHTML = score;
-      }
-    }
-</script>
 
 {% endfor %}
 {% else %}
 <h2 class="text-success">Mahsulotlar mavjud emas</h2>
 {% endif %}
+
+<script>
+    var score = 1;
+
+    function incrementScore(value, id_score) {
+      score += value;
+      var scoreObject = document.getElementById(id_score);
+      scoreObject.innerHTML = score;
+    }
+
+    function decrementScore(value, id_score) {
+      if (score > 1) {
+        score -= value;
+        var scoreObject = document.getElementById(id_score);
+        scoreObject.innerHTML = score;
+      }
+    }
+</script>
 
 
 {% endblock %}

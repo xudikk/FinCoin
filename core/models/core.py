@@ -1,5 +1,4 @@
 from django.db import models
-
 from core.models import User
 
 
@@ -93,6 +92,7 @@ class Backed(models.Model):
     quantity = models.IntegerField("Nechtaligi", default=1)
     cost = models.IntegerField('Umumiy Narx', default=0, editable=False)
     order = models.BooleanField(default=False)
+    #status for orders
 
     def save(self, *args, **kwargs):
         self.cost = self.quantity * self.product.cost
