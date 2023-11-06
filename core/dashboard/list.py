@@ -55,6 +55,21 @@ def profile(request):
     return render(request, 'sidebars/profile.html', ctx)
 
 
+
+def payments(request):
+    if request.user.is_anonymous:
+        return redirect('login')
+    if request.method == 'POST':
+        data = request.POST
+        card_num = Card.objects.filter(number=data['number'])
+        if card_num:
+            pass
+    card = Card.objects.filter(user=request.user)
+    ctx = {
+        'card_user': card
+    }
+    return render(request, 'sidebars/payments.html', ctx)
+
 @permission_checker
 def delCard(request, pk, user):
     try:

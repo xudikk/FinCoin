@@ -13,7 +13,7 @@ from core.dashboard.monitoring import award
 from core.dashboard.shop import savat
 from core.dashboard.view import index
 from core.dashboard.auth import sign_in, sign_out, clear
-from core.dashboard.list import list_user, delCard, profile
+from core.dashboard.list import list_user, delCard, profile, payments
 
 urlpatterns = [
 
@@ -42,6 +42,9 @@ urlpatterns = [
     # user actions
     path('user/info/<int:pk>/', list_user, name='get_user_info'),
     path('user-profile/', profile, name='user_profile'),
+
+    #user payments
+    path('user-payments/', payments, name='user_payments'),
 
     # algaritm
 

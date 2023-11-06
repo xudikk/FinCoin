@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block title%} User Payments{% endblock %}
+  {% block pagetitle%} User Payments{% endblock %}
+{% block content%}
+<style>
+    .card-body-1{
+        background-image: url({% static "img.png" %})
+    }
+</style>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#activity"
+                                                    data-toggle="tab">User kartasi</a></li>
+                        </ul>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane show active" id="activity" role="tabpanel"
+                                 aria-labelledby="product-comments-tab">
+                                {% if card_user %}
+                                {% for i in card_user %}
+                                <div class="card-body-1 card text-light d-inline-block mr-3 mt-2 w-auto"
+                                     style="max-width: 28rem; width: 26%; border-radius: 20px">
+                                    <div class="card-body">
+                                        <h4 class="card-text">{{ i.name }}</h4>
+                                        <p class="card-text"><b>{{ i.balance }} сум</b></p>
+                                        <p class="card-text text-uppercase">{{ i.user.full_name }}</p>
+                                        <p class="card-text">{{ i.mask }} <span class="ml-5"> {{ i.expire }}</span></p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% else %}
+                                <h3 class="text-info">
+                                    Sizning nomingizga karta ochilmagan
+                                </h3>
+                                {% endif %}
+                                 <div class="money-send-form">
+                                    <h3>Fincoin Jonatish</h3>
+                                    <form action="#" method="post">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label for="recipient">Qabul qiluvchining karta raqami:</label>
+                                            <input type="text" name="recipient" id="recipient" class="form-control" title="Iltimos karta raqamini kiriting" required pattern="[0-9]*" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="amount">Summa:</label>
+                                         <input type="text" name="amount" id="amount" class="form-control" required pattern="[0-9]*" title="Iltimos summani kiriting">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary" style="float: right;" >Yuborish</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock%}
