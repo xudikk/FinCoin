@@ -95,11 +95,11 @@ class Backed(models.Model):
     #status for orders
 
     def save(self, *args, **kwargs):
-        self.cost = self.quantity * self.product.cost
+        self.cost = int(self.quantity) * int(self.product.cost)
         return super(Backed, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = "C. Savatlar"
 
     def __str__(self):
-        return f"{self.product} // {self.user}"
+        return f"{self.product} // {self.user} // Price {self.cost} "

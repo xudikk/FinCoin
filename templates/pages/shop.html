@@ -1,73 +1,86 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %} Shop {% endblock %}
 {% block pagetitle %}Shop{% endblock %}
 {% block page_title %}Maxsulotlar {% endblock %}
 {% block content %}
 
 {% if root %}
-{% for i in root %}
 
-<div class="row col-md-6 mb-3">
-    <div class="">
-        <div class="card">
-            <div class="">
-                <div class="card-body d-flex">
-                    <div class="float-left w-100">
-                        <img src="{{ i.img.url }}" alt="" class="w-100 rounded">
-                    </div>
-                    <div class="float-right w-100 ml-3">
-                    <form method="post">
-                        {% csrf_token %}
-                        <input name="product_id" value="{{i.id}}" hidden=""></input>
-                        <h5 class="card-text">Mahsulot nomi: {{ i.name }}</h5>
-                        <p class="card-text">Mahsulot turi: {{ i.category }}</p>
-                        <p class="card-text">
-                            {% if i.discount_percent == 0 %}
-                            <div>
-                                Maxsulot narxi: {{ i.cost }} coin
-                            </div>
-                            {% else %}
-                            Mahsulot narxi: <span>{{ i.cost }} </span> coin <sup class="text-sm bg-purple rounded p-1"> -{{ i.discount_percent }} %</sup>
-                            {% endif %}</p>
-                        <p class="card-text">Cherigma narxi: {{ i.discount_price }} coin <i class="fa-solid fa-coins"></i></p>
+<div class="row">
+    {% for i in root %}
+    <div class="col-md-4">
+        <div class="card card-widget">
+            <div class="card-header">
+                <div class="user-block">
+                    <img class="img-circle" src="{% static 'auth/logo1.png' %}" alt="User Image">
+                    <span class="username"><a href="#">Fintech Coin</a></span>
+                    <span class="description">{{ i.category }}</span>
+                </div>
+                <!-- /.user-block -->
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body" style="display: block;">
+                <a href="#">
+                    <img class="img-fluid pad w-auto" src="{{ i.img.url }}" alt="Photo">
+                </a>
+                <div class="d-flex">
+                    <div>
+                        <p class="mt-3 text-capitalize"><b>Mahsulot nomi: {{ i.name }}</b><span
+                                class="float-right text-muted">
+                    <p class="mt-3 text-capitalize">Narxi: {{ i.cost }}
+
+                        <button data-toggle="modal" style="margin-top: -8px"
+                                data-target="#MaxsulotSoniModal{{ i.id }}" type="button"
+                                class="float-right btn rounded-pill btn-primary ml-3"> Buyurtma berish
+                        </button>
 
 
-                        <button type="button" class="mt-2 btn rounded-pill bg-purple btn-sm" onclick="decrementScore(1, score_{{ i.id }})"><<</button>
-                        <a href="#" name="quantity" class="mt-2 btn rounded-circle btn-primary"><span data-model-name="quantity" id="score_{{ i.id }}"> 1 </span></a>
-                        <button type="button" class="mt-2 btn rounded-pill bg-purple btn-sm" onclick="incrementScore(1, score_{{ i.id }})"> >> </button>
-                        <button type="submit" class="mt-2 ml-4 btn rounded-circle btn-primary"> Buy </button>
-                    </form>
+                        </p>
                     </div>
                 </div>
             </div>
+
         </div>
+        <!-- /.card -->
     </div>
+    {% endfor %}
 </div>
 
-
-{% endfor %}
 {% else %}
 <h2 class="text-success">Mahsulotlar mavjud emas</h2>
 {% endif %}
-
-<script>
-    var score = 1;
-
-    function incrementScore(value, id_score) {
-      score += value;
-      var scoreObject = document.getElementById(id_score);
-      scoreObject.innerHTML = score;
-    }
-
-    function decrementScore(value, id_score) {
-      if (score > 1) {
-        score -= value;
-        var scoreObject = document.getElementById(id_score);
-        scoreObject.innerHTML = score;
-      }
-    }
-</script>
-
-
+{% for i in root %}
+<div class="modal fade" id="MaxsulotSoniModal{{ i.id }}" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Maxsulotni soni</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form role="form" method="post"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                <input hidden value="{{ i.id }}" name="product_id">
+                <div class="modal-body">Maxsulotni sonini kiritin</div>
+                <div class="form-group col-md-6">
+                    <input type="number" class="form-control form-control-sm" name="quentity" required min="1">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Buyurtma berish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
 {% endblock %}
