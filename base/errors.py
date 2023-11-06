@@ -375,4 +375,9 @@ MSG = {
         'ru': 'Успешно',
         'en': "Success"
     },
+    "SuccessTransaction": {
+        'uz': "O'tqazma muaffaqiyatli amalga oshirildi",
+        'ru': 'Успешно',
+        'en': "Success"
+    },
 }

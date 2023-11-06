@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load static%}
-{% block title%} User Payments{% endblock %}
-  {% block pagetitle%} User Payments{% endblock %}
+{% block title %} User Payments{% endblock %}
+{% block pagetitle%} P2P {% endblock %}
+{% block page_title%} Peer To Peer {% endblock %}
 {% block content%}
 <style>
     .card-body-1{
@@ -16,8 +17,8 @@
                 <div class="card">
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
-                            <li class="nav-item"><a class="nav-link active" href="#activity"
-                                                    data-toggle="tab">User kartasi</a></li>
+                            <li class="nav-item"><a class="nav-link active"
+                                                    data-toggle="tab">Fin Coin Transfer</a></li>
                         </ul>
                     </div><!-- /.card-header -->
                     <div class="card-body">
@@ -25,38 +26,84 @@
                             <div class="tab-pane show active" id="activity" role="tabpanel"
                                  aria-labelledby="product-comments-tab">
                                 {% if card_user %}
-                                {% for i in card_user %}
-                                <div class="card-body-1 card text-light d-inline-block mr-3 mt-2 w-auto"
-                                     style="max-width: 28rem; width: 26%; border-radius: 20px">
-                                    <div class="card-body">
-                                        <h4 class="card-text">{{ i.name }}</h4>
-                                        <p class="card-text"><b>{{ i.balance }} сум</b></p>
-                                        <p class="card-text text-uppercase">{{ i.user.full_name }}</p>
-                                        <p class="card-text">{{ i.mask }} <span class="ml-5"> {{ i.expire }}</span></p>
+                                    <div class="card-body-1 card text-light d-inline-block mr-3 mt-2 w-auto"
+                                         style="max-width: 28rem; width: 26%; border-radius: 20px">
+                                        <div class="card-body">
+                                            <h4 class="card-text">Sizning kartangiz</h4>
+                                            <p class="card-text"><b>{{ card_user.balance }} сум</b></p>
+                                            <p class="card-text text-uppercase">{{ card_user.user.full_name }}</p>
+                                            <p class="card-text">{{ card_user.mask }} <span class="ml-5"> {{ card_user.expire }}</span></p>
+                                        </div>
                                     </div>
-                                </div>
-                                {% endfor %}
+                                    {% if request.session.receiver %}
+                                    <div class="card-body-1 card text-light d-inline-block mr-3 mt-2 w-auto"
+                                         style="max-width: 28rem; width: 26%; border-radius: 20px; float: right;">
+
+                                        <div class="card-body">
+                                            <h4 class="card-text">Qabul Qiluvchi Karta</h4>
+                                            <p class="card-text"><b>{{ request.session.receiver.balance }} сум</b></p>
+                                            <p class="card-text text-uppercase">{{ request.session.receiver.user }}</p>
+                                            <p class="card-text">{{ request.session.receiver.mask }} <span class="ml-5"> xx/xx</span></p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if error %}
+                                    <div class="alert alert-danger alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        <h5><i class="icon fas fa-ban"></i> Xatolik</h5>
+                                       {{ error }}
+                                    </div>
+                                    {% elif success %}
+                                    <div class="alert alert-success alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        <h5><i class="icon fas fa-ban"></i>Successfully</h5>
+                                       {{ success }}
+
+                                    </div>
+                                    <a href="{% url 'user_payments' %}" class="btn btn-primary">Ortga</a>
+                                    {% endif %}
+                                    {% if not success %}
+                                     <div class="money-send-form">
+                                        <h2>Fincoin O'tqazmalari</h2>
+                                        <form method="post" {% if request.session.tr_status == 'p2p' %}action="{% url 'p2p' status='p2p'  %}" {% endif %}>
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label for="creditCardNumber">Qabul qiluvchining karta raqami:</label>
+                                                <input id="creditCardNumber" type="text"
+                                                       placeholder="xxxx xxxx xxxx xxxx"
+                                                       name="receiver" class="form-control"
+                                                       title="Iltimos karta raqamini kiriting"
+
+                                                       {% if request.session.tr_status == 'p2p' %}disabled value="{{ request.session.receiver.number }}"
+                                                {% else %}
+                                                        required
+                                                       pattern="[0-9 ]*"
+                                                       oninput="formatCreditCardNumber(this)"
+                                                {% endif %}>
+                                            {% if request.session.tr_status == 'p2p' %}
+                                            <div class="form-group">
+                                                <label for="amount">Summa:</label>
+                                                 <input type="text" name="amount" id="amount"
+                                                        class="form-control" required pattern="[0-9]*"
+                                                        placeholder="O'tqazma miqdorini kiriting"
+                                                        title="Iltimos tog'ri summa kiriting">
+                                                </div>
+                                                <button type="submit" class="btn btn-primary" style="float: right;" >Yuborish</button>
+                                                <a href="{% url 'user_payments' %}" class="btn btn-secondary mr-3" style="float: right;">Ortga</a>
+                                                {% else %}
+                                                 </div>
+                                                <button type="submit" class="btn btn-primary" style="float: right;" >Qidirish</button>
+                                            {% endif %}
+                                        </form>
+                                    </div>
+                                    {% endif %}
                                 {% else %}
                                 <h3 class="text-info">
                                     Sizning nomingizga karta ochilmagan
                                 </h3>
                                 {% endif %}
-                                 <div class="money-send-form">
-                                    <h3>Fincoin Jonatish</h3>
-                                    <form action="#" method="post">
-                                        {% csrf_token %}
-                                        <div class="form-group">
-                                            <label for="recipient">Qabul qiluvchining karta raqami:</label>
-                                            <input type="text" name="recipient" id="recipient" class="form-control" title="Iltimos karta raqamini kiriting" required pattern="[0-9]*" >
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="amount">Summa:</label>
-                                         <input type="text" name="amount" id="amount" class="form-control" required pattern="[0-9]*" title="Iltimos summani kiriting">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary" style="float: right;" >Yuborish</button>
-                                    </form>
-                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -64,4 +111,23 @@
         </div>
     </div>
 </section>
+
+
+<script>
+function formatCreditCardNumber(input) {
+  let cardNumber = input.value.replace(/\D/g, '').substring(0, 16); // Remove non-digits and limit to 16 digits
+  let formattedCardNumber = '';
+  for (let i = 0; i < cardNumber.length; i++) {
+    if (i > 0 && i % 4 === 0) {
+      formattedCardNumber += ' '; // Insert a space every 4 digits
+    }
+    formattedCardNumber += cardNumber[i];
+  }
+  input.value = formattedCardNumber; // Update the input field with the formatted value
+}
+</script>
+
+
+
+
 {% endblock%}
