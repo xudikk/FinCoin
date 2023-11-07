@@ -135,32 +135,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
             </li>
             <!-- Notifications Dropdown Menu -->
+            {% if request.user.ut == 1 %}
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-bell"></i>
-                    <span class="badge badge-warning navbar-badge">15</span>
+                    <span class="badge bg-purple navbar-badge">{{ notifications.all_count }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-header">15 Notifications</span>
+                    <span class="dropdown-header">{{ notifications.all_count }} Notifications</span>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item">
-                        <i class="fas fa-envelope mr-2"></i> 4 new messages
-                        <span class="float-right text-muted text-sm">3 mins</span>
+                        <i class="fa-solid fa-basket-shopping"></i> Buyurtmalar
+<!--                        <span class="float-right text-muted text-sm">{{ notifications.count_backed }} <i class="fa-solid fa-cart-shopping"></i></span>-->
+                        <span class="float-right text-muted text-sm"> {{notifications.count_backed}} <i class="fas fa-envelope mr-2"></i></span>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item">
-                        <i class="fas fa-users mr-2"></i> 8 friend requests
-                        <span class="float-right text-muted text-sm">12 hours</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-file mr-2"></i> 3 new reports
-                        <span class="float-right text-muted text-sm">2 days</span>
+                        <i class="fa-solid fa-calculator"></i> Bajarilgan Algaritmlar
+                        <span class="float-right text-muted text-sm"> {{notifications.count_done_algorithm}} <i class="fas fa-envelope mr-2"></i></span>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>
             </li>
+            {% endif %}
         </ul>
     </nav>
     <!-- /.navbar -->

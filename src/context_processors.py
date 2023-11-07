@@ -28,3 +28,18 @@ def user_type(request):
     return ctx
 
 
+def notifications(request):
+    sql = """
+            select 
+                (select COUNT(*) from core_backed cb where cb.'order' = 0) as count_backed,
+                (select COUNT(*) from core_done cd where cd.'view' = 0) as count_done_algorithm,
+                (SELECT COUNT(*) FROM core_backed cb WHERE cb.'order' = 0) + (SELECT COUNT(*) FROM core_done cd WHERE cd.'view' = 0) AS all_count
+        """
+
+    with closing(connection.cursor()) as cursor:
+        cursor.execute(sql)
+        result = dictfetchone(cursor)
+
+    return {
+        'notifications': result,
+    }

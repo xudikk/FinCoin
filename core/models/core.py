@@ -78,6 +78,7 @@ class Done(models.Model):
     ], default="Bajarilmoqda")
     algorithm = models.ForeignKey(Algorithm, on_delete=models.SET_NULL, null=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, limit_choices_to={"ut": 3})
+    view = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = "C. Bajarilgan Algoritmlar"

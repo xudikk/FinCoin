@@ -1,4 +1,4 @@
-<li class="nav-item has-treeview {{ open_menu_fc }}">
+<li class="nav-item has-treeview open_menu active">
     <a href="#" class="nav-link">
         <i class="nav-icon fas fa-tachometer-alt"></i>
         <p>
@@ -37,34 +37,34 @@
 </li>
 
 <li class="nav-item has-treeview {{ open_menu_edu }}">
-            <a href="" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Education Paneli
-                <i class="fas fa-angle-left right"></i>
-              </p>
+    <a href="" class="nav-link">
+        <i class="nav-icon fas fa-copy"></i>
+        <p>
+            Education Paneli
+            <i class="fas fa-angle-left right"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{% url 'admin-group' %}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Guruhlar</p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Guruhlar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Kurslar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Yangi Yozilganlar</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'admin-course' %}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Kurslar</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'admin-interested' %}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Yangi Yozilganlar</p>
+            </a>
+        </li>
+    </ul>
+</li>
 {% if request.user.is_staff and request.user.is_superuser %}
 <li class="nav-item">
     <a href="" data-toggle="modal" data-target="#bonusForAllModal" class="nav-link">

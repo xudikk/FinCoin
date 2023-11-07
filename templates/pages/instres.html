@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block title %}New Interested | View {% endblock %}
+{% block pagetitle %} Interested {% endblock %}
+{% block page_title %} Interested {% endblock %}
 {% block content %}
 
 
@@ -105,7 +107,7 @@
                         <td>{% if i.contacted %} <mark class="text-warning">Bog'lanilgan </mark> {% else %} <mark class="text-danger">Bog'lanilmagan</mark> {% endif %}</td>
                         <td>
                             {% if not i.contacted %}
-                            <a href="{% url 'admin-interested-contacted' contac_id=i.id %}" title="Bo'glanilgan holatga o'rqazish" class="btn btn-warning btn-circle btn-sm">
+                            <a href="{% url 'admin-interested-contacted' contac_id=i.id %}" title="Bo'glanilgan holatga o'tqazish" class="btn btn-warning btn-circle btn-sm">
                                 <i class="fas fa-check"></i>
                             </a>
                             {% endif %}

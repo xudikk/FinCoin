@@ -79,10 +79,10 @@
                             {% endif %}
 
                             <td>
-                                <a href="#" title="Manage member" class="btn btn-success btn-circle btn-sm">
+                                <a href="{% url 'user_edit' type=i.ut status='form' pk=i.id %}" title="Manage member" class="btn btn-success btn-circle btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="#" title="Member Info" class="btn btn-info btn-circle btn-sm">
+                                <a href="{% url 'get_user_info' pk=i.id %}" title="Member Info" class="btn btn-info btn-circle btn-sm">
                                     <i class="fas fa-info"></i>
                                 </a>
                                 <a href="{% url 'admin-group-del-student' group_id=group.id student_id=i.id %}" title="Remove From Group" class="btn btn-danger btn-circle btn-sm">
