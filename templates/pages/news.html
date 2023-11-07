@@ -142,7 +142,7 @@
         <div class="card card-widget">
             <div class="card-header">
                 <div class="user-block">
-                    <img class="img-circle" src="{% static 'auth/Logo1.PNG' %}" alt="User Image">
+                    <img class="img-circle" src="{% static 'auth/logo1.png' %}" alt="User Image">
                     <span class="username"><a href="#">Fintech Coin</a></span>
                     <span class="description">Yangiliklardan lavhalar</span>
                 </div>
@@ -156,7 +156,7 @@
             <!-- /.card-header -->
             <div class="card-body" style="display: block;">
                 <a href="{% url 'dashboard-auto-detail' key='news' pk=i.id %}">
-                    <img class="img-fluid pad w-auto" src="{{ i.img.url }}" alt="Photo">
+                    <img class="img-fluid pad" src="{{ i.img.url }}" alt="Photo" width="250px">
                 </a>
 
                 <p class="mt-3 text-capitalize"><b>{{ i.title }}</b><span class="float-right text-muted"><i
