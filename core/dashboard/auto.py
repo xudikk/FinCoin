@@ -39,6 +39,7 @@ def gets(requests, key, pk=None):
             "pos": "list"
         }
     ctx.update({f"{key}_active": "active"})
+    ctx.update({"open_menu_fc": "menu-open"})
 
     return render(requests, f'pages/{key}.html', ctx)
 
@@ -66,7 +67,8 @@ def auto_form(requests, key, pk=None):
 
     ctx = {
         "form": form,
-        "pos": 'form'
+        "pos": 'form',
+        "open_menu_fc": "menu-open"
     }
 
     return render(requests, f'pages/{key}.html', ctx)

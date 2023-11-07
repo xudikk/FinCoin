@@ -195,6 +195,8 @@ def create_user(request, status=None, pk=None, type=0):
         if root:
             ctx.update({'editing': True})
 
+    ctx.update({"open_menu_fc": "menu-open"})
+
     return render(request, f'pages/user.html', ctx)
 
 

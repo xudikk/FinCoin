@@ -2,6 +2,7 @@ import datetime
 import uuid
 from contextlib import closing
 
+from django.contrib.auth.decorators import login_required
 from django.db import connection
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -19,17 +20,17 @@ def list_user(request, pk=None):
         update_user = User.objects.filter(id=pk).first()
         card = Card.objects.filter(user=update_user)
         return render(request, 'pages/list.html',
-                      {"update_user": update_user, "card_user": card, 'u_active': "active", "card_len": len(card)})
+                      {"update_user": update_user, "card_user": card, 'u_active': "active",
+                       "open_menu_fc": "menu-open",
+                       "card_len": len(card)})
     except Exception as e:
         return render(request, "base.html", {"error": 404})
 
     # return render(request, 'pages/list.html')
 
 
+@login_required(login_url='login')
 def profile(request):
-    if request.user.is_anonymous:
-        return redirect('login')
-
     if request.method == 'POST':
         data = request.POST
         user = User.objects.filter(id=request.user.id).first()
@@ -50,7 +51,8 @@ def profile(request):
     card = Card.objects.filter(user=request.user).first()
     ctx = {
         "done": done,
-        "card_user": card
+        "card_user": card,
+        "open_menu_fc": "menu-open"
     }
     return render(request, 'sidebars/profile.html', ctx)
 

@@ -38,4 +38,5 @@ def index(request, pk=None):
     ctx = {'active': "active"}
     ctx.update(count())
     ctx.update(balance_rating_news(request))
+    ctx.update({"open_menu_fc": "menu-open"})
     return render(request, 'pages/index.html', ctx)
