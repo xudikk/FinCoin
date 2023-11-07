@@ -47,7 +47,7 @@ def profile(request):
         cursor.execute(done)
         done = dictfetchall(cursor)
 
-    card = Card.objects.filter(user=request.user)
+    card = Card.objects.filter(user=request.user).first()
     ctx = {
         "done": done,
         "card_user": card

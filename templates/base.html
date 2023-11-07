@@ -183,7 +183,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          alt="User Image">
                 </div>
                 <div class="info">
-                    <a {% if request.user.ut == 3 %} href="{% url 'user_profile' %}" {% else %} href="#" {% endif %} class="d-block">
+                    <a href="{% url 'user_profile' %}" class="d-block">
                         {% if request.user.username %}
                         {{ request.user.username }}
                         {% else %}

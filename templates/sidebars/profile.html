@@ -30,7 +30,7 @@
 
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                                <b>Ball</b> <a class="float-right">{% for i in card_user %}{{i.balance}}{% endfor %}</a>
+                                <b>Ball</b> <a class="float-right">{{card_user.balance}}</a>
                             </li>
                             <li class="list-group-item">
                                 <b>Daraja</b> <a class="float-right">{{ request.user.level }}</a>
@@ -58,17 +58,15 @@
                             <div class="tab-pane show" id="activity" role="tabpanel"
                                  aria-labelledby="product-comments-tab">
                                 {% if card_user %}
-                                {% for i in card_user %}
                                 <div class="card-body-1 card text-light d-inline-block mr-3 mt-2 w-auto"
                                      style="max-width: 28rem; width: 26%; border-radius: 20px">
                                     <div class="card-body">
-                                        <h4 class="card-text">{{ i.name }}</h4>
-                                        <p class="card-text"><b>{{ i.balance }} сум</b></p>
-                                        <p class="card-text text-uppercase">{{ i.user.full_name }}</p>
-                                        <p class="card-text">{{ i.mask }} <span class="ml-5"> {{ i.expire }}</span></p>
+                                        <h4 class="card-text">{{ card_user.name }}</h4>
+                                        <p class="card-text"><b>{{ card_user.balance }} сум</b></p>
+                                        <p class="card-text text-uppercase">{{ card_user.user.full_name }}</p>
+                                        <p class="card-text"> <span class="showNum">{{ card_user.mask }} <i class="fas fa-eye show_number" ></i></span>  <span class="ml-5"> {{ card_user.expire }}</span></p>
                                     </div>
                                 </div>
-                                {% endfor %}
                                 {% else %}
                                 <h3 class="text-info">
                                     Sizning nomingizga karta ochilmagan
@@ -226,4 +224,21 @@
         </div>
     </div>
 </section>
+
+<script>
+    var res = document.querySelector('.show_number')
+    var span = document.querySelector(".showNum")
+    console.log("salommm")
+    console.log("{{ card_user.number }}")
+    res.onclick = function() {
+           span.innerHTML = "{{ card_user.number }}"
+
+    }
+<!--    function show_number(number){-->
+<!--        console.log(number);-->
+<!--        document.querySelector(".showNum").innerHtml = number-->
+<!--    };-->
+</script>
+
+
 {% endblock %}
