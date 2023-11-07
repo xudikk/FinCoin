@@ -1,8 +1,8 @@
-<li class="nav-item has-treeview menu-open">
-    <a href="#" class="nav-link active">
+<li class="nav-item has-treeview {{ open_menu_fc }}">
+    <a href="#" class="nav-link">
         <i class="nav-icon fas fa-tachometer-alt"></i>
         <p>
-            Menular paneli
+            Fincoin paneli
             <i class="right fas fa-angle-left"></i>
         </p>
     </a>
@@ -35,6 +35,36 @@
     </ul>
 
 </li>
+
+<li class="nav-item has-treeview {{ open_menu_edu }}">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Education Paneli
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Guruhlar</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kurslar</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Yangi Yozilganlar</p>
+                </a>
+              </li>
+            </ul>
+          </li>
 {% if request.user.is_staff and request.user.is_superuser %}
 <li class="nav-item">
     <a href="" data-toggle="modal" data-target="#bonusForAllModal" class="nav-link">
