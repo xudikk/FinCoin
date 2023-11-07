@@ -10,6 +10,7 @@ from core.dashboard.education import manage_group, manage_course, interested
 from core.dashboard.home import algaritm, category
 from core.dashboard.auth import create_user, change_password, grader, create_cart
 from core.dashboard.monitoring import award, p2p
+from core.dashboard.notification import notification, done_action, backed_action
 from core.dashboard.shop import savat
 from core.dashboard.view import index
 from core.dashboard.auth import sign_in, sign_out, clear
@@ -85,5 +86,12 @@ urlpatterns = [
     path("ins/detail/<int:pk>/", interested, name="admin-inters-detail"),
 
     # shop
-    path('mahsulotlar/', savat, name='shop')
+    path('mahsulotlar/', savat, name='shop'),
+
+    # notification
+    path('notifications/', notification, name='notifications'),
+    path('notifications/<status>/', notification, name='notification_status'),
+    path('notifications/<int:pk>/<status>/', backed_action, name='notification_backed'),
+    path('notifications/<int:pk>/<status>/<int:action>/', done_action, name='notification_action'),
+
 ]

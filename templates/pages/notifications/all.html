@@ -1,0 +1,276 @@
+{% extends 'base.html' %}
+
+{% block title %} Notification {% endblock %}
+{% block pagetitle %}Notification{% endblock %}
+{% block content %}
+
+{% if status == 'backed' %}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-warning">Buyurtmalar ro'yxati</h6>
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            {% if error %}
+            <h5 class="m-0 font-weight-bold text-danger">Qandaydir Xatolik</h5>
+            {% endif %}
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>User phone</th>
+                    <th>Username</th>
+                    <th>Quentity</th>
+                    <th>Narxi</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in all_backed %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.phone }}</td>
+                    <td>{{ i.username }}</td>
+                    <td>{{ i.soni }} ta</td>
+                    <td>{{ i.cost }} <i class="fa-solid fa-coins"></i></td></td>
+                    <td>
+                        {% if i.order == False %}
+                        <a href="{% url 'notification_backed' status='backed' pk=i.backed_id %}" title="Mahsulot yetkazib berish"
+                           class="btn btn-warning btn-circle btn-sm">
+                            <i class="fa-solid fa-gift"></i>
+                        </a>
+                        {% else %}
+                        <a href="#" title="Mahsulot yetkazib berilgan"
+                           class="btn btn-success btn-circle btn-sm">
+                            <i class="fa-solid fa-check"></i>
+                        </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+            <a href="{% url 'home' %}" class="btn btn-secondary bg-outline-dark btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-home"></i>
+                    </span>
+                <span class="text">Bosh Menu</span>
+            </a>
+            <a href="{% url 'notifications' %}" class="btn btn-primary bg-outline-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fa-solid fa-backward"></i>
+                    </span>
+                <span class="text">Ortga</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% elif status == 'done_algorithm' %}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-purple">Ishlangan algarimlar Jami: {{ all_done|length }} ta</h6>
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            {% if error %}
+            <h5 class="m-0 font-weight-bold text-danger">Qandaydir Xatolik</h5>
+            {% endif %}
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>User phone</th>
+                    <th>Username</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in all_done %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.phone }}</td>
+                    <td>{{ i.username }}</td>
+                    {% if i.status == 'Bajarilmoqda' %}
+                    <td>
+                        <span class="text-info">
+                            Bajarilmoqda
+                        </span>
+                    </td>
+                    {% elif i.status == 'Tekshirilmoqda' %}
+                    <td>
+                        <span class="text-primary">
+                            Tekshirilmoqda
+                        </span>
+                    </td>
+                    {% elif i.status == 'Muaffaqiyatli' %}
+                    <td>
+                        <span class="text-success">
+                            Muaffaqiyatli
+                        </span>
+                    </td>
+                    {% elif i.status == 'Xato' %}
+                    <td>
+                        <span class="text-danger">
+                            Xato
+                        </span>
+                    </td>
+                    {% endif %}
+                    <td>
+                        <a href="{% url 'edit_algaritm' key='form' pk=i.algorithm_id %}"
+                           title="Algorithmni o'zgartirish"
+                           class="btn btn-warning btn-circle btn-sm">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        {% if i.status == "Bajarilmoqda" %}
+                        <a href="{% url 'notification_action' status='done_algorithm' action=1 pk=i.done_id %}"
+                           title="Muaffaqiyatli"
+                           class="btn btn-success btn-circle btn-sm">
+                            <i class="fa-solid fa-check"></i>
+                        </a>
+                        <a href="{% url 'notification_action' status='done_algorithm' action=2 pk=i.done_id %}"
+                           title="Xato"
+                           class="btn btn-danger btn-circle btn-sm">
+                            <i class="fa-solid fa-thumbs-down"></i>
+                        </a>
+                        <a href="{% url 'notification_action' status='done_algorithm' action=3 pk=i.done_id %}"
+                           title="Tekshirilmoqda"
+                           class="btn bg-purple btn-circle btn-sm">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </a>
+                        {% elif i.status == "Muaffaqiyatli" %}
+                        <a href="{% url 'notification_action' status='done_algorithm' action=4 pk=i.done_id %}"
+                           title="Bajarilmoqda"
+                           class="btn btn-info btn-circle btn-sm">
+                            <i class="fa-solid fa-code"></i>
+                        </a>
+                        <a href="{% url 'notification_action' status='done_algorithm' action=2 pk=i.done_id %}"
+                           title="Xato"
+                           class="btn btn-danger btn-circle btn-sm">
+                            <i class="fa-solid fa-thumbs-down"></i>
+                        </a>
+                        <a href="{% url 'notification_action' status='done_algorithm' action=3 pk=i.done_id %}"
+                           title="Tekshirilmoqda"
+                           class="btn bg-purple btn-circle btn-sm">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </a>
+                        {% elif i.status == "Xato" %}
+                        <a href="{% url 'notification_action' status='done_algorithm' action=4 pk=i.done_id %}"
+                           title="Bajarilmoqda"
+                           class="btn btn-info btn-circle btn-sm">
+                            <i class="fa-solid fa-code"></i>
+                        </a>
+                        <a href="{% url 'notification_action' status='done_algorithm' action=1 pk=i.done_id %}"
+                           title="Muaffaqiyatli"
+                           class="btn btn-success btn-circle btn-sm">
+                            <i class="fa-solid fa-check"></i>
+                        </a>
+                        <a href="{% url 'notification_action' status='done_algorithm' action=3 pk=i.done_id %}"
+                           title="Tekshirilmoqda"
+                           class="btn bg-purple btn-circle btn-sm">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </a>
+                        {% elif i.status == "Tekshirilmoqda" %}
+                        <a href="{% url 'notification_action' status='done_algorithm' action=4 pk=i.done_id %}"
+                           title="Bajarilmoqda"
+                           class="btn btn-info btn-circle btn-sm">
+                            <i class="fa-solid fa-code"></i>
+                        </a>
+                        <a href="{% url 'notification_action' status='done_algorithm' action=1 pk=i.done_id %}"
+                           title="Muaffaqiyatli"
+                           class="btn btn-success btn-circle btn-sm">
+                            <i class="fa-solid fa-check"></i>
+                        </a>
+                        <a href="{% url 'notification_action' status='done_algorithm' action=2 pk=i.done_id %}"
+                           title="Xato"
+                           class="btn btn-danger btn-circle btn-sm">
+                            <i class="fa-solid fa-thumbs-down"></i>
+                        </a>
+                        {% endif %}
+
+                    </td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+            <a href="{% url 'home' %}" class="btn btn-secondary bg-outline-dark btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-home"></i>
+                    </span>
+                <span class="text">Bosh Menu</span>
+            </a>
+            <a href="{% url 'notifications' %}" class="btn btn-primary bg-outline-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fa-solid fa-backward"></i>
+                    </span>
+                <span class="text">Ortga</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a href="{% url 'notification_status' status='backed' %}">
+
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Kelgan Buyurtmalar
+                                </div>
+                            </a>
+
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
+                                <mark>{{ notifications.count_backed }}</mark>
+                                ta <i class="fas fa-envelope mr-2"></i>
+                            </div>
+                        </div>
+
+                        <div class="col-auto">
+                            <i class="fa-solid fa-basket-shopping fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a href="{% url 'notification_status' status='done_algorithm' %}">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                    Bajarilgan Algaritmlar
+                                </div>
+                            </a>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
+                                <mark>{{ notifications.count_done_algorithm }}</mark>
+                                ta <i class="fas fa-envelope mr-2 "></i>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{% url 'home' %}" class="btn btn-primary"><i class="fas fa-home"></i> Bosh Menu</a>
+</div>
+{% endif %}
+
+{% endblock %}

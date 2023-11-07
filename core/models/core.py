@@ -93,7 +93,7 @@ class Backed(models.Model):
     quantity = models.IntegerField("Nechtaligi", default=1)
     cost = models.IntegerField('Umumiy Narx', default=0, editable=False)
     order = models.BooleanField(default=False)
-    #status for orders
+    view = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         self.cost = int(self.quantity) * int(self.product.cost)
