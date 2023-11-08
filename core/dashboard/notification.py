@@ -57,6 +57,7 @@ def notification(request, status=None):
         return render(request, f'pages/notifications/all.html', ctx)
     return render(request, f'pages/notifications/all.html', ctx)
 
+
 @admin_permission_checker
 def done_action(request, status=None, action=None, pk=None):
     if status == 'done_algorithm':

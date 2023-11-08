@@ -31,7 +31,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'plugins/datepicker/css/bootstrap-datepicker.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/datepicker/css/bootstrap-datepicker.min.css' %}"/>
     <!-- summernote -->
     <link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.css' %}">
     <link rel="stylesheet" href="{% static 'p2p/style.scss' %}">
@@ -57,7 +57,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="#" class="nav-link">Contact</a>
             </li>
-
         </ul>
 
         <!-- SEARCH FORM -->
@@ -75,47 +74,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
-            <li class="nav-item dropdown">
-
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="badge badge-danger navbar-badge">{{ user_data.total_quant}}</span>
-                </a>
-
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="{% static 'ddist/img/user1-128x128.jpg' %}" alt="User Avatar"
-                                 class="img-size-50 mr-3 img-circle">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    Brad Diesel
-                                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">Call me whenever you can...</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <i class="fa-solid fa-sack-dollar mr-1"></i>
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    Ummumiy Narx: {{ user_data.total_cost }} sum
-                                </h3>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">Buyurtma berish</a>
-                </div>
-            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-comments"></i>
@@ -190,34 +148,55 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="dropdown-divider"></div>
                     <a href="{% url 'notification_status' status='backed' %}" class="dropdown-item">
                         <i class="fa-solid fa-basket-shopping"></i> Buyurtmalar
-                        <span class="float-right text-muted text-sm"> {{notifications.count_backed}} <i class="fas fa-envelope mr-2"></i></span>
+                        <span class="float-right text-muted text-sm"> {{notifications.count_backed}} <i
+                                class="fas fa-envelope mr-2"></i></span>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="{% url 'notification_status' status='done_algorithm' %}" class="dropdown-item">
                         <i class="fa-solid fa-calculator"></i> Bajarilgan Algaritmlar
-                        <span class="float-right text-muted text-sm"> {{notifications.count_done_algorithm}} <i class="fas fa-envelope mr-2"></i></span>
+                        <span class="float-right text-muted text-sm"> {{notifications.count_done_algorithm}} <i
+                                class="fas fa-envelope mr-2"></i></span>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="{% url 'notifications' %}" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>
             </li>
+            {% elif request.user.ut == 3 %}
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="badge bg-purple navbar-badge">
+                        {% if basket.basket_count == 0 %}0{% else %}{{ basket.basket_count }}{% endif %}
+                    </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <span class="dropdown-header">{{ basket.basket_count }} ta Buyurtma</span>
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'basket_status' status=0 %}" class="dropdown-item">
+                        <i class="fa-solid fa-basket-shopping"></i> Buyurtmalar
+                        <span class="float-right text-muted text-sm"> {{basket.basket_count}} <i
+                                class="fas fa-envelope mr-2"></i></span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'basket_status' status=1 %}" class="dropdown-item">
+                        <i class="fa-solid fa-basket-shopping"></i> Sotib olinganlar
+                        <span class="float-right text-muted text-sm"> {{basket.order_true}} <i
+                                class="fas fa-envelope mr-2"></i></span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'basket' %}" class="dropdown-item dropdown-footer">See All Notifications</a>
+                </div>
+            </li>
             {% endif %}
         </ul>
     </nav>
-    <!-- /.navbar -->
-
-    <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand Logo -->
         <a href="{% url 'home' %}" class="brand-link">
             <img src="{% static 'auth/logo1.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
             <span class="brand-text font-weight-light">{{ app_name }}</span>
         </a>
-
-        <!-- Sidebar -->
         <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                     <img src="{% static 'ddist/img/user2-160x160.jpg' %}" class="img-circle elevation-2"
@@ -263,25 +242,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1 class="m-0 text-dark">{% block page_title %}{% endblock %}</h1>
-                    </div><!-- /.col -->
+                    </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
                             <li class="breadcrumb-item active">{% block pagetitle %}{% endblock %}</li>
                         </ol>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.content-header -->
-
-        <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
                 {% if error == 404 %}
-                  {% include 'pages/abs404.html' %}
+                {% include 'pages/abs404.html' %}
                 {% else %}
-                  {% block content %} {% endblock %}
+                {% block content %} {% endblock %}
                 {% endif %}
 
                 <!-- /.row -->
@@ -330,7 +306,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 
 
-
 <!-- Bonus Modal-->
 <div class="modal fade" id="bonusForAllModal" tabindex="-1" role="dialog" aria-labelledby="BonusForALlModalLabel"
      aria-hidden="true">
@@ -355,8 +330,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
     </div>
 </div>
-
-
 
 
 <!-- jQuery -->

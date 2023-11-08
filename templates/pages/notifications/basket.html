@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+
+{% block title %} Basket {% endblock %}
+{% block pagetitle %}Basket{% endblock %}
+{% block page_title %}
+
+{% if order_0 %}
+<a href="#" class="btn btn-danger bg-outline-dark">
+    O'chirib tashlash
+</a>
+<a href="#" class="btn btn-primary bg-outline-dark">
+    Sotib olish
+</a>
+{% endif %}
+{% endblock %}
+{% load static %}
+{% block content %}
+
+{% if status == 1 %}
+
+<div class="row">
+    {% for i in order_1 %}
+    <div class="col-md-3">
+        <div class="card card-widget">
+            <div class="card-header">
+                <div class="user-block">
+                    <img class="img-circle" src="{% static 'auth/logo1.png' %}" alt="User Image">
+                    <span class="username"><a href="#">Fintech Coin</a></span>
+                    <span class="description">{{ i.category }}</span>
+                </div>
+                <!-- /.user-block -->
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body" style="display: block;">
+                <a href="">
+                    <img class="img-fluid pad" src="{{ i.img }}" alt="Photo" width="400px">
+                </a>
+                <div class="d-flex">
+                    <div>
+                        <p class="mt-3 text-capitalize"><b>Mahsulot nomi: {{ i.name }}</b><span
+                                class="float-right text-muted"></span></p>
+                        <div class="card-text px-3 rounded-pill w-auto"
+                             style="font-weight: 400; background-color: #EBE9E9"><span>
+                                    {% if i.discount_percent == 0 %} </span>
+                            <div>Maxsulot narxi {{ i.cost }} coin</div>
+                            {% else %}
+                            <span style="text-decoration: line-through;">{{ i.cost }} </span> coin <sup> -{{
+                                i.discount_percent }} %</sup>
+                            {% endif %}
+                        </div>
+
+                        <div style="font-weight: 600;" class="my-3">{{ i.discount_price }} Coin</div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.card -->
+    </div>
+    {% endfor %}
+
+</div>
+
+{% if not order_1 %}
+<h3>Siz hech qanday Buyurtma bermagansiz</h3>
+{% endif %}
+
+<a href="{% url 'basket' %}" class="btn btn-primary bg-outline-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fa-solid fa-backward"></i>
+                    </span>
+    <span class="text">Ortga</span>
+</a>
+<a href="{% url 'home' %}" class="btn btn-secondary bg-outline-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-home"></i>
+                    </span>
+    <span class="text">Bosh menu</span>
+</a>
+
+{% elif status == 0 %}
+
+<div class="row">
+    {% for i in order_0 %}
+    <div class="col-md-3">
+        <div class="card card-widget">
+            <div class="card-header">
+                <div class="user-block">
+                    <img class="img-circle" src="{% static 'auth/logo1.png' %}" alt="User Image">
+                    <span class="username"><a href="#">Fintech Coin</a></span>
+                    <span class="description">{{ i.category }}</span>
+                </div>
+                <!-- /.user-block -->
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body" style="display: block;">
+                <a href="">
+                    <img class="img-fluid pad" src="{{ i.img }}" alt="Photo" width="400px">
+                </a>
+                <div class="d-flex">
+                    <div>
+                        <p class="mt-3 text-capitalize"><b>Mahsulot nomi: {{ i.name }}</b><span
+                                class="float-right text-muted"></span></p>
+                        <div class="card-text px-3 rounded-pill w-auto"
+                             style="font-weight: 400; background-color: #EBE9E9"><span>
+                                    {% if i.discount_percent == 0 %} </span>
+                            <div>Maxsulot narxi {{ i.cost }} coin</div>
+                            {% else %}
+                            <span>Maxsulot narxi </span><span style="text-decoration: line-through;">{{ i.cost }} </span> coin <sup> -{{ i.discount_percent }} %</sup>
+                            {% endif %}
+                        </div>
+
+                        <div style="font-weight: 600;" class="my-3">{{ i.quantity }} ta Maxsulot buyurtma qilingan</div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.card -->
+    </div>
+    {% endfor %}
+</div>
+
+{% if not order_0 %}
+<h3>Siz hech qanday Maxsulot sotib olmagansiz</h3>
+{% endif %}
+
+<a href="{% url 'basket' %}" class="btn btn-primary bg-outline-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fa-solid fa-backward"></i>
+                    </span>
+    <span class="text">Ortga</span>
+</a>
+<a href="{% url 'home' %}" class="btn btn-secondary bg-outline-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-home"></i>
+                    </span>
+    <span class="text">Bosh menu</span>
+</a>
+
+
+{% else %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a href="{% url 'basket_status' status=1 %}">
+
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Mening Buyurtmalarim
+                                </div>
+                            </a>
+
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
+                                <mark>{{ basket.order_true }}</mark>
+                                ta <i class="fa-solid fa-bag-shopping"></i>
+                            </div>
+                        </div>
+
+                        <div class="col-auto">
+                            <i class="fa-solid fa-basket-shopping fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a href="{% url 'basket_status' status=0 %}">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                    Sotib olgan Maxsulotlarim
+                                </div>
+                            </a>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
+                                <mark>{{ basket.basket_count }}</mark>
+                                ta <i class="fa-solid fa-bag-shopping"></i>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa-solid fa-cart-shopping fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{% url 'home' %}" class="btn btn-primary"><i class="fas fa-home"></i> Bosh Menu</a>
+</div>
+
+{% endif %}
+
+{% endblock %}

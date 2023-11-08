@@ -66,6 +66,7 @@ TEMPLATES = [
             'context_processors': [
                 'src.context_processors.user_type',
                 'src.context_processors.notifications',
+                'src.context_processors.basket',
 
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',

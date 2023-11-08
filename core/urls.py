@@ -6,8 +6,9 @@
 
 from django.urls import path, include
 from core.dashboard.auto import gets, auto_form
+from core.dashboard.basket import basket_page
 from core.dashboard.education import manage_group, manage_course, interested
-from core.dashboard.home import algaritm, category,done_algoritms
+from core.dashboard.home import algaritm, category, done_algoritms
 from core.dashboard.auth import create_user, change_password, grader, create_cart
 from core.dashboard.monitoring import award, p2p
 from core.dashboard.notification import notification, done_action, backed_action
@@ -44,7 +45,7 @@ urlpatterns = [
     path('user/info/<int:pk>/', list_user, name='get_user_info'),
     path('user-profile/', profile, name='user_profile'),
 
-    #user payments
+    # user payments
     path('transfer/', p2p, name='user_payments'),
     path('transfer/<status>/', p2p, name='p2p'),
 
@@ -96,4 +97,7 @@ urlpatterns = [
     path('notifications/<int:pk>/<status>/', backed_action, name='notification_backed'),
     path('notifications/<int:pk>/<status>/<int:action>/', done_action, name='notification_action'),
 
+    # basket
+    path('savat/', basket_page, name='basket'),
+    path('savat/<int:status>/status/', basket_page, name='basket_status'),
 ]
