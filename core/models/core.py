@@ -99,6 +99,7 @@ class Backed(models.Model):
         self.cost = int(self.quantity) * int(self.product.discount_price)
         return super(Backed, self).save(*args, **kwargs)
 
+
     class Meta:
         verbose_name_plural = "C. Savatlar"
 
