@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from base.errors import MSG
@@ -6,24 +7,30 @@ from core.models import Product
 from core.models.core import Backed
 
 
+@login_required(login_url='login')
 def savat(request):
-    if request.user.is_anonymous:
-        return redirect('login')
     if request.method == "POST":
         params = request.POST
-        print(params)
         product = Product.objects.filter(id=params['product_id']).first()
         if not product:
             return render(request, "pages/shop.html", context={"error": MSG['NotData'][lang_helper(request)]})
-
-        backed = Backed.objects.create(product=product, user=request.user)
-        backed.quantity = params.get('quentity', backed.quantity)
+        print(request.POST)
+        backed = Backed.objects.get_or_create(product=product, user=request.user, order=False)[0]
+        if "extra" in request.POST:
+            backed.quantity = backed.quantity + int(params.get('quentity', backed.quantity))
+        else:
+            backed.quantity = params.get('quentity', backed.quantity)
         backed.save()
-        return redirect('shop')
-    product = Product.objects.all()
+        request.session['oredered'] = True
 
+    else:
+        try:
+            del request.session['oredered']
+        except:
+            pass
+
+    product = Product.objects.all().order_by("-pk")
     ctx = {
         "root": product
     }
-    # print(f"\n\n\n\n{ctx}\n\n\n\n")
     return render(request, "pages/shop.html", ctx)

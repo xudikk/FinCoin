@@ -5,9 +5,11 @@ from django.db import connection
 from django.shortcuts import render, redirect
 from methodism import dictfetchall
 
+from base.custom import admin_permission_checker
 from core.models import Backed, Done
 
 
+@admin_permission_checker
 def notification(request, status=None):
     ctx = {'status': status}
     if status == 'done_algorithm':
@@ -15,6 +17,7 @@ def notification(request, status=None):
                 select cd.id done_id, cd.status, cu.first_name , cu.last_name, cu.username, cu.phone, cd.algorithm_id, cd.view
                 from core_done cd, core_user cu
                 where cd.user_id == cu.id
+                order by cd.id desc                
 
             """
 
@@ -36,6 +39,7 @@ def notification(request, status=None):
             select cb.id backed_id, cb.quantity soni, cb.'order', cb.cost, cu.first_name , cu.last_name, cu.username, cu.phone, cb.'view'
             from core_backed cb , core_user cu, core_product cp 
             where cb.user_id == cu.id and cb.product_id == cp.id
+            order by cb.id desc
         """
 
         with closing(connection.cursor()) as cursor:
@@ -53,7 +57,7 @@ def notification(request, status=None):
         return render(request, f'pages/notifications/all.html', ctx)
     return render(request, f'pages/notifications/all.html', ctx)
 
-
+@admin_permission_checker
 def done_action(request, status=None, action=None, pk=None):
     if status == 'done_algorithm':
         model = Done.objects.filter(id=pk).first()
@@ -87,6 +91,7 @@ def done_action(request, status=None, action=None, pk=None):
         return redirect('notifications')
 
 
+@admin_permission_checker
 def backed_action(request, status=None, pk=None):
     if status == 'backed':
         model = Backed.objects.filter(id=pk).first()

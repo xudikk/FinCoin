@@ -7,9 +7,32 @@
 
 {% if root %}
 
+    {% if request.session.oredered %}
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h5><i class="icon fas fa-check"></i>Successfully</h5>
+        Maxsulot ko'rib adminga yuborildi. Iltimos Adminni javobini kuting
+
+    </div>
+    {% elif error %}
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h5><i class="icon fas fa-ban"></i>Error</h5>
+        {{ error }}
+    </div>
+    {% else %}
+    <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h5><i class="icon fas fa-info"></i>Diqqat!</h5>
+        Agarda siz Maxsulot qo'shganda avvalgisini ustiga qo'shishni tanlagan bo'lsangiz. Avval n ta maxsulot qo'shgan bo'lsangiz yangi kiritgan soningdan n+yangi son hisoblab ketiladi.
+        Masalan: avval 3ta qo'shgandingiz, hozir esa 2ta qo'shyabsiz natija: 5ta uchun umumiy summa hisoblanadi
+    </div>
+    {% endif %}
+
 <div class="row">
+
     {% for i in root %}
-    <div class="col-md-4">
+    <div class="col-md-2">
         <div class="card card-widget">
             <div class="card-header">
                 <div class="user-block">
@@ -26,22 +49,29 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body" style="display: block;">
-                <a href="#">
-                    <img class="img-fluid pad w-auto" src="{{ i.img.url }}" alt="Photo">
+                <a href="">
+                    <img class="img-fluid pad" src="{{ i.img.url }}" alt="Photo" width="400px">
                 </a>
                 <div class="d-flex">
                     <div>
                         <p class="mt-3 text-capitalize"><b>Mahsulot nomi: {{ i.name }}</b><span
-                                class="float-right text-muted">
-                    <p class="mt-3 text-capitalize">Narxi: {{ i.cost }}
+                                class="float-right text-muted"></span></p>
+                        <div class="card-text px-3 rounded-pill w-auto" style="font-weight: 400; background-color: #EBE9E9"><span>
+                                    {% if i.discount_percent == 0 %} </span>
+                            <div>Maxsulot narxi {{ i.cost }} coin</div>
+                            {% else %}
+                            <span style="text-decoration: line-through;">{{ i.cost }} </span> coin <sup> -{{ i.discount_percent }} %</sup>
+                            {% endif %}
+                        </div>
 
-                        <button data-toggle="modal" style="margin-top: -8px"
-                                data-target="#MaxsulotSoniModal{{ i.id }}" type="button"
-                                class="float-right btn rounded-pill btn-primary ml-3"> Buyurtma berish
-                        </button>
+                        <div style="font-weight: 600;" class="my-3">{{ i.discount_price }} Coin
 
+                                <button data-toggle="modal" style="margin-top: -8px"
+                                        data-target="#MaxsulotSoniModal{{ i.id }}" type="button"
+                                        class="float-right btn rounded-pill btn-primary ml-3"> Buyurtma berish
+                                </button>
+                        </div>
 
-                        </p>
                     </div>
                 </div>
             </div>
@@ -76,6 +106,8 @@
                     <input type="number" class="form-control form-control-sm" name="quentity" required min="1">
                 </div>
                 <div class="modal-footer">
+                    <label for="add">Avvalgisini ustiga qo'shish</label>
+                    <input type="checkbox" id="add" name="extra" checked class="btn-primary">
                     <button type="submit" class="btn btn-primary">Buyurtma berish</button>
                 </div>
             </form>

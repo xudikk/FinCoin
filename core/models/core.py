@@ -96,7 +96,7 @@ class Backed(models.Model):
     view = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        self.cost = int(self.quantity) * int(self.product.cost)
+        self.cost = int(self.quantity) * int(self.product.discount_price)
         return super(Backed, self).save(*args, **kwargs)
 
     class Meta:

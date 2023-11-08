@@ -29,17 +29,15 @@ def user_type(request):
 
 
 def notifications(request):
-    sql = """
-            select 
-                (select COUNT(*) from core_backed cb where cb.'view' = 0) as count_backed,
-                (select COUNT(*) from core_done cd where cd.'view' = 0) as count_done_algorithm,
-                (SELECT COUNT(*) FROM core_backed cb WHERE cb.'view' = 0) + (SELECT COUNT(*) FROM core_done cd WHERE cd.'view' = 0) AS all_count
-        """
-
-    with closing(connection.cursor()) as cursor:
-        cursor.execute(sql)
-        result = dictfetchone(cursor)
-
-    return {
-        'notifications': result,
-    }
+    result = {}
+    if not request.user.is_anonymous and request.user.ut == 1:
+        sql = """
+                select 
+                    (select COUNT(*) from core_backed cb where cb.'view' = 0) as count_backed,
+                    (select COUNT(*) from core_done cd where cd.'view' = 0) as count_done_algorithm,
+                    (SELECT COUNT(*) FROM core_backed cb WHERE cb.'view' = 0) + (SELECT COUNT(*) FROM core_done cd WHERE cd.'view' = 0) AS all_count
+            """
+        with closing(connection.cursor()) as cursor:
+            cursor.execute(sql)
+            result = {'notifications':  dictfetchone(cursor)}
+    return result
