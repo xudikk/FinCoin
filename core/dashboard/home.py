@@ -128,4 +128,4 @@ def done_algoritms(request, pk=None):
         cursor.execute(sql)
         algorithm = dictfetchall(cursor)
 
-    return render(request, 'pages/algoritm.html', {"roots": algorithm})
+    return render(request, 'pages/done_algoritm.html', {"roots": algorithm})
