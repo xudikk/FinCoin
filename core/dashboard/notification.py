@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from methodism import dictfetchall
 
 from base.custom import admin_permission_checker
-from core.models import Backed, Done
+from core.models import Backed, Done, Card
 
 
 @admin_permission_checker
@@ -66,26 +66,29 @@ def done_action(request, status=None, action=None, pk=None):
 
         if action == 1:
             model.status = "Muaffaqiyatli"
+            card = Card.objects.filter(user=model.user).first()
+            card.balance += model.algorithm.reward
+            card.save()
             model.save()
-            print('a\n\n')
+            # print('a\n\n')
             return redirect('notification_status', status='done_algorithm')
 
         elif action == 2:
             model.status = "Xato"
             model.save()
-            print('b\n\n')
+            # print('b\n\n')
             return redirect('notification_status', status='done_algorithm')
 
         elif action == 3:
             model.status = "Tekshirilmoqda"
             model.save()
-            print('s\n\n')
+            # print('s\n\n')
             return redirect('notification_status', status='done_algorithm')
 
         elif action == 4:
             model.status = "Bajarilmoqda"
             model.save()
-            print('d\n\n')
+            # print('d\n\n')
             return redirect('notification_status', status='done_algorithm')
     else:
         return redirect('notifications')

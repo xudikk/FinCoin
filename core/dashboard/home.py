@@ -10,7 +10,7 @@ from methodism.sqlpaginator import SqlPaginator
 from base.custom import permission_checker, admin_permission_checker
 from base.helper import cusmot_dictfetchall, custom_dictfetchone
 from core.forms.auto import AlgorithmForm, CategoryForm
-from core.models import New, Algorithm, Category
+from core.models import New, Algorithm, Category, Done
 
 
 @admin_permission_checker
@@ -107,3 +107,25 @@ def algaritm(request, key=None, pk=None):
 
     return render(request, 'pages/algaritm.html',
                   {"all_algorithm": algarithm, 'key': key, 'user': user, "bonuses": [x[0] for x in bonuses]})
+
+
+def done_algoritms(request, pk=None):
+    if pk:
+        Done.objects.create(status="Tekshirilmoqda", user=request.user, algorithm_id=pk)
+        return redirect("done_algoritms")
+    sql = f"""
+        SELECT a.*
+        FROM core_algorithm a
+        WHERE NOT EXISTS (
+          SELECT 1
+          FROM core_done d
+          WHERE d.algorithm_id = a.id
+            AND d.user_id = {request.user.id}
+        )
+    """
+
+    with closing(connection.cursor()) as cursor:
+        cursor.execute(sql)
+        algorithm = dictfetchall(cursor)
+
+    return render(request, 'pages/algoritm.html', {"roots": algorithm})

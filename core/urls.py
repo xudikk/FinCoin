@@ -7,7 +7,7 @@
 from django.urls import path, include
 from core.dashboard.auto import gets, auto_form
 from core.dashboard.education import manage_group, manage_course, interested
-from core.dashboard.home import algaritm, category
+from core.dashboard.home import algaritm, category,done_algoritms
 from core.dashboard.auth import create_user, change_password, grader, create_cart
 from core.dashboard.monitoring import award, p2p
 from core.dashboard.notification import notification, done_action, backed_action
@@ -53,6 +53,8 @@ urlpatterns = [
     path('algaritm/', algaritm, name='all_algaritm'),
     path('algaritm/<key>/', algaritm, name='create_algaritm'),
     path('algaritm/<key>/<int:pk>/', algaritm, name='edit_algaritm'),
+    path("algaritms/done/", done_algoritms, name='done_algoritms'),
+    path("algaritms/done/<int:pk>", done_algoritms, name='done_algoritms_pk'),
 
     #
     path('clear/', clear, name='card-clear'),

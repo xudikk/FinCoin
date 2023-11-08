@@ -31,7 +31,7 @@
 
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                                <b>Ball</b> <a class="float-right">{{card_user.balance}}</a>
+                                <b>Ball</b> <a class="float-right">{{ball}}</a>
                             </li>
                             <li class="list-group-item">
                                 <b>Daraja</b> <a class="float-right">{{ request.user.level }}</a>
@@ -58,38 +58,38 @@
                         <div class="tab-content">
                             <div class="tab-pane show" id="activity" role="tabpanel"
                                  aria-labelledby="product-comments-tab">
-                                {% if card_user %}
+                                {% for i in card_user %}
                                 <div class="card-body-1 card text-light d-inline-block mr-3 mt-2 w-auto"
                                      style="max-width: 28rem; width: 26%; border-radius: 20px">
                                     <div class="card-body">
-                                        <h4 class="card-text">{{ card_user.name }}</h4>
-                                        <p class="card-text"><b>{{ card_user.balance }} сум</b></p>
-                                        <p class="card-text text-uppercase">{{ card_user.user.full_name }}</p>
-                                        <p class="card-text"> <span class="showNum">{{ card_user.mask }} <i class="fas fa-eye show_number" ></i></span>  <span class="ml-5"> {{ card_user.expire }}</span></p>
+                                        <h4 class="card-text">{{ i.name }}</h4>
+                                        <p class="card-text"><b>{{ i.balance }} сум</b></p>
+                                        <p class="card-text text-uppercase">{{ i.user.full_name }}</p>
+                                        <p class="card-text"> <span class="showNum">{{ i.mask }} <i class="fas fa-eye show_number" ></i></span>  <span class="ml-5"> {{ card_user.expire }}</span></p>
                                     </div>
                                 </div>
-                                {% else %}
+                                {% empty %}
                                 <h3 class="text-info">
                                     Sizning nomingizga karta ochilmagan
                                 </h3>
-                                {% endif %}
-                                <div class="post">
-                                    <div class="user-block">
-                                        <img class="img-circle img-bordered-sm" src="{% static 'auth/logo1.png' %}"
-                                             alt="user image">
-                                        <span class="username">
-                            <span class="text-primary">Fintech Inavation hub</span>
-                            </span>
-                                        <span class="description">Ish vaqti 9:00 dan 20:00 gacha</span>
-                                    </div>
-                                    <p>
-                                        Lorem ipsum represents a long-held tradition for designers,
-                                        typographers and the like. Some people hate it and argue for
-                                        its demise, but others ignore the hate as they create awesome
-                                        tools to help create filler text for everyone from bacon lovers
-                                        to Charlie Sheen fans.
-                                    </p>
-                                </div>
+                                {% endfor %}
+<!--                                <div class="post">-->
+<!--                                    <div class="user-block">-->
+<!--                                        <img class="img-circle img-bordered-sm" src="{% static 'auth/logo1.png' %}"-->
+<!--                                             alt="user image">-->
+<!--                                        <span class="username">-->
+<!--                            <span class="text-primary">Fintech Inavation hub</span>-->
+<!--                            </span>-->
+<!--                                        <span class="description">Ish vaqti 9:00 dan 20:00 gacha</span>-->
+<!--                                    </div>-->
+<!--                                    <p>-->
+<!--                                        Lorem ipsum represents a long-held tradition for designers,-->
+<!--                                        typographers and the like. Some people hate it and argue for-->
+<!--                                        its demise, but others ignore the hate as they create awesome-->
+<!--                                        tools to help create filler text for everyone from bacon lovers-->
+<!--                                        to Charlie Sheen fans.-->
+<!--                                    </p>-->
+<!--                                </div>-->
                             </div>
                             <div class="tab-pane active" id="action" role="tabpanel"
                                  aria-labelledby="product-comments-tab">
@@ -192,7 +192,7 @@
                             </td>
                             <td>{{ i.bonus }} <i class="fa-solid fa-coins"></i></td>
                             <td>{{ i.ball }} </td>
-                            {% if i.status == 'Bajarilmoqda' %}
+                            {% if i.status == 'Bajarilmoqda' %} 
                             <td><span class="text-info">
                                 Bajarilmoqda
                                 <a href="#" class="bg-success rounded text-sm p-1">Bajarildi</a>

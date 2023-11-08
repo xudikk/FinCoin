@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Algoritm {% endblock %}
+{% block pagetitle %} Algoritm {% endblock %}
+{% block page_title %} Algoritm {% endblock %}
+{% block content %}
+<div class="card-body" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
+    {% for i in roots %}
+    <div class="col-sm-3 mt-2">
+    <div class="position-relative p-3 bg-dark" style="height: 180px">
+    <div class="ribbon-wrapper ribbon-lg">
+        {% if i.bonus %}
+        <div class="ribbon bg-success text-lg" id="bonus{{forloop.counter}}">
+            +{{ i.bonus }}
+        </div>
+        {% endif %}
+    </div>
+    <span class="text-capitalize">
+        {{ i.first_name }} {{ i.last_name }}
+    </span>
+    <br><i>Ball: {{i.reward}}</i><br>
+        <small>{{ i.description }}</small>
+    <a href="{% url 'done_algoritms_pk' pk=i.id %}" style="margin-top: 48px" type="button"
+        class="float-right btn rounded-pill btn-primary mr-3"> Bajarildi </a>
+    </div>
+    </div>
+    {% empty %}
+    <h2 class="text-success">
+    Algaritmlarga doir masalalar mavjud emas
+    </h2>
+    {% endfor %}
+    </div>
+                </div>
+{% endblock %}
