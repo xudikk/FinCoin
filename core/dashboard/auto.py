@@ -8,8 +8,8 @@ from core.models import Product, New
 from core.forms.auto import ProductForm, NewForm
 
 
-@admin_permission_checker
 def gets(requests, key, pk=None):
+    if requests.user.is_anonymous: return redirect('login')
     try:
         Model = {
             "news": New,
