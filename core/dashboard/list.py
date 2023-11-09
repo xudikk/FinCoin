@@ -48,15 +48,11 @@ def profile(request):
         cursor.execute(done)
         done = dictfetchall(cursor)
 
-    card = Card.objects.filter(user=request.user)
-    b = 0
-    for i in card:
-        b += i.balance
+    card = Card.objects.filter(user=request.user).first()
     ctx = {
         "done": done,
         "card_user": card,
         "open_menu_fc": "menu-open",
-        "ball": b
     }
     return render(request, 'sidebars/profile.html', ctx)
 

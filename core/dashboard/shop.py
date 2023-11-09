@@ -21,13 +21,10 @@ def savat(request):
         else:
             backed.quantity = params.get('quentity', backed.quantity)
         backed.save()
-        request.session['oredered'] = True
-
-        return redirect('shop')
-
+        request.session['ordered'] = True
     else:
         try:
-            del request.session['oredered']
+            del request.session['ordered']
         except:
             pass
 
