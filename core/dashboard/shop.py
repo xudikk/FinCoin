@@ -16,6 +16,8 @@ def savat(request):
             return render(request, "pages/shop.html", context={"error": MSG['NotData'][lang_helper(request)]})
         print(request.POST)
         backed = Backed.objects.get_or_create(product=product, user=request.user, order=False)[0]
+        backed.view = False
+        backed.save()
         if "extra" in request.POST:
             backed.quantity = backed.quantity + int(params.get('quentity', backed.quantity))
         else:

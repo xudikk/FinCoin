@@ -68,6 +68,7 @@ class Interested(models.Model):
 
 
 class Dars(models.Model):
+    group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True)
     topic = models.CharField(max_length=258)
     startedTime = models.DateTimeField()
     endedTime = models.DateTimeField()

@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Dars{% endblock %}
+{% block pagetitle %}Dars{% endblock %}
+{% block page_title %}Darsliklar Ro'yxati{% endblock %}
+{% block content %}
+
+
+{% if status == "posted" %}
+
+<div class="content">
+    <div class="row">
+        <div class="col-12 bg-white border-left-success shadow h-100 py-2 rounded">
+            <div align="center" class="text-xl">Dars qo'shish</div>
+            <div>
+                <form method="post" id="form-profession" enctype="multipart/form-data" class="row p-4">
+                    {% csrf_token %}
+                    <div class="col-md-4">
+                        <label for="topic">Mavzu</label>
+                        <input type="text" class="form-control" id="topic" name="topic" placeholder="Dars Mavzusi">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="start">Boshlangan vaqti</label>
+                        <input type="datetime-local" class="form-control" id="start" name="start">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="end">Tugash vaqti</label>
+                        <input type="datetime-local" class="form-control" id="end" name="end">
+                    </div>
+
+                    <div class="col mt-2">
+                        <button type="submit" class="btn btn-success "><i class="fas fa-save"></i> Saqlash</button>
+                        <a href="{% url 'dars' group_id=group_id %}" class="btn btn-primary "><i
+                                class="fa-solid fa-backward"></i> Bekor qilish</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% else %}
+{% if error %}
+<h3 class="text-secondary">{{ error }}</h3>
+{% else %}
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Darsliklar</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Mavzu</th>
+                            <th>Boshlangan vaqti</th>
+                            <th>Tugagan vaqti</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in roots %}
+                        <tr>
+                            <td>{{ i.id }}</td>
+                            <td>{{ i.topic }}</td>
+                            <td>{{ i.startedTime }}</td>
+                            <td>{{ i.endedTime }}</td>
+                            <td>
+                                <a href="{% url 'admin-group-one' group_id=i.id %}"
+                                   title="To'lliq ma'lumotlarni ko'rish" class="btn btn-info btn-circle btn-sm">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <a href="{% url 'dars_create' status='posted' group_id=group_id %}"
+                       class="mt-3 btn btn-secondary bg-outline-dark btn-icon-split">
+                        <span class="icon text-white-100">Dars boshlash</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endif %}
+
+
+{% endblock %}

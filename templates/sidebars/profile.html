@@ -65,7 +65,9 @@
                                         <h4 class="card-text">{{ card_user.name }}</h4>
                                         <p class="card-text"><b>{{ card_user.balance }} сум</b></p>
                                         <p class="card-text text-uppercase">{{ card_user.user.full_name }}</p>
-                                        <p class="card-text"> <span class="showNum">{{ card_user.mask }} <i class="fas fa-eye show_number" ></i></span>  <span class="ml-5"> {{ card_user.expire }}</span></p>
+                                        <p class="card-text"><span class="showNum">{{ card_user.mask }} <i
+                                                class="fas fa-eye show_number"></i></span> <span class="ml-5"> {{ card_user.expire }}</span>
+                                        </p>
                                     </div>
                                 </div>
                                 {% else %}
@@ -162,8 +164,8 @@
         </div>
     </div>
 </div>
+{% if request.user.ut == 3 %}
 <hr>
-
 <section class="content">
     <div class="row">
         <div class="col-12">
@@ -191,7 +193,7 @@
                                 <a href="#">{{ i.algarithm_id }} <sup><span class="bg-purple rounded text-sm p-1">Masala ishlangan</span></sup></a>
                             </td>
                             <td>{{ i.bonus }} <i class="fa-solid fa-coins"></i></td>
-                            <td>{{ i.ball }} </td>
+                            <td>{{ i.ball }}</td>
                             {% if i.status == 'Bajarilmoqda' %}
                             <td><span class="text-info">
                                 Bajarilmoqda
@@ -217,7 +219,8 @@
                 </div>
                 {% else %}
                 <div class="card-header">
-                    <h3 class="card-title text-dark">Siz hech qanday Algaritm ishlamagansiz 🤔 <i class="fa-regular fa-hand-point-right"></i></h3>
+                    <h3 class="card-title text-dark">Siz hech qanday Algaritm ishlamagansiz 🤔 <i
+                            class="fa-regular fa-hand-point-right"></i></h3>
                     <a href="#" class="float-right btn btn-outline-success btn-sm">Malasa ishlash</a>
                 </div>
                 {% endif %}
@@ -225,7 +228,7 @@
         </div>
     </div>
 </section>
-
+{% endif %}
 <script>
     var res = document.querySelector('.show_number')
     var span = document.querySelector(".showNum")
