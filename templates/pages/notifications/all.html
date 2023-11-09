@@ -146,37 +146,37 @@
                             <i class="fa-solid fa-circle-info"></i>
                         </a>
                         {% elif i.status == "Muaffaqiyatli" %}
-                        <a href="{% url 'notification_action' status='done_algorithm' action=4 pk=i.done_id %}"
-                           title="Bajarilmoqda"
-                           class="btn btn-info btn-circle btn-sm">
-                            <i class="fa-solid fa-code"></i>
-                        </a>
-                        <a href="{% url 'notification_action' status='done_algorithm' action=2 pk=i.done_id %}"
-                           title="Xato"
-                           class="btn btn-danger btn-circle btn-sm">
-                            <i class="fa-solid fa-thumbs-down"></i>
-                        </a>
-                        <a href="{% url 'notification_action' status='done_algorithm' action=3 pk=i.done_id %}"
-                           title="Tekshirilmoqda"
-                           class="btn bg-purple btn-circle btn-sm">
-                            <i class="fa-solid fa-circle-info"></i>
-                        </a>
+<!--                        <a href="{% url 'notification_action' status='done_algorithm' action=4 pk=i.done_id %}"-->
+<!--                           title="Bajarilmoqda"-->
+<!--                           class="btn btn-info btn-circle btn-sm">-->
+<!--                            <i class="fa-solid fa-code"></i>-->
+<!--                        </a>-->
+<!--                        <a href="{% url 'notification_action' status='done_algorithm' action=2 pk=i.done_id %}"-->
+<!--                           title="Xato"-->
+<!--                           class="btn btn-danger btn-circle btn-sm">-->
+<!--                            <i class="fa-solid fa-thumbs-down"></i>-->
+<!--                        </a>-->
+<!--                        <a href="{% url 'notification_action' status='done_algorithm' action=3 pk=i.done_id %}"-->
+<!--                           title="Tekshirilmoqda"-->
+<!--                           class="btn bg-purple btn-circle btn-sm">-->
+<!--                            <i class="fa-solid fa-circle-info"></i>-->
+<!--                        </a>-->
                         {% elif i.status == "Xato" %}
-                        <a href="{% url 'notification_action' status='done_algorithm' action=4 pk=i.done_id %}"
-                           title="Bajarilmoqda"
-                           class="btn btn-info btn-circle btn-sm">
-                            <i class="fa-solid fa-code"></i>
-                        </a>
-                        <a href="{% url 'notification_action' status='done_algorithm' action=1 pk=i.done_id %}"
-                           title="Muaffaqiyatli"
-                           class="btn btn-success btn-circle btn-sm">
-                            <i class="fa-solid fa-check"></i>
-                        </a>
-                        <a href="{% url 'notification_action' status='done_algorithm' action=3 pk=i.done_id %}"
-                           title="Tekshirilmoqda"
-                           class="btn bg-purple btn-circle btn-sm">
-                            <i class="fa-solid fa-circle-info"></i>
-                        </a>
+<!--                        <a href="{% url 'notification_action' status='done_algorithm' action=4 pk=i.done_id %}"-->
+<!--                           title="Bajarilmoqda"-->
+<!--                           class="btn btn-info btn-circle btn-sm">-->
+<!--                            <i class="fa-solid fa-code"></i>-->
+<!--                        </a>-->
+<!--                        <a href="{% url 'notification_action' status='done_algorithm' action=1 pk=i.done_id %}"-->
+<!--                           title="Muaffaqiyatli"-->
+<!--                           class="btn btn-success btn-circle btn-sm">-->
+<!--                            <i class="fa-solid fa-check"></i>-->
+<!--                        </a>-->
+<!--                        <a href="{% url 'notification_action' status='done_algorithm' action=3 pk=i.done_id %}"-->
+<!--                           title="Tekshirilmoqda"-->
+<!--                           class="btn bg-purple btn-circle btn-sm">-->
+<!--                            <i class="fa-solid fa-circle-info"></i>-->
+<!--                        </a>-->
                         {% elif i.status == "Tekshirilmoqda" %}
                         <a href="{% url 'notification_action' status='done_algorithm' action=4 pk=i.done_id %}"
                            title="Bajarilmoqda"
