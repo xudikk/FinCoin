@@ -32,18 +32,19 @@
                 </a>
                 <div class="d-flex">
                     <div>
-                        <p class="mt-3 text-capitalize"><b>Mahsulot nomi: {{ i.name }}</b><span
+                        <p class="mt-3 text-capitalize"><b>Nomi: {{ i.name }}</b><span
                                 class="float-right text-muted"></span></p>
                         <div class="card-text px-3 rounded-pill w-auto"
                              style="font-weight: 400; background-color: #EBE9E9"><span>
                                     {% if i.discount_percent == 0 %} </span>
                             <div>Maxsulot narxi {{ i.cost }} coin</div>
                             {% else %}
-                             <span>Maxsulot narxi </span><span style="text-decoration: line-through;">{{ i.cost }} </span> coin <sup> - {{ i.discount_percent }} %</sup>
+                             <span>Narx: </span><span>{{ i.price }} </span> coin
+                            - {{ i.discount_percent }} % = {{ i.dp }}
                             {% endif %}
                         </div>
 
-                        <div style="font-weight: 600;" class="my-3">{{ i.quantity }} ta Maxsulot buyurtma qilingan</div>
+                        <div style="font-weight: 600;" class="my-3">Jami: {{ i.soni }}X * {{ i.dp }} = {{ i.cost }}</div>
 
                     </div>
                 </div>
@@ -99,18 +100,19 @@
                 </a>
                 <div class="d-flex">
                     <div>
-                        <p class="mt-3 text-capitalize"><b>Mahsulot nomi: {{ i.name }}</b><span
+                        <p class="mt-3 text-capitalize"><b>Nomi: {{ i.name }}</b><span
                                 class="float-right text-muted"></span></p>
                         <div class="card-text px-3 rounded-pill w-auto"
                              style="font-weight: 400; background-color: #EBE9E9"><span>
                                     {% if i.discount_percent == 0 %} </span>
                             <div>Maxsulot narxi {{ i.cost }} coin</div>
                             {% else %}
-                             <span>Maxsulot narxi </span><span style="text-decoration: line-through;">{{ i.cost }} </span> coin <sup> - {{ i.discount_percent }} %</sup>
+                             <span>Narx: </span><span>{{ i.price }} </span> coin
+                            - {{ i.discount_percent }} % = {{ i.dp }}
                             {% endif %}
                         </div>
 
-                        <div style="font-weight: 600;" class="my-3">{{ i.quantity }} ta Maxsulot buyurtma qilingan</div>
+                        <div style="font-weight: 600;" class="my-3">Jami: {{ i.soni }}X * {{ i.dp }} = {{ i.cost }}</div>
 
                     </div>
                 </div>
