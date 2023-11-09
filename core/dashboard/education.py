@@ -7,7 +7,6 @@ from core.models import GroupStudent, Group
 from core.models.education import Interested, Course
 
 
-@admin_permission_checker
 def manage_group(requests, group_id=None, status=None, student_id=None, _id=None):
     if status == 201:  # status -> HTTP RESPONSE statuses 201-add, 99-add student, 1,2,3-group statuses
         group = Group.objects.filter(id=group_id).first()
@@ -20,7 +19,7 @@ def manage_group(requests, group_id=None, status=None, student_id=None, _id=None
             for i, j in form.errors.items():
                 ctx['error'] = i
                 break
-        return render(requests, 'pages/groups.html', ctx)
+        return render(requests, 'pages/education/groups.html', ctx)
 
     elif group_id:
         group = Group.objects.filter(id=group_id).first()
@@ -38,7 +37,7 @@ def manage_group(requests, group_id=None, status=None, student_id=None, _id=None
                     for i, j in form.errors.items():
                         ctx['error'] = i
                         break
-                return render(requests, 'pages/groups.html', ctx)
+                return render(requests, 'pages/education/groups.html', ctx)
 
         queryset = GroupStudent.objects.select_related('group').filter(group=group)
         members = [x.student for x in queryset]
@@ -47,7 +46,7 @@ def manage_group(requests, group_id=None, status=None, student_id=None, _id=None
             "position": "one",
             'members': members
         }
-        return render(requests, 'pages/groups.html', ctx)
+        return render(requests, 'pages/education/groups.html', ctx)
 
 
     elif status:
@@ -56,13 +55,12 @@ def manage_group(requests, group_id=None, status=None, student_id=None, _id=None
             'groups': groups,
             'position': 'list',
         }
-        return render(requests, 'pages/groups.html', ctx)
+        return render(requests, 'pages/education/groups.html', ctx)
     ctx = {
         'position': 'main',
         'gcnt': gcnt(),
     }
-
-    return render(requests, 'pages/groups.html', ctx)
+    return render(requests, 'pages/education/groups.html', ctx)
 
 
 @admin_permission_checker
@@ -75,7 +73,7 @@ def interested(requests, pk=None, contac_id=None):
                 'intres': inst,
                 'error': True,
             }
-            return render(requests, 'pages/instres.html', ctx)
+            return render(requests, 'pages/education/instres.html', ctx)
         ins.view = True
         ins.save()
         ctx = {
@@ -124,7 +122,7 @@ def manage_course(requests, pk=None, edit_id=None, del_id=None):
             form.save()
             return redirect('admin-course')
 
-        return render(requests, 'pages/course.html', {"form": form, "position": 'edit'})
+        return render(requests, 'pages/education/course.html', {"form": form, "position": 'edit'})
     if pk:
         course = Course.objects.filter(pk=pk).first()
         if not course:

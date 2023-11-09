@@ -39,12 +39,11 @@
                                     {% if i.discount_percent == 0 %} </span>
                             <div>Maxsulot narxi {{ i.cost }} coin</div>
                             {% else %}
-                            <span style="text-decoration: line-through;">{{ i.cost }} </span> coin <sup> -{{
-                                i.discount_percent }} %</sup>
+                             <span>Maxsulot narxi </span><span style="text-decoration: line-through;">{{ i.cost }} </span> coin <sup> - {{ i.discount_percent }} %</sup>
                             {% endif %}
                         </div>
 
-                        <div style="font-weight: 600;" class="my-3">{{ i.discount_price }} Coin</div>
+                        <div style="font-weight: 600;" class="my-3">{{ i.quantity }} ta Maxsulot buyurtma qilingan</div>
 
                     </div>
                 </div>

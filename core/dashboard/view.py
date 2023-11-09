@@ -13,7 +13,7 @@ from django.shortcuts import redirect, render
 from methodism import dictfetchall
 
 from base.custom import admin_permission_checker
-from base.helper import count, balance_rating_news
+from base.helper import count, balance_rating_news, gcnt
 from core.forms.auto import AlgorithmForm
 from core.models import Algorithm, User, Card, New
 
@@ -35,8 +35,16 @@ def index(request, pk=None):
         }
         ctx.update(balance_rating_news(request))
         return render(request, 'pages/index.html', ctx)
+    if request.user.ut == 2:
+        ctx = {
+            'position': 'main',
+            'gcnt': gcnt(),
+        }
+
+        return render(request, 'pages/index.html', ctx)
     ctx = {'active': "active"}
     ctx.update(count())
     ctx.update(balance_rating_news(request))
     ctx.update({"open_menu_fc": "menu-open"})
+
     return render(request, 'pages/index.html', ctx)

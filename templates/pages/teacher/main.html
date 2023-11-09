@@ -1,3 +1,112 @@
-<h2>
-    Salom Ustoz yaxshimisz
-</h2>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a href="{% url 'admin-group-list' status=2 %}">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Active Guruhlar
+                                </div>
+                            </a>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
+                                <mark>{{ gcnt.act }}</mark>
+                                ta
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a href="{% url 'admin-group-list' status=1  %}">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                    Start Yaqinda
+                                </div>
+                            </a>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
+                                <mark>{{ gcnt.start }}</mark>
+                                ta
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a href="{% url 'admin-group-list' status=3 %}">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Tugagan Guruhlar
+                                </div>
+                            </a>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
+                                <mark>{{ gcnt.end }}</mark>
+                                ta
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a href="">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Yangi Yozilganlar
+                                </div>
+                            </a>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Ko'rilmagan
+                                <mark>{{ gcnt.icnt }}</mark>
+                                ta
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-6 col-md-6 mb-4">
+            <a href="{% url 'admin-group-add-student' group_id=0 status=201 %}" class="btn btn-success btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                <span class="text">Yangi guruh qo'shish</span>
+            </a>
+            <a href="{% url 'home' %}" class="btn btn-info btn-icon-split">
+                   <span class="icon text-white-50">
+                        <i class="fas fa-home"></i>
+                    </span>
+                <span class="text">Bosh Menu</span>
+            </a>
+        </div>
+
+    </div>
+</div>
+
