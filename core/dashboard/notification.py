@@ -36,7 +36,7 @@ def notification(request, status=None):
         return render(request, f'pages/notifications/all.html', ctx)
     if status == 'backed':
         all_backed = f"""
-            select cb.id backed_id, cb.discount_price, cb.quantity soni, cb.'order', cb.cost, cu.first_name , cu.last_name, cu.username, cu.phone, cb.'view'
+            select cb.id backed_id, cb.quantity soni, cb.'order', cb.cost, cu.first_name , cu.last_name, cu.username, cu.phone, cb.'view'
             from core_backed cb , core_user cu, core_product cp 
             where cb.user_id == cu.id and cb.product_id == cp.id
             order by cb.id desc
