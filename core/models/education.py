@@ -84,7 +84,8 @@ class Dars(models.Model):
 
 class Davomat(models.Model):
     dars = models.ForeignKey(Dars, on_delete=models.SET_NULL, null=True)
-    user = models.ForeignKey(GroupStudent, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, limit_choices_to={"ut": 3})
+    group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True)
     status = models.CharField(max_length=36, choices=(
                                             ("Keldi", "Keldi"),
                                             ("Kemadi", "Kemadi")))
@@ -92,7 +93,7 @@ class Davomat(models.Model):
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     def __str__(self):
-        return f"{self.dars.topic} || {self.user.student} || {self.status} "
+        return f"{self.dars.topic} || {self.user} || {self.status} "
 
     class Meta:
         verbose_name = "Davomat"
