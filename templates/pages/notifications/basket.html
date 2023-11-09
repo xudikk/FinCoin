@@ -2,17 +2,7 @@
 
 {% block title %} Basket {% endblock %}
 {% block pagetitle %}Basket{% endblock %}
-{% block page_title %}
-
-{% if order_0 %}
-<a href="#" class="btn btn-danger bg-outline-dark">
-    O'chirib tashlash
-</a>
-<a href="#" class="btn btn-primary bg-outline-dark">
-    Sotib olish
-</a>
-{% endif %}
-{% endblock %}
+{% block page_title %} Savatcha {% endblock %}
 {% load static %}
 {% block content %}
 
@@ -117,7 +107,7 @@
                                     {% if i.discount_percent == 0 %} </span>
                             <div>Maxsulot narxi {{ i.cost }} coin</div>
                             {% else %}
-                            <span>Maxsulot narxi </span><span style="text-decoration: line-through;">{{ i.cost }} </span> coin <sup> -{{ i.discount_percent }} %</sup>
+                             <span>Maxsulot narxi </span><span style="text-decoration: line-through;">{{ i.cost }} </span> coin <sup> - {{ i.discount_percent }} %</sup>
                             {% endif %}
                         </div>
 

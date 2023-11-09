@@ -65,11 +65,13 @@
                         </div>
 
                         <div style="font-weight: 600;" class="my-3">{{ i.discount_price }} Coin
-
-                                <button data-toggle="modal" style="margin-top: -8px"
-                                        data-target="#MaxsulotSoniModal{{ i.id }}" type="button"
-                                        class="float-right btn rounded-pill btn-primary ml-3"> Buyurtma berish
-                                </button>
+                                <div class="float-right">
+                                    <a href="{% url 'dashboard-auto-edit' key='product' pk=i.id %}" data-toggle="modal"
+                                       data-target="#MaxsulotSoniModal{{ i.id }}"
+                                       title="Savatga"
+                                       class="btn btn-warning btn-circle btn-sm">
+                                        <i class="fas fa-cart-shopping"></i>
+                                </a></div>
                         </div>
 
                     </div>
