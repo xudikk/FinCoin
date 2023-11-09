@@ -24,6 +24,7 @@ def error_500(request, *args, **kwargs):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/v1/", FcMain.as_view()),
+    path('edu/', include('core.education.urls')),
     path("", include("core.urls"))
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

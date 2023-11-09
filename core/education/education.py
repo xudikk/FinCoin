@@ -139,4 +139,4 @@ def manage_course(requests, pk=None, edit_id=None, del_id=None):
         ctx['position'] = 'list'
         ctx['courses'] = Course.objects.all()
 
-    return render(requests, 'pages/course.html', ctx)
+    return render(requests, 'pages/education/course.html', ctx)

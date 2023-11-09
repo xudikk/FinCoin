@@ -9,130 +9,133 @@
 
 {% if position == 'one' %}
 
-    <div class="card mb-4 border-left-success">
-        <div class="card-body">
-            <h4>Guruh: <mark><i>{{ group.name }}</i></mark></h4>
-        </div>
-        <div class="card-body">
-            <h4>Course: <mark><i>{{ group.course.name }}</i></mark></h4>
-        </div>
-        <div class="card-body">
-            <h4>Mentor: <mark><i>{{ group.course.mentor }}</i></mark></h4>
-        </div>
-        <div class="card-body">
-            <h4>Davomiyligi: <mark><i>{{ group.duration }}</i></mark></h4>
-        </div>
-         <div class="card-body">
+<div class="card mb-4 border-left-success">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Guruh</th>
+                    <th>Course</th>
+                    <th>Mentor</th>
+                    <th>Davomiyligi</th>
+                    <th>Holati</th>
+                </tr>
+                </thead>
+                <tbody>
 
-            <h4>Holati:
-                <mark>{% if group.status == 1 %}
-                    <i class="text-info">Boshlanmoqda</i>
-                    {% elif  group.status == 2 %}
-                    <i class="text-success">Davom Qilyabdi</i>
-                    {% elif  group.status == 3 %}
-                    <i class="text-warning">Guruh Yopilgan</i>
-                    {% else %}
-                    <i class="text-danger">Aniq Emas</i>
-                    {% endif %}
-                </mark>
-            </h4>
-        </div>
-    </div>
+                <tr>
+                    <td>1</td>
+                    <td>{{ group.name }}</td>
+                    <td>{{ group.course.name }}</td>
+                    <td>{{ group.course.mentor }}</td>
+                    <td>{{ group.duration }}</td>
 
-
-    <hr class="border-warning" >
-
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-info">Guruhga tegishli bo'lgan O'quvchilar ro'yxati</h6>
-        </div>
-        {% if members %}
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>№</th>
-                            <th>Name</th>
-                            <th>Lavozimi</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for i in members %}
-                        {% if i.id != request.session.user %}
-
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ i }}</td>
-                            <td>{{ i.position }}</td>
-                            {% if i.status == 1 %}
-                            <td class="text-secondary">Faol Emas</td>
-                            {% elif i.status == 2 %}
-
-                            <td>Faol</td>
-                            {% elif i.status == 3 %}
-                            <td>Mavjud emas</td>
+                    <td>
+                        <mark>{% if group.status == 1 %}
+                            <i class="text-info">Boshlanmoqda</i>
+                            {% elif group.status == 2 %}
+                            <i class="text-success">Davom Qilyabdi</i>
+                            {% elif group.status == 3 %}
+                            <i class="text-warning">Guruh Yopilgan</i>
                             {% else %}
-                            <td>Aniq Emas</td>
+                            <i class="text-danger">Aniq Emas</i>
                             {% endif %}
+                        </mark>
+                    </td>
+                </tr>
 
-                            <td>
-                                <a href="{% url 'user_edit' type=i.ut status='form' pk=i.id %}" title="Manage member" class="btn btn-success btn-circle btn-sm">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="{% url 'get_user_info' pk=i.id %}" title="Member Info" class="btn btn-info btn-circle btn-sm">
-                                    <i class="fas fa-info"></i>
-                                </a>
-                                <a href="{% url 'admin-group-del-student' group_id=group.id student_id=i.id %}" title="Remove From Group" class="btn btn-danger btn-circle btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        {% endif %}
-                       {% endfor %}
-
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
         </div>
-        {% else %}
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-danger">Ushbu Guruhda hech qanday o'quvchilar yo'q</h6>
-            </div>
-        {% endif %}
     </div>
 
 
-    <div class="card mb-4 border-bottom-info">
-        <div class="card-body">
-            <a href="{% url 'admin-group' %}" class="btn btn-secondary btn-icon-split">
-                <span class="icon text-white-50">
-                    <i class="fas fa-arrow-left"></i>
-                </span>
-                <span class="text">Guruhlar listi</span>
-            </a>
-            <a href="{% url 'home' %}" class="btn btn-info btn-icon-split">
+</div>
+
+
+<hr class="border-warning">
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-info">Guruhga tegishli bo'lgan O'quvchilar ro'yxati</h6>
+    </div>
+    {% if members %}
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Name</th>
+                    <th>Familya, Ism</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in members %}
+                {% if i.id != request.session.user %}
+
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i }}</td>
+                    <td>{{ i.full_name }}</td>
+                    {% if i.status == 1 %}
+                    <td class="text-secondary">Faol Emas</td>
+                    {% elif i.status == 2 %}
+
+                    <td>Faol</td>
+                    {% elif i.status == 3 %}
+                    <td>Mavjud emas</td>
+                    {% else %}
+                    <td>Aniq Emas</td>
+                    {% endif %}
+
+                    <td>
+                        <a href="{% url 'get_user_info' pk=i.id %}" title="Member Info"
+                           class="btn btn-info btn-circle btn-sm">
+                            <i class="fas fa-info"></i>
+                        </a>
+                        <a href="{% url 'admin-group-del-student' group_id=group.id student_id=i.id %}"
+                           title="Remove From Group" class="btn btn-danger btn-circle btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-danger">Ushbu Guruhda hech qanday o'quvchilar yo'q</h6>
+    </div>
+    {% endif %}
+</div>
+
+
+<div class="card mb-4 border-bottom-info">
+    <div class="card-body">
+        <a href="{% url 'home' %}" class="btn btn-info btn-icon-split">
                 <span class="icon text-white-50">
                     <i class="fas fa-home"></i>
                 </span>
-                <span class="text">Bosh Menu</span>
-            </a>
-            <a href="{% url 'admin-group-add-student' group_id=group.id status=99 %}" class="btn btn-success btn-icon-split">
+            <span class="text">Bosh Menu</span>
+        </a>
+        <a href="{% url 'admin-group-add-student' group_id=group.id status=99 %}"
+           class="btn btn-success btn-icon-split">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
-                <span class="text">Guruhga o'quvchi qo'shish</span>
-            </a>
-            <a href="{% url 'admin-group-add-student' group_id=group.id status=201 %}" class="btn btn-primary btn-icon-split">
-                <span class="icon text-white-50">
-                    <i class="fas fa-edit"></i>
-                </span>
-                <span class="text">Guruhni tahrirlash</span>
-            </a>
-        </div>
+            <span class="text">Guruhga o'quvchi qo'shish</span>
+        </a>
     </div>
+</div>
 {% elif position == 'gr' %}
 <div class="row">
     <div class="col-md-12">
@@ -169,23 +172,23 @@
                     </div>
                     <div class="form-row">
                         <div class="card-action right-align">
-                              <button type="submit" class="btn btn-block btn-success">
+                            <button type="submit" class="btn btn-block btn-success">
                                 <i class="fas fa-check"></i>O'zgarishlarni Saqlash
-                              </button>
+                            </button>
                         </div>
                         <a href="{% url 'admin-group-one' group_id=group.id %}">
                             <div class="card-action ml-1 right-align">
-                                  <button type="button" class="btn btn-block btn-secondary">
-                                        <i class="fas fa-arrow-left"></i> Back to info
-                                  </button>
+                                <button type="button" class="btn btn-block btn-secondary">
+                                    <i class="fas fa-arrow-left"></i> Back to info
+                                </button>
                             </div>
                         </a>
 
                         <a href="{% url 'home' %}">
                             <div class="card-action ml-1 right-align">
-                                  <button type="button" class="btn btn-block btn-info">
-                                        <i class="fas fa-home"></i> Bosh menu
-                                  </button>
+                                <button type="button" class="btn btn-block btn-info">
+                                    <i class="fas fa-home"></i> Bosh menu
+                                </button>
                             </div>
                         </a>
                     </div>
@@ -196,55 +199,67 @@
 </div>
 
 {% elif position == 'list' %}
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-success">To'lliq Guruhlar listi</h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>№</th>
-                            <th>Name</th>
-                            <th>Course | Mentor</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for i in groups %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ i.name }}</td>
-                            <td>{{ i.course }}</td>
-                            {% if i.status == 1 %}
-                                <td><mark class="text-info">Boshlanmoqda</mark></td>
-                            {% elif i.status == 2 %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-success">To'lliq Guruhlar listi</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Name</th>
+                    <th>Course | Mentor</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in groups %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.course }}</td>
+                    {% if i.status == 1 %}
+                    <td>
+                        <mark class="text-info">Boshlanmoqda</mark>
+                    </td>
+                    {% elif i.status == 2 %}
 
-                                <td><mark class="text-success">Davom Qilyabdi</mark></td>
-                            {% elif i.status == 3 %}
-                                <td><mark class="text-warning">Guruh Yopilgan</mark></td>
-                            {% else %}
-                                <td><mark class="text-danger">Aniq Emas</mark></td>
-                            {% endif %}
+                    <td>
+                        <mark class="text-success">Davom Qilyabdi</mark>
+                    </td>
+                    {% elif i.status == 3 %}
+                    <td>
+                        <mark class="text-warning">Guruh Yopilgan</mark>
+                    </td>
+                    {% else %}
+                    <td>
+                        <mark class="text-danger">Aniq Emas</mark>
+                    </td>
+                    {% endif %}
 
-                            <td>
-                                <a href="{% url 'admin-group-add-student' group_id=i.id status=201 %}" title="Manage Group" class="btn btn-success btn-circle btn-sm">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="{% url 'admin-group-one' group_id=i.id %}" title="Group Info" class="btn btn-info btn-circle btn-sm">
-                                    <i class="fas fa-info-circle"></i>
-                                </a>
-                            </td>
-                        </tr>
-                       {% endfor %}
+                    <td>
+                        <a href="{% url 'admin-group-one' group_id=i.id %}" title="Group Info"
+                           class="btn btn-info btn-circle btn-sm">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
 
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
+<a href="{% url 'home' %}" class="btn btn-secondary bg-outline-dark btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-home"></i>
+                    </span>
+    <span class="text">Bosh Menu</span>
+</a>
 
 {% elif position == 'add' %}
 <div class="row">
@@ -279,22 +294,22 @@
                     </div>
                     <div class="form-row">
                         <div class="card-action right-align">
-                              <button type="submit" class="btn btn-block btn-success">
+                            <button type="submit" class="btn btn-block btn-success">
                                 <i class="fas fa-check"></i>O'zgarishlarni Saqlash
-                              </button>
+                            </button>
                         </div>
                         <a href="{% url 'admin-group' %}">
                             <div class="card-action ml-1 right-align">
-                                  <button type="button" class="btn btn-block btn-secondary">
-                                        <i class="fas fa-arrow-left"></i> Back to list
-                                  </button>
+                                <button type="button" class="btn btn-block btn-secondary">
+                                    <i class="fas fa-arrow-left"></i> Back to list
+                                </button>
                             </div>
                         </a>
                         <a href="{% url 'home' %}">
                             <div class="card-action ml-1 right-align">
-                                  <button type="button" class="btn btn-block btn-info">
-                                        <i class="fas fa-home"></i> Bosh menu
-                                  </button>
+                                <button type="button" class="btn btn-block btn-info">
+                                    <i class="fas fa-home"></i> Bosh menu
+                                </button>
                             </div>
                         </a>
                     </div>
@@ -306,113 +321,128 @@
 
 {% else %}
 
-    <div class="container-fluid">
+<div class="container-fluid">
 
 
-        <div class="row">
+    <div class="row">
 
-            <div class="col-xl-6 col-md-6 mb-4  ">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <a href="{% url 'admin-group-list' status=2 %}">
+        <div class="col-xl-6 col-md-6 mb-4  ">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a href="{% url 'admin-group-list' status=2 %}">
 
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                        Active Guruhlar</div>
-                                </a>
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Active Guruhlar
+                                </div>
+                            </a>
 
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy <mark>{{ gcnt.act }}</mark> ta </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
+                                <mark>{{ gcnt.act }}</mark>
+                                ta
                             </div>
+                        </div>
 
-                            <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                            </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <a href="{% url 'admin-group-list' status=1  %}">
+        </div>
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a href="{% url 'admin-group-list' status=1  %}">
                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Start Yaqinda</div>
-                                </a>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy <mark>{{ gcnt.start }}</mark> ta </div>
+                                    Start Yaqinda
+                                </div>
+                            </a>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
+                                <mark>{{ gcnt.start }}</mark>
+                                ta
                             </div>
-                            <div class="col-auto">
-                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xl-6 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <a href="{% url 'admin-group-list' status=3 %}">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        Tugagan Guruhlar</div>
-                                </a>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy <mark>{{ gcnt.end }}</mark> ta </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-comments fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-6 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <a href="">
-                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                        Yangi Yozilganlar</div>
-                                </a>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">Ko'rilmagan <mark>{{ gcnt.icnt }}</mark> ta </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-comments fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-6 col-md-6 mb-4">
-                <a href="{% url 'admin-group-add-student' group_id=0 status=201 %}" class="btn btn-success btn-icon-split" >
-                    <span class="icon text-white-50">
-                        <i class="fas fa-check"></i>
-                    </span>
-                    <span class="text">Yangi guruh qo'shish</span>
-                </a>
-                <a href="{% url 'home' %}"  class="btn btn-info btn-icon-split" >
-                   <span class="icon text-white-50">
-                        <i class="fas fa-home"></i>
-                    </span>
-                    <span class="text">Bosh Menu</span>
-               </a>
-            </div>
-
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a href="{% url 'admin-group-list' status=3 %}">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Tugagan Guruhlar
+                                </div>
+                            </a>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
+                                <mark>{{ gcnt.end }}</mark>
+                                ta
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a href="">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Yangi Yozilganlar
+                                </div>
+                            </a>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Ko'rilmagan
+                                <mark>{{ gcnt.icnt }}</mark>
+                                ta
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-6 col-md-6 mb-4">
+            <a href="{% url 'admin-group-add-student' group_id=0 status=201 %}" class="btn btn-success btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                <span class="text">Yangi guruh qo'shish</span>
+            </a>
+            <a href="{% url 'home' %}" class="btn btn-info btn-icon-split">
+                   <span class="icon text-white-50">
+                        <i class="fas fa-home"></i>
+                    </span>
+                <span class="text">Bosh Menu</span>
+            </a>
+        </div>
+
+    </div>
+</div>
+
 
 {% endif %}
-
 
 
 {% endblock %}

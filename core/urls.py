@@ -4,10 +4,10 @@
 #
 #  Tashkent, Uzbekistan
 
-from django.urls import path, include
+from django.urls import path
 from core.dashboard.auto import gets, auto_form
 from core.dashboard.basket import basket_page
-from core.dashboard.education import manage_group, manage_course, interested
+from core.education.education import manage_group, manage_course, interested
 from core.dashboard.home import algaritm, category, done_algoritms
 from core.dashboard.auth import create_user, change_password, grader, create_cart
 from core.dashboard.monitoring import award, p2p
@@ -68,25 +68,6 @@ urlpatterns = [
 
     # card
     path("del-card/<int:user>/<int:pk>/", delCard, name="del-card"),
-
-    # group
-    path("gr/", manage_group, name="admin-group"),
-    path("gr/list/<int:status>/", manage_group, name="admin-group-list"),
-    path("gr/<int:group_id>/", manage_group, name="admin-group-one"),
-    path("gr/edit/<int:_id>/", manage_group, name="admin-group-edit"),
-    path("gr/<int:group_id>/student/<int:student_id>/", manage_group, name="admin-group-del-student"),
-    path("gr/<int:group_id>/gs/<int:status>", manage_group, name="admin-group-add-student"),
-
-    # course
-    path("course/", manage_course, name="admin-course"),
-    path("course/one/<int:pk>/", manage_course, name="admin-course-one"),
-    path("course/<int:edit_id>/", manage_course, name="admin-course-edit"),
-    path("course/del/<int:del_id>/", manage_course, name="admin-course-delete"),
-
-    # interesting
-    path("ins/", interested, name="admin-interested"),
-    path("ins/<int:contac_id>", interested, name="admin-interested-contacted"),
-    path("ins/detail/<int:pk>/", interested, name="admin-inters-detail"),
 
     # shop
     path('mahsulotlar/', savat, name='shop'),
