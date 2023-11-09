@@ -120,7 +120,7 @@ def done_algoritms(request, pk=None):
           SELECT 1
           FROM core_done d
           WHERE d.algorithm_id = a.id
-            AND d.user_id = {request.user.id}
+            AND d.user_id = {request.user.id} and d.status != 'Xato'
         )
     """
 

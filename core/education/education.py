@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 
-from base.custom import admin_permission_checker, permission_checker_by_ut
+from base.custom import admin_permission_checker
 from base.helper import gcnt
 from core.forms.education import GrStForm, GroupForm, CourseForm
 from core.models import GroupStudent, Group
 from core.models.education import Interested, Course
 
 
-@permission_checker_by_ut
+@admin_permission_checker
 def manage_group(requests, group_id=None, status=None, student_id=None, _id=None):
     if status == 201:  # status -> HTTP RESPONSE statuses 201-add, 99-add student, 1,2,3-group statuses
         group = Group.objects.filter(id=group_id).first()
@@ -103,7 +103,7 @@ def interested(requests, pk=None, contac_id=None):
             'intres': inst,
         }
 
-        return render(requests, 'pages/instres.html', ctx)
+        return render(requests, 'pages/education/instres.html', ctx)
 
 
 @admin_permission_checker
