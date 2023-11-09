@@ -65,3 +65,38 @@ class Interested(models.Model):
 
     def __str__(self):
         return f"{self.name} | {self.phone} | {self.contacted} "
+
+
+class Dars(models.Model):
+    topic = models.CharField(max_length=258)
+    startedTime = models.DateTimeField()
+    endedTime = models.DateTimeField()
+    created = models.DateTimeField(auto_now_add=True, auto_now=False, editable=False)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+    def __str__(self):
+        return f"{self.topic} // {self.startedTime}"
+
+    class Meta:
+        verbose_name = "Dars"
+        verbose_name_plural = "Darslar"
+
+
+class Davomat(models.Model):
+    dars = models.ForeignKey(Dars, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(GroupStudent, on_delete=models.SET_NULL, null=True)
+    status = models.CharField(max_length=36, choices=(
+                                            ("Keldi", "Keldi"),
+                                            ("Kemadi", "Kemadi")))
+    created = models.DateTimeField(auto_now_add=True, auto_now=False, editable=False)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+    def __str__(self):
+        return f"{self.dars.topic} || {self.user.student} || {self.status} "
+
+    class Meta:
+        verbose_name = "Davomat"
+        verbose_name_plural = "Davomatlar"
+
+
+
