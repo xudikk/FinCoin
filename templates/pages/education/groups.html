@@ -15,7 +15,7 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                 <tr>
-                    <th>№</th>
+                    <th>ID</th>
                     <th>Guruh</th>
                     <th>Course</th>
                     <th>Mentor</th>
@@ -26,10 +26,10 @@
                 <tbody>
 
                 <tr>
-                    <td>1</td>
+                    <td>{{ group.id }}</td>
                     <td>{{ group.name }}</td>
                     <td>{{ group.course.name }}</td>
-                    <td>{{ group.course.mentor }}</td>
+                    <td>{{ group.course.mentor.full_name }}</td>
                     <td>{{ group.duration }}</td>
 
                     <td>
@@ -68,7 +68,7 @@
                 <thead>
                 <tr>
                     <th>№</th>
-                    <th>Name</th>
+                    <th>Username</th>
                     <th>Familya, Ism</th>
                     <th>Status</th>
                     <th>Actions</th>
@@ -80,7 +80,7 @@
 
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ i }}</td>
+                    <td>{{ i.username }}</td>
                     <td>{{ i.full_name }}</td>
                     {% if i.status == 1 %}
                     <td class="text-secondary">Faol Emas</td>
@@ -117,6 +117,68 @@
     </div>
     {% endif %}
 </div>
+<hr class="border-warning">
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-info">O'tilayotgan darslar</h6>
+    </div>
+    {% if lessons %}
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Mavzu</th>
+                            <th>Boshlangan vaqti</th>
+                            <th>Tugagan vaqti</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in lessons %}
+                        <tr>
+                            <td>{{ i.id }}</td>
+                            <td>{{ i.topic }}</td>
+                            <td>{{ i.startedTime }}</td>
+                            <td>{{ i.endedTime }}</td>
+                            <td>
+                                <a href="{% url 'education_dars' group_id=group.id pk=i.id %}"
+                                   title="Davomatni ko'rish" class="btn btn-info btn-circle btn-sm">
+                                    <i class="fas fa-list-check"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                    <span class="step-links">
+                        {% if lessons.has_previous %}
+                            <a href="?page=1" class="btn btn-primary btn-sm">&laquo;first</a>
+                            <a href="?page={{ lessons.previous_page_number }}" class="btn btn-primary btn-sm">prev</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ lessons.number }} of {{ lessons.paginator.num_pages }}.
+                        </span>
+
+                        {% if lessons.has_next %}
+                            <a href="?page={{ lessons.next_page_number }}" class="btn btn-primary btn-sm">next</a>
+                            <a href="?page={{ lessons.paginator.num_pages }}"
+                               class="btn btn-primary btn-sm">last&raquo;</a>
+                        {% endif %}
+                    </span>
+                    </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-danger">Hozircha hech qanday dars o'tilmagan</h6>
+    </div>
+    {% endif %}
+</div>
 
 
 <div class="card mb-4 border-bottom-info">
@@ -134,7 +196,7 @@
                 </span>
             <span class="text">Guruhga o'quvchi qo'shish</span>
         </a>
-        <a href="{% url 'dars' group_id=group.id %}"
+        <a href="{% url 'education_dars_add' status='form' group_id=group.id %}"
            class="btn btn-dark btn-icon-split">
             <span class="text">Dars boshlash</span>
         </a>

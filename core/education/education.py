@@ -1,10 +1,11 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 
 from base.custom import admin_permission_checker
 from base.helper import gcnt
-from core.forms.education import GrStForm, GroupForm, CourseForm
+from core.forms.education import GrStForm, GroupForm, CourseForm, DarsForm
 from core.models import GroupStudent, Group
-from core.models.education import Interested, Course
+from core.models.education import Interested, Course, Dars
 
 
 @admin_permission_checker
@@ -42,13 +43,17 @@ def manage_group(requests, group_id=None, status=None, student_id=None, _id=None
 
         queryset = GroupStudent.objects.select_related('group').filter(group=group)
         members = [x.student for x in queryset]
+        lessons = Dars.objects.filter(group_id=group_id).order_by('-pk')
+        paginator = Paginator(lessons, 40)
+        page_number = requests.GET.get("page", 1)
+        lessons = paginator.get_page(page_number)
         ctx = {
             'group': group,
             "position": "one",
-            'members': members
+            'members': members,
+            "lessons": lessons
         }
         return render(requests, 'pages/education/groups.html', ctx)
-
 
     elif status:
         groups = Group.objects.filter(status=status).order_by('-pk')
@@ -140,3 +145,29 @@ def manage_course(requests, pk=None, edit_id=None, del_id=None):
         ctx['courses'] = Course.objects.all()
 
     return render(requests, 'pages/education/course.html', ctx)
+
+
+def manage_lesson(request, group_id, pk=None, status=None):
+    root = Dars.objects.filter(pk=pk).first() or None
+    group = Group.objects.filter(pk=group_id).first() or None
+    if (not root and status is None) or not group:
+        return render(request, 'base.html', {'error': 404})
+    form = DarsForm(request.POST or None, request.FILES or None, instance=root, group=group)
+    if form.is_valid():
+        form.save()
+        kwargs = {"group_id": group_id}
+        return redirect("admin-group-one", **kwargs)
+
+    queryset = GroupStudent.objects.filter(group_id=group_id)
+    ctx = {
+        'members': queryset,
+        "form": form,
+        "root": root,
+        "group_id": group_id
+    }
+    if status:
+        ctx.update({"status": "form", "group_id": group_id})
+    return render(request, "pages/education/dars.html", ctx)
+
+
+

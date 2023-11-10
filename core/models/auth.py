@@ -94,6 +94,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def show_phone(self):
         return f"{self.phone[:3]}" + " ** *** ** " + f"{self.phone[-2:]}"
 
+    def __str__(self):
+        return self.full_name()
+
     def personal(self):
         ut = {1: 'Admin',
               2: "Teacher",

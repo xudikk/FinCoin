@@ -50,3 +50,8 @@ class DarsForm(forms.ModelForm):
     class Meta:
         model = Dars
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        group = kwargs.pop('group')
+        super().__init__(*args, **kwargs)
+        self.fields['group'].initial = group

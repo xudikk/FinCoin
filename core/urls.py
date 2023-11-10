@@ -7,8 +7,6 @@
 from django.urls import path
 from core.dashboard.auto import gets, auto_form
 from core.dashboard.basket import basket_page
-from core.education.dars import dars
-from core.education.education import manage_group, manage_course, interested
 from core.dashboard.home import algaritm, category, done_algoritms
 from core.dashboard.auth import create_user, change_password, grader, create_cart
 from core.dashboard.monitoring import award, p2p
@@ -83,7 +81,4 @@ urlpatterns = [
     path('savat/', basket_page, name='basket'),
     path('savat/<int:status>/status/', basket_page, name='basket_status'),
 
-    # dars
-    path('darsliklar/<int:group_id>/', dars, name='dars'),
-    path('darsliklar/<status>/<int:group_id>/', dars, name='dars_create'),
 ]

@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 
 from core.models import User
@@ -26,6 +28,7 @@ class Group(models.Model):
         (2, "Davom Qilyabdi"),
         (3, "Guruh Yopilgan"),
     ])
+    start_date = models.DateField(verbose_name="Gurux Boshlangan Sana", default=datetime.datetime.today(), blank=False)
 
     def __str__(self):
         return f"Name : {self.name} | Course: {self.course} "
@@ -74,6 +77,7 @@ class Dars(models.Model):
     endedTime = models.DateTimeField()
     created = models.DateTimeField(auto_now_add=True, auto_now=False, editable=False)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+    is_end = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.topic} // {self.startedTime}"
