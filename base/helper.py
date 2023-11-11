@@ -138,7 +138,7 @@ def get_davomat(group_id: int, dars_id: int):
     return result
 
 
-def check_attendance_makeable(group_id: int, dars_id: int, st_id:int):
+def check_attendance_makeable(group_id: int, dars_id: int, st_id: int):
     sql = f"""
             select st.id from core_user st 
             inner join core_groupstudent gs on gs.student_id = st.id 

@@ -6,73 +6,76 @@
 {% block content %}
 
 {% if not root.is_end %}
-    <div class="content">
-        <div class="row">
-            <div class="col-12 bg-white border-left-success shadow h-100 py-2 rounded">
-                <div align="center" class="text-xl">Dars qo'shish</div>
-                <div>
-                    <form method="post" id="form-profession" enctype="multipart/form-data" class="row p-4">
-                        {% csrf_token %}
-                        <div class="col-md-4">
-                            {% bootstrap_field form.topic %}
-                        </div>
-                        <div class="col-md-4">
-                            <label for="startVaqti">Boshlangan vaqti</label>
-                            <input type="datetime-local" value="{{ root.startedTime |date:'Y-m-d H:i' }}" class="form-control" id="startVaqti" name="startedTime">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="endVaqti">Tugash vaqti</label>
-                            <input type="datetime-local" value="{{ root.endedTime |date:'Y-m-d H:i' }}" class="form-control" id="endVaqti" name="endedTime">
-                        </div>
-                        <div class="col-md-4" hidden>
-                            {% bootstrap_field form.group %}
-                        </div>
-                        <div class="col mt-2">
-                            <button type="submit" class="btn btn-success "><i class="fas fa-save"></i> Saqlash</button>
-                                                    {% if root %}
+<div class="content">
+    <div class="row">
+        <div class="col-12 bg-white border-left-success shadow h-100 py-2 rounded">
+            <div align="center" class="text-xl">Dars qo'shish</div>
+            <div>
+                <form method="post" id="form-profession" enctype="multipart/form-data" class="row p-4">
+                    {% csrf_token %}
+                    <div class="col-md-4">
+                        {% bootstrap_field form.topic %}
+                    </div>
+                    <div class="col-md-4">
+                        <label for="startVaqti">Boshlangan vaqti</label>
+                        <input type="datetime-local" value="{{ root.startedTime |date:'Y-m-d H:i' }}"
+                               class="form-control" id="startVaqti" name="startedTime">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="endVaqti">Tugash vaqti</label>
+                        <input type="datetime-local" value="{{ root.endedTime |date:'Y-m-d H:i' }}" class="form-control"
+                               id="endVaqti" name="endedTime">
+                    </div>
+                    <div class="col-md-4" hidden>
+                        {% bootstrap_field form.group %}
+                    </div>
+                    <div class="col mt-2">
+                        <button type="submit" class="btn btn-success "><i class="fas fa-save"></i> Saqlash</button>
+                        {% if root %}
 
-                            <a href="{% url 'end_lesson' lesson_id=root.id %}" class="btn btn-warning "><i
-                                    class="fa-solid fa-hand"></i> Dars Tugadi</a>
-                                                    {% endif %}
+                        <a href="{% url 'end_lesson' lesson_id=root.id %}" class="btn btn-warning "><i
+                                class="fa-solid fa-hand"></i> Dars Tugadi</a>
+                        {% endif %}
 
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="alert alert-warning alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <h5><i class="icon fas fa-ban"></i>Diqqat!</h5>
-       Dars tugadi deb belgilagandan keyin uni o'zgartirish imkoniyati bo'lmaydi. Boshqatdan yo'qlama qilish ham mumkin bo'maydi.
+<div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <h5><i class="icon fas fa-ban"></i>Diqqat!</h5>
+    Dars tugadi deb belgilagandan keyin uni o'zgartirish imkoniyati bo'lmaydi. Boshqatdan yo'qlama qilish ham mumkin
+    bo'maydi.
 
-    </div>
+</div>
 
 {% else %}
 
-    <div class="card mb-4 border-left-success">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nomi</th>
-                        <th>Gurux</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{ root.id }}</td>
-                        <td>{{ root.topic }}</td>
-                        <td>{{ root.group }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+<div class="card mb-4 border-left-success">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nomi</th>
+                    <th>Gurux</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ root.id }}</td>
+                    <td>{{ root.topic }}</td>
+                    <td>{{ root.group }}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 {% endif %}
 
 
@@ -103,43 +106,42 @@
                     <td>{{ i.username }}</td>
                     <td>{{ i.full_name }}</td>
                     {% if not root.is_end and i.davomati != 'Keldi' and i.davomati != 'Kemadi' %}
-                        <td>
-                                <a href="{% url 'lesson_attends' group_id=group_id dars_id=root.id student_id=i.student_id status='Keldi'  %}"
-                                   title="Darska keldi"
-                                   class="btn btn-success btn-circle btn-sm">
-                                    <i class="fas fa-hand-sparkles"></i>
-                                </a>
-                                <a href="{% url 'lesson_attends' group_id=group_id dars_id=root.id student_id=i.student_id status='Kemadi'  %}"
-                                   title="Darska Kelmadi"
-                                   class="btn btn-warning btn-circle btn-sm">
-                                    <i class="fas fa-hand-fist"></i>
-                                </a>
-
-                        </td>
+                    <td>
+                        <a href="{% url 'lesson_attends' group_id=group_id dars_id=root.id student_id=i.student_id status='Keldi' %}"
+                           title="Darsga keldi"
+                           class="btn btn-success btn-circle btn-sm">
+                            <i class="fas fa-hand-sparkles"></i>
+                        </a>
+                        <a href="{% url 'lesson_attends' group_id=group_id dars_id=root.id student_id=i.student_id status='Kemadi' %}"
+                           title="Darska Kelmadi"
+                           class="btn btn-warning btn-circle btn-sm">
+                            <i class="fas fa-hand-fist"></i>
+                        </a>
+                    </td>
                     {% else %}
 
-                        {% if i.davomati == 'Keldi' %}
-                            <td>
-                                <a title="Darska keldi"
-                                   class="btn btn-success btn-circle btn-sm">
-                                    <i class="fas fa-handshake"></i>
-                                </a>
-                            </td>
-                        {% elif i.davomati == 'Kemadi' %}
-                            <td>
-                                 <a title="Darska Kelmadi"
-                                   class="btn btn-danger btn-circle btn-sm">
-                                    <i class="fas fa-hand-back-fist"></i>
-                                </a>
-                            </td>
-                        {% else %}
-                            <td>
-                                <a title="Aniq Emas"
-                                   class="btn btn-info btn-circle btn-sm">
-                                    <i class="fas fa-circle-xmark"></i>
-                                </a>
-                            </td>
-                        {% endif %}
+                    {% if i.davomati == 'Keldi' %}
+                    <td>
+                        <a title="Darska keldi"
+                           class="btn btn-success btn-circle btn-sm">
+                            <i class="fas fa-handshake"></i>
+                        </a>
+                    </td>
+                    {% elif i.davomati == 'Kemadi' %}
+                    <td>
+                        <a title="Darska Kelmadi"
+                           class="btn btn-danger btn-circle btn-sm">
+                            <i class="fas fa-hand-back-fist"></i>
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>
+                        <a title="Aniq Emas"
+                           class="btn btn-info btn-circle btn-sm">
+                            <i class="fas fa-circle-xmark"></i>
+                        </a>
+                    </td>
+                    {% endif %}
                     {% endif %}
 
                 </tr>
@@ -157,8 +159,11 @@
 </div>
 {% endif %}
 
-<div class="col mt-2">
-    <a href="{% url 'admin-group-one' group_id=group_id %}" class="btn btn-primary "><i
+<div class="col">
+    <a {% if request.user.ut == 1 %}href="{% url 'admin-group-one' group_id=group_id %}"
+       {% elif request.user.ut == 2 %}href="{% url 'mentor_admin-group-one' group_id=group_id %}"
+       {% endif %}
+       class="btn mb-3 btn-primary "><i
             class="fa-solid fa-backward"></i> Ortga</a>
 </div>
 

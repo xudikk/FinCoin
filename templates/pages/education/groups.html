@@ -71,7 +71,7 @@
                     <th>Username</th>
                     <th>Familya, Ism</th>
                     <th>Status</th>
-                    <th>Actions</th>
+                    <th>{% if request.user.ut == 1 %}Actions{% elif request.user.ut == 2 %}Telefon raqam{% endif %}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -85,7 +85,6 @@
                     {% if i.status == 1 %}
                     <td class="text-secondary">Faol Emas</td>
                     {% elif i.status == 2 %}
-
                     <td>Faol</td>
                     {% elif i.status == 3 %}
                     <td>Mavjud emas</td>
@@ -94,6 +93,7 @@
                     {% endif %}
 
                     <td>
+                        {% if request.user.ut == 1 %}
                         <a href="{% url 'get_user_info' pk=i.id %}" title="Member Info"
                            class="btn btn-info btn-circle btn-sm">
                             <i class="fas fa-info"></i>
@@ -102,6 +102,9 @@
                            title="Remove From Group" class="btn btn-danger btn-circle btn-sm">
                             <i class="fas fa-trash"></i>
                         </a>
+                        {% elif request.user.ut == 2 %}
+                        {{ i.phone }}
+                        {% endif %}
                     </td>
                 </tr>
                 {% endif %}
@@ -142,11 +145,13 @@
                         <tr>
                             <td>{{ i.id }}</td>
                             <td>{{ i.topic }}</td>
-                            <td>{{ i.startedTime }}</td>
-                            <td>{{ i.endedTime }}</td>
+                            <td>{{ i.startedTime |date:'Y-m-d H:i' }}</td>
+                            <td>{{ i.endedTime |date:'Y-m-d H:i' }}</td>
                             <td>{% if i.is_end %}Dars Tugagan{% else %}Dars Tugadi deb belgilanmagan{% endif %}</td>
                             <td>
-                                <a href="{% url 'education_dars' group_id=group.id pk=i.id %}"
+                                <a {% if request.user.ut == 1 %}href="{% url 'education_dars' group_id=group.id pk=i.id %}"
+                                   {% elif request.user.ut == 2 %}href="{% url 'mentor_education_dars' group_id=group.id pk=i.id %}"
+                                   {% endif %}
                                    title="Davomatni ko'rish" class="btn btn-info btn-circle btn-sm">
                                     <i class="fas fa-list-check"></i>
                                 </a>
@@ -191,14 +196,17 @@
                 </span>
             <span class="text">Bosh Menu</span>
         </a>
-        <a href="{% url 'admin-group-add-student' group_id=group.id status=99 %}"
-           class="btn btn-success btn-icon-split">
+        {% if request.user.ut == 1 %}
+        <a href="{% url 'admin-group-add-student' group_id=group.id status=99 %}" class="btn btn-success btn-icon-split">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
             <span class="text">Guruhga o'quvchi qo'shish</span>
         </a>
-        <a href="{% url 'education_dars_add' status='form' group_id=group.id %}"
+        {% endif %}
+        <a {% if request.user.ut == 1 %}href="{% url 'education_dars_add' status='form' group_id=group.id %}"
+           {% elif request.user.ut == 2 %}href="{% url 'mentor_education_dars_add' status='form' group_id=group.id %}"
+           {% endif %}
            class="btn btn-dark btn-icon-split">
             <span class="text">Dars boshlash</span>
         </a>
@@ -208,12 +216,8 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card card-info">
-
-
             <form class="form" method="post" id="form-profession" enctype="multipart/form-data" novalidate>
-
                 {% csrf_token %}
-
                 <div class="card-body">
                     <h2 class="form-group text-center">Guruhlarga o'quvchi qo'shish bo'limi</h2>
                     {% if error == 'start_date' %}
@@ -309,7 +313,10 @@
                     {% endif %}
 
                     <td>
-                        <a href="{% url 'admin-group-one' group_id=i.id %}" title="Group Info"
+                        <a {% if request.user.ut == 2 %}href="{% url 'mentor_admin-group-one' group_id=i.id %}"
+                           {% elif request.user.ut == 1 %}href="{% url 'admin-group-one' group_id=i.id %}"
+                           {% endif %}
+                           title="Group Info"
                            class="btn btn-info btn-circle btn-sm">
                             <i class="fas fa-info-circle"></i>
                         </a>

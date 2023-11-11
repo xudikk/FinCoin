@@ -1,94 +1,76 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <a href="{% url 'admin-group-list' status=2 %}">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Active Guruhlar
-                                </div>
-                            </a>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
-                                <mark>{{ gcnt.act }}</mark>
-                                ta
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <div class="small-box text-uppercase bg-success">
+                    <div class="inner">
+                        <p class="text-sm mt-2">Active Guruhlar</p>
+                        <div class="h5 mb-0 font-weight-bold mb-3 text-capitalize text-gray-800">Umumiy
+                            <mark class="bg-success">{{ gcnt.act }}</mark>
+                            ta
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <a href="{% url 'admin-group-list' status=1  %}">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Start Yaqinda
-                                </div>
-                            </a>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
-                                <mark>{{ gcnt.start }}</mark>
-                                ta
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                        </div>
+                    <div class="icon">
+                        <i class="fa-solid fa-chart-line"></i>
                     </div>
+                    <a href="{% url 'mentor_admin-group-list' status=2 %}" class="small-box-footer">Batafsil <i
+                            class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-        </div>
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <a href="{% url 'admin-group-list' status=3 %}">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Tugagan Guruhlar
-                                </div>
-                            </a>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
-                                <mark>{{ gcnt.end }}</mark>
-                                ta
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <a href="#">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Yangi Yozilganlar
-                                </div>
-                            </a>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">Ko'rilmagan
-                                <mark>{{ gcnt.icnt }}</mark>
-                                ta
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+            <div class="col-lg-3 col-6">
+                <div class="small-box text-uppercase bg-purple">
+                    <div class="inner">
+
+                        <p class="text-sm mt-2">Start Yaqinda</p>
+                        <div class="h5 mb-0 font-weight-bold mb-3 text-capitalize text-gray-800">Umumiy
+                            <mark class="bg-purple">{{ gcnt.start }}</mark>
+                            ta
                         </div>
                     </div>
+                    <div class="icon">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                    <a href="{% url 'mentor_admin-group-list' status=1  %}" class="small-box-footer">Batafsil <i
+                            class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="small-box text-uppercase bg-primary">
+                    <div class="inner">
+                        <h3>{{ count.count_user}}</h3>
+
+                        <p class="text-sm">Tugagan guruhlar</p>
+                        <div class="h5 mb-0 font-weight-bold mb-3 text-capitalize text-gray-800">Umumiy
+                            <mark class="bg-primary">{{ gcnt.end }}</mark>
+                            ta
+                        </div>
+                    </div>
+                    <div class="icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <a href="{% url 'mentor_admin-group-list' status=3 %}" class="small-box-footer">Batafsil <i
+                            class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="small-box text-uppercase bg-warning">
+                    <div class="inner">
+                        <h3>{{ count.count_algorithm }}</h3>
+
+                        <p class="text-sm">Yangi yozilganlar</p>
+                        <div class="h5 mb-0 font-weight-bold mb-3 text-capitalize text-gray-800">Ko'rilmagan
+                            <mark class="bg-warning">{{ gcnt.icnt }}</mark>
+                            ta
+                        </div>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                    </div>
+                    <a href="{% url 'all_algaritm' %}" class="small-box-footer">Batafsil <i
+                            class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
+</section>
