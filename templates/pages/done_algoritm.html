@@ -22,7 +22,7 @@
                 <br><i>Ball: {{i.reward}}</i><br>
                 <small>{{ i.description }}</small>
                 <a href="{% url 'done_algoritms_pk' pk=i.id %}" style="margin-top: 48px" type="button"
-                   class="float-right btn rounded-pill btn-primary mr-3"> start </a>
+                   class="float-right btn rounded-pill btn-primary mr-3"> {% if i.status == "Xato" %} Qayta ishlash {% else %} start {% endif %}</a>
             </div>
         </div>
         {% empty %}

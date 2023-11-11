@@ -5,7 +5,7 @@
 #  Tashkent, Uzbekistan
 from django.contrib import admin
 from core.models import User, Token, Otp, Card, ExpiredToken, Algorithm, Done, Product, Category, New, Group, \
-    GroupStudent, Course, Backed, Interested, Dars, Davomat, Monitoring
+    GroupStudent, Course, Backed, Interested, Dars, Davomat, Monitoring, Chat, ChatUser, Message, ViewMessages, Reply_Message
 
 # Register your models here.
 admin.site.register(User)
@@ -26,3 +26,8 @@ admin.site.register(Interested)
 admin.site.register(Dars)
 admin.site.register(Davomat)
 admin.site.register(Monitoring)
+admin.site.register(Chat)
+admin.site.register(ChatUser)
+admin.site.register(Message)
+admin.site.register(ViewMessages)
+admin.site.register(Reply_Message)
