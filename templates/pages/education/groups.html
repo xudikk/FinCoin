@@ -133,6 +133,7 @@
                             <th>Mavzu</th>
                             <th>Boshlangan vaqti</th>
                             <th>Tugagan vaqti</th>
+                            <th>Holati</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -143,6 +144,7 @@
                             <td>{{ i.topic }}</td>
                             <td>{{ i.startedTime }}</td>
                             <td>{{ i.endedTime }}</td>
+                            <td>{% if i.is_end %}Dars Tugagan{% else %}Dars Tugadi deb belgilanmagan{% endif %}</td>
                             <td>
                                 <a href="{% url 'education_dars' group_id=group.id pk=i.id %}"
                                    title="Davomatni ko'rish" class="btn btn-info btn-circle btn-sm">

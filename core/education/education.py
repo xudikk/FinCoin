@@ -2,10 +2,10 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 
 from base.custom import admin_permission_checker
-from base.helper import gcnt
+from base.helper import gcnt, get_davomat, check_attendance_makeable
 from core.forms.education import GrStForm, GroupForm, CourseForm, DarsForm
-from core.models import GroupStudent, Group
-from core.models.education import Interested, Course, Dars
+from core.models import GroupStudent, Group, User
+from core.models.education import Interested, Course, Dars, Davomat
 
 
 @admin_permission_checker
@@ -147,27 +147,50 @@ def manage_course(requests, pk=None, edit_id=None, del_id=None):
     return render(requests, 'pages/education/course.html', ctx)
 
 
+@admin_permission_checker
 def manage_lesson(request, group_id, pk=None, status=None):
     root = Dars.objects.filter(pk=pk).first() or None
     group = Group.objects.filter(pk=group_id).first() or None
     if (not root and status is None) or not group:
         return render(request, 'base.html', {'error': 404})
+
+    if not status and root.group != group:
+        return render(request, 'base.html', {'error': 404})
+
     form = DarsForm(request.POST or None, request.FILES or None, instance=root, group=group)
     if form.is_valid():
-        form.save()
-        kwargs = {"group_id": group_id}
-        return redirect("admin-group-one", **kwargs)
+        root = form.save()
+        redirect('education_dars', group_id=group_id, pk=root.id)
 
-    queryset = GroupStudent.objects.filter(group_id=group_id)
     ctx = {
-        'members': queryset,
         "form": form,
         "root": root,
         "group_id": group_id
     }
+    if root:
+        ctx.update({'members': get_davomat(group_id, root.id)})
     if status:
         ctx.update({"status": "form", "group_id": group_id})
     return render(request, "pages/education/dars.html", ctx)
 
 
+@admin_permission_checker
+def end_lesson(request, lesson_id):  # attends -> davomat
+    root = Dars.objects.filter(pk=lesson_id).first()
+    if not root:
+        return render(request, 'base.html', {'error': 404})
+    root.is_end = True
+    root.save()
+    return redirect('education_dars', group_id=root.group_id, pk=root.id)
+
+
+@admin_permission_checker
+def attends(request, group_id, dars_id, student_id, status):
+    check = check_attendance_makeable(group_id, dars_id, student_id)
+    if not check:
+        return render(request, 'base.html', {'error': 404})
+    if status == "Kemad":
+        "Shu yerda userning ota onasiga sms chiqarib yuboriladi."
+    Davomat.objects.create(dars_id=dars_id, group_id=group_id, user_id=student_id, status=status)
+    return redirect('education_dars', group_id=group_id, pk=dars_id)
 

@@ -27,16 +27,26 @@
                         <div class="col-md-4" hidden>
                             {% bootstrap_field form.group %}
                         </div>
-
                         <div class="col mt-2">
                             <button type="submit" class="btn btn-success "><i class="fas fa-save"></i> Saqlash</button>
-                            <a href="{% url 'admin-group-one' group_id=group_id %}" class="btn btn-primary "><i
-                                    class="fa-solid fa-backward"></i> Bekor qilish</a>
+                                                    {% if root %}
+
+                            <a href="{% url 'end_lesson' lesson_id=root.id %}" class="btn btn-warning "><i
+                                    class="fa-solid fa-hand"></i> Dars Tugadi</a>
+                                                    {% endif %}
+
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h5><i class="icon fas fa-ban"></i>Diqqat!</h5>
+       Dars tugadi deb belgilagandan keyin uni o'zgartirish imkoniyati bo'lmaydi. Boshqatdan yo'qlama qilish ham mumkin bo'maydi.
+
     </div>
 
 {% else %}
@@ -66,7 +76,7 @@
 {% endif %}
 
 
-
+{% if root %}
 <hr class="border-warning">
 
 <div class="card shadow mb-4">
@@ -90,15 +100,17 @@
 
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ i.student.username }}</td>
-                    <td>{{ i.student.full_name }}</td>
-                    {% if not root.is_end %}
+                    <td>{{ i.username }}</td>
+                    <td>{{ i.full_name }}</td>
+                    {% if not root.is_end and i.davomati != 'Keldi' and i.davomati != 'Kemadi' %}
                         <td>
-                                <a href="" title="Darska keldi"
+                                <a href="{% url 'lesson_attends' group_id=group_id dars_id=root.id student_id=i.student_id status='Keldi'  %}"
+                                   title="Darska keldi"
                                    class="btn btn-success btn-circle btn-sm">
                                     <i class="fas fa-hand-sparkles"></i>
                                 </a>
-                                <a href="" title="Darska Kelmadi"
+                                <a href="{% url 'lesson_attends' group_id=group_id dars_id=root.id student_id=i.student_id status='Kemadi'  %}"
+                                   title="Darska Kelmadi"
                                    class="btn btn-warning btn-circle btn-sm">
                                     <i class="fas fa-hand-fist"></i>
                                 </a>
@@ -106,14 +118,14 @@
                         </td>
                     {% else %}
 
-                        {% if i.kelganligi == 'Keldi' %}
+                        {% if i.davomati == 'Keldi' %}
                             <td>
                                 <a title="Darska keldi"
                                    class="btn btn-success btn-circle btn-sm">
-                                    <i class="fas fa-hand-shake"></i>
+                                    <i class="fas fa-handshake"></i>
                                 </a>
                             </td>
-                        {% elif i.kelganligi == 'Kemadi' %}
+                        {% elif i.davomati == 'Kemadi' %}
                             <td>
                                  <a title="Darska Kelmadi"
                                    class="btn btn-danger btn-circle btn-sm">
@@ -143,12 +155,12 @@
     </div>
     {% endif %}
 </div>
+{% endif %}
 
+<div class="col mt-2">
+    <a href="{% url 'admin-group-one' group_id=group_id %}" class="btn btn-primary "><i
+            class="fa-solid fa-backward"></i> Ortga</a>
+</div>
 
-<script>
-    document.getElementById('startVaqti').valueAsDate = {{ root.startedTime }};
-    document.getElementById('endVaqti').valueAsDate = new Date();
-
-</script>
 
 {% endblock %}

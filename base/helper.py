@@ -119,6 +119,40 @@ def count():
     }
 
 
+def get_davomat(group_id: int, dars_id: int):
+    sql = f"""
+        select gs.student_id, gr.id as group_id, dars.topic,  dars.startedTime, COALESCE(student.username, 'not set yet') as username, 
+        (COALESCE(student.first_name, '') || ' ' || COALESCE(student.last_name, '')) as full_name, COALESCE(dv.status, 'Aniq emas') as davomati
+        from core_groupstudent gs
+        left join core_dars dars on gs.group_id = dars.group_id
+        left join core_group gr on gr.id = gs.group_id 
+        inner join core_user student on student.id = gs.student_id 
+        left join core_davomat dv on dv.user_id = gs.student_id  and dv.dars_id = dars.id 
+        where gr.id = {group_id} and dars.id = {dars_id}
+        GROUP by gs.id 
+        ORDER by davomati desc, student_id DESC 
+        """
+    with closing(connection.cursor()) as cursor:
+        cursor.execute(sql)
+        result = dictfetchall(cursor)
+    return result
+
+
+def check_attendance_makeable(group_id: int, dars_id: int, st_id:int):
+    sql = f"""
+            select st.id from core_user st 
+            inner join core_groupstudent gs on gs.student_id = st.id 
+            INNER join core_group gr on gs.group_id = gr.id 
+            INNER join core_dars dars on dars.group_id = gr.id and not dars.is_end
+            WHERE  dars.id = {dars_id} and gr.id={group_id} and st.id = {st_id}
+            GROUP by st.id  
+        """
+    with closing(connection.cursor()) as cursor:
+        cursor.execute(sql)
+        result = dictfetchall(cursor)
+    return result
+
+
 def balance_rating_news(request):
     if not request.user.is_anonymous:
         balance = f"""

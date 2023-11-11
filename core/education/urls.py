@@ -1,6 +1,6 @@
 from django.urls import path
 
-from core.education.education import manage_group, manage_course, interested, manage_lesson
+from core.education.education import manage_group, manage_course, interested, manage_lesson, end_lesson, attends
 
 urlpatterns = [
 # group
@@ -26,6 +26,8 @@ urlpatterns = [
     path("dars/g-<int:group_id>/d-<int:pk>/", manage_lesson, name='education_dars'),
     path("dars/g-<int:group_id>/edit<int:pk>/s-<status>/", manage_lesson, name='education_dars_edit'),
     path("dars/g-<int:group_id>/add/s-<status>/", manage_lesson, name='education_dars_add'),
+    path("end/lesson/<int:lesson_id>/", end_lesson, name="end_lesson"),
+    path("attends/g<int:group_id>/lesson/d<int:dars_id>/s<int:student_id>/<status>/", attends, name="lesson_attends"),
 
 ]
 
