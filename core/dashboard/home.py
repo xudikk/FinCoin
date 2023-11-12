@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from methodism import custom_response, dictfetchone, dictfetchall
 from methodism.sqlpaginator import SqlPaginator
 
-from base.custom import permission_checker, admin_permission_checker
+from base.custom import permission_checker, admin_permission_checker, permission_checker_by_ut
 from base.helper import cusmot_dictfetchall, custom_dictfetchone
 from core.forms.auto import AlgorithmForm, CategoryForm
 from core.models import New, Algorithm, Category, Done
@@ -70,7 +70,7 @@ def category(request, pk=None):
     return render(request, f'pages/ctg.html', ctx)
 
 
-@admin_permission_checker
+@permission_checker_by_ut
 def algaritm(request, key=None, pk=None):
     if key == 'form':
         root = Algorithm.objects.filter(pk=pk).first()
@@ -129,3 +129,17 @@ def done_algoritms(request, pk=None):
         algorithm = dictfetchall(cursor)
 
     return render(request, 'pages/done_algoritm.html', {"roots": algorithm})
+
+
+def mentor_algorithm(request):
+    all_mentor_algorithm = f"""
+            select ca.id, ca.reward, ca.description, ca.bonus, cu.id user_id, cu.first_name, cu.last_name from core_algorithm ca , core_user cu 
+            where ca.creator_id == {request.user.id} and cu.ut==2
+        """
+    with closing(connection.cursor()) as cursor:
+        cursor.execute(all_mentor_algorithm)
+        all_ = dictfetchall(cursor)
+
+        ctx = {'all_algorithm': all_}
+
+    return render(request, 'pages/algorithms/mentor_algorithm.html', ctx)

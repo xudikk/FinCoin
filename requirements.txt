@@ -9,7 +9,6 @@ gunicorn==21.2.0
 methodism==0.2.1
 packaging==23.1
 Pillow==10.0.0
-psycopg2==2.9.7
 python-dotenv==1.0.0
 pytz==2023.3
 soupsieve==2.5
