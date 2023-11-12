@@ -130,35 +130,35 @@
     <div class="card-body">
         <div class="table-responsive">
             <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Mavzu</th>
-                            <th>Boshlangan vaqti</th>
-                            <th>Tugagan vaqti</th>
-                            <th>Holati</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for i in lessons %}
-                        <tr>
-                            <td>{{ i.id }}</td>
-                            <td>{{ i.topic }}</td>
-                            <td>{{ i.startedTime |date:'Y-m-d H:i' }}</td>
-                            <td>{{ i.endedTime |date:'Y-m-d H:i' }}</td>
-                            <td>{% if i.is_end %}Dars Tugagan{% else %}Dars Tugadi deb belgilanmagan{% endif %}</td>
-                            <td>
-                                <a href="{% url 'education_dars' group_id=group.id pk=i.id %}"
-                                   title="Davomatni ko'rish" class="btn btn-info btn-circle btn-sm">
-                                    <i class="fas fa-list-check"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                    <div class="pagination">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Mavzu</th>
+                    <th>Boshlangan vaqti</th>
+                    <th>Tugagan vaqti</th>
+                    <th>Holati</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in lessons %}
+                <tr>
+                    <td>{{ i.id }}</td>
+                    <td>{{ i.topic }}</td>
+                    <td>{{ i.startedTime |date:'Y-m-d H:i' }}</td>
+                    <td>{{ i.endedTime |date:'Y-m-d H:i' }}</td>
+                    <td>{% if i.is_end %}Dars Tugagan{% else %}Dars Tugadi deb belgilanmagan{% endif %}</td>
+                    <td>
+                        <a href="{% url 'education_dars' group_id=group.id pk=i.id %}"
+                           title="Davomatni ko'rish" class="btn btn-info btn-circle btn-sm">
+                            <i class="fas fa-list-check"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="pagination">
                     <span class="step-links">
                         {% if lessons.has_previous %}
                             <a href="?page=1" class="btn btn-primary btn-sm">&laquo;first</a>
@@ -175,7 +175,7 @@
                                class="btn btn-primary btn-sm">last&raquo;</a>
                         {% endif %}
                     </span>
-                    </div>
+            </div>
         </div>
     </div>
     {% else %}
@@ -195,7 +195,8 @@
             <span class="text">Bosh Menu</span>
         </a>
         {% if request.user.ut == 1 %}
-        <a href="{% url 'admin-group-add-student' group_id=group.id status=99 %}" class="btn btn-success btn-icon-split">
+        <a href="{% url 'admin-group-add-student' group_id=group.id status=99 %}"
+           class="btn btn-success btn-icon-split">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
@@ -267,70 +268,46 @@
 </div>
 
 {% elif position == 'list' %}
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-success">To'lliq Guruhlar listi</h6>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                <tr>
-                    <th>№</th>
-                    <th>Name</th>
-                    <th>Course | Mentor</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for i in groups %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ i.name }}</td>
-                    <td>{{ i.course }}</td>
-                    {% if i.status == 1 %}
-                    <td>
-                        <mark class="text-info">Boshlanmoqda</mark>
-                    </td>
-                    {% elif i.status == 2 %}
 
-                    <td>
-                        <mark class="text-success">Davom Qilyabdi</mark>
-                    </td>
-                    {% elif i.status == 3 %}
-                    <td>
-                        <mark class="text-warning">Guruh Yopilgan</mark>
-                    </td>
-                    {% else %}
-                    <td>
-                        <mark class="text-danger">Aniq Emas</mark>
-                    </td>
-                    {% endif %}
+<div class="row">
 
-                    <td>
-                        <a {% if request.user.ut == 2 %}href="{% url 'mentor_admin-group-one' group_id=i.id %}"
-                           {% elif request.user.ut == 1 %}href="{% url 'admin-group-one' group_id=i.id %}"
-                           {% endif %}
-                           title="Group Info"
-                           class="btn btn-info btn-circle btn-sm">
-                            <i class="fas fa-info-circle"></i>
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
+    {% for i in groups %}
 
-                </tbody>
-            </table>
+    <div class="col-lg-3 col-6">
+
+        <div class="small-box {% if i.status == 1 %} bg-info {% elif i.status == 2 %} bg-success {% elif i.status == 2 %} bg-warning {% else %} bg-danger {% endif%}">
+            <div class="inner">
+                <p class="text-xl">{{ i.name }}</p>
+                <p>{{ i.course }}</p>
+                <p>Boshlangan vaqti: {{ i.start_date }}</p>
+                <p>Kurs davomiyligi: {{ i.duration }}</p>
+            </div>
+            <div class="icon">
+                <i class="fa-solid fa-user-group"></i>
+            </div>
+            <a {% if request.user.ut == 2 %} href="{% url 'mentor_admin-group-one' group_id=i.id %}"
+               {% elif request.user.ut == 1 %} href="{% url 'admin-group-one' group_id=i.id %}"
+               {% endif %} title="Group Info" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i>
+            </a>
         </div>
     </div>
+    {% endfor %}
 </div>
+
+
+<div class="btn btn-success btn-icon-split">
+    <div class="action-link-wrap">
+        <a onclick="history.back(-1)" class="link-button link-back-button">Go Back</a>
+    </div>
+</div>
+
 <a href="{% url 'home' %}" class="btn btn-secondary bg-outline-dark btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-home"></i>
                     </span>
     <span class="text">Bosh Menu</span>
 </a>
+
 
 {% elif position == 'add' %}
 <div class="row">
