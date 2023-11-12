@@ -1,14 +1,11 @@
 from contextlib import closing
-
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.db import connection
 from django.shortcuts import render, redirect
 from methodism import custom_response, dictfetchone, dictfetchall
 from methodism.sqlpaginator import SqlPaginator
-
-from base.custom import permission_checker, admin_permission_checker
-from base.helper import cusmot_dictfetchall, custom_dictfetchone
+from base.custom import permission_checker, admin_permission_checker, mentor_permission_checker
 from core.forms.auto import AlgorithmForm, CategoryForm
 from core.models import New, Algorithm, Category, Done
 
@@ -70,7 +67,7 @@ def category(request, pk=None):
     return render(request, f'pages/ctg.html', ctx)
 
 
-@permission_checker
+@mentor_permission_checker
 def algaritm(request, key=None, pk=None):
     if key == 'form':
         root = Algorithm.objects.filter(pk=pk).first()

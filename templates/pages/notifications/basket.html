@@ -2,7 +2,7 @@
 
 {% block title %} Basket {% endblock %}
 {% block pagetitle %}Basket{% endblock %}
-{% block page_title %} Savatcha {% endblock %}
+{% block page_title %} Savat {% endblock %}
 {% load static %}
 {% block content %}
 
@@ -37,14 +37,15 @@
                         <div class="card-text px-3 rounded-pill w-auto"
                              style="font-weight: 400; background-color: #EBE9E9"><span>
                                     {% if i.discount_percent == 0 %} </span>
-                            <div>Maxsulot narxi {{ i.cost }} coin</div>
+                            <div>Maxsulot narxi {{ i.price }}
+                                <span>- {{ i.discount_percent }} % = {{ i.dp }} coin</span></div>
                             {% else %}
                             <span>Narx: </span><span>{{ i.price }} </span> coin
                             - {{ i.discount_percent }} % = {{ i.dp }}
                             {% endif %}
                         </div>
 
-                        <div style="font-weight: 600;" class="my-3">Jami: {{ i.soni }}X * {{ i.dp }} = {{ i.cost }}
+                        <div style="font-weight: 600;" class="my-3">Jami: {{ i.soni }}X * {{ i.dp }} = {{ i.cost }} coin
                         </div>
 
                     </div>
@@ -59,7 +60,8 @@
 </div>
 
 {% if not order_1 %}
-<h3>Siz hech qanday Buyurtma bermagansiz</h3>
+<h3 class="text-xl text-center">Siz hech qanday Maxsulotni sotib olmagansiz</h3>
+<hr>
 {% endif %}
 
 <a href="{% url 'basket' %}" class="btn btn-primary bg-outline-primary btn-icon-split">
@@ -106,7 +108,8 @@
                         <div class="card-text px-3 rounded-pill w-auto"
                              style="font-weight: 400; background-color: #EBE9E9"><span>
                                     {% if i.discount_percent == 0 %} </span>
-                            <div>Maxsulot narxi {{ i.cost }} coin</div>
+                            <div>Maxsulot narxi {{ i.price }}
+                                <span>- {{ i.discount_percent }} % = {{ i.dp }} coin</span></div>
                             {% else %}
                             <span>Narx: </span><span>{{ i.price }} </span> coin
                             - {{ i.discount_percent }} % = {{ i.dp }}

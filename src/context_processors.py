@@ -47,8 +47,8 @@ def basket(request):
     result = {}
     if not request.user.is_anonymous and request.user.ut == 3:
         basket = f"""
-                select (SELECT COUNT(*) from core_backed cb where cb."order" = 0 and cb.user_id == 2) as basket_count,
-            	(SELECT COUNT(*) from core_backed cb where cb."order" == 1 and cb.user_id == 2) as order_true
+                select (SELECT COUNT(*) from core_backed cb where cb."order" = 0 and cb.user_id == {request.user.id}) as basket_count,
+            	(SELECT COUNT(*) from core_backed cb where cb."order" == 1 and cb.user_id == {request.user.id}) as order_true
             """
         with closing(connection.cursor()) as cursor:
             cursor.execute(basket)

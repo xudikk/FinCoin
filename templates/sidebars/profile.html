@@ -18,7 +18,7 @@
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img {% if not update_user.gender %}
+                            <img {% if request.user.gender %}
                                  src="{% static 'ddist/img/avatar.png' %}"
                                  {% else %}
                                  src="{% static 'ddist/img/avatar2.png' %}"

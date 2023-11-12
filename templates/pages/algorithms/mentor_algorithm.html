@@ -7,70 +7,71 @@
 {% block content %}
 
 <section class="content">
-      <div class="container-fluid">
-          <div class="row">
-              <div class="col-12">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
                 <div class="card card-primary">
-                  <div class="card-header">
-                    <h3 class="card-title">Algorithms you added <a href="{% url 'create_algaritm' key='form' %}" class="btn btn-dark">
-                        <i class="fa-sharp fa-solid fa-plus"></i> Add the algorithm again
-                    </a></h3>
-                </div>
-                  <!-- /.card-header -->
-                  <div class="card-body">
-                    <div class="row">
-                    {% if not all_algorithm and not edited %}
-                      <h2 class="text-info">
-                        Algaritmlarga doir masalalar mavjud emas
-                      </h2>
-                      {% endif %}
-                    {% for i in all_algorithm %}
-                      <div class="col-sm-4 mt-2">
-                        <div class="position-relative p-3 bg-dark" style="height: 180px">
-                          <div class="ribbon-wrapper ribbon-lg">
-                              {% if i.bonus %}
-                            <div class="ribbon bg-success text-lg" id="bonus{{forloop.counter}}">
-                                +{{ i.bonus }}
-                            </div>
-                              {% endif %}
-                          </div>
-                          {{ request.user.full_name }} <br><i>{{i.reward}}</i><br>
-                          <small>{{ i.description }}</small>
-                      <div class="float-right mt-5">
-                        <a href="{% url 'edit_algaritm' key='form' pk=i.id %}" title="To'lliq ma'lumotlarni ko'rish" class="btn btn-info btn-circle btn-sm">
-                          <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                      </div>
-                        </div>
-                      </div>
-                    {% endfor %}
+                    <div class="card-header">
+                        <h3 class="card-title">Algorithms you added <a href="{% url 'create_algaritm' key='form' %}"
+                                                                       class="btn btn-dark">
+                            <i class="fa-sharp fa-solid fa-plus"></i> Add the algorithm again
+                        </a></h3>
                     </div>
-                    <a href="{% url 'home' %}" class="btn btn-info mt-2"><span class="icon text-white-50"><i class="fas fa-home"></i></span> Bosh Menu</a>
-                  </div>
-                  <!-- /.card-body -->
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="row">
+                            {% if not all_algorithm and not edited %}
+                            <h2 class="text-info">
+                                Algaritmlarga doir masalalar mavjud emas
+                            </h2>
+                            {% endif %}
+                            {% for i in all_algorithm %}
+                            <div class="col-sm-4 mt-2">
+                                <div class="position-relative p-3 bg-dark" style="height: 180px">
+                                    <div class="ribbon-wrapper ribbon-lg">
+                                        {% if i.bonus %}
+                                        <div class="ribbon bg-success text-lg" id="bonus{{forloop.counter}}">
+                                            +{{ i.bonus }}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {{ request.user.full_name }} <br><i>{{i.reward}}</i><br>
+                                    <small>{{ i.description }}</small>
+                                    <div class="float-right mt-5">
+                                        <a href="{% url 'edit_algaritm' key='form' pk=i.id %}"
+                                           title="To'lliq ma'lumotlarni ko'rish" class="btn btn-info btn-circle btn-sm">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <a href="{% url 'home' %}" class="btn btn-info mt-2"><span class="icon text-white-50"><i
+                                class="fas fa-home"></i></span> Bosh Menu</a>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
-              </div>
-              <!-- /.col -->
             </div>
-      </div>
-      <!-- /.container-fluid -->
+            <!-- /.col -->
+        </div>
+    </div>
+    <!-- /.container-fluid -->
 </section>
 
 
-
-
 <script>
-  function balanceView(id, number){
-    var formattedNumber = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-    document.getElementById(id).innerHTML = "+" + formattedNumber;
-  };
+    function balanceView(id, number){
+      var formattedNumber = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+      document.getElementById(id).innerHTML = "+" + formattedNumber;
+    };
 
-  var balances = {{ bonuses|safe }};
+    var balances = {{ bonuses|safe }};
 
-  for (var i = 0; i < balances.length; i++) {
-    balanceView("bonus" + (i + 1), balances[i]);
-  }
+    for (var i = 0; i < balances.length; i++) {
+      balanceView("bonus" + (i + 1), balances[i]);
+    }
 </script>
 
 
