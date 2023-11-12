@@ -5,7 +5,7 @@ from django.db import connection
 from django.shortcuts import render
 from methodism import dictfetchall
 
-from base.helper import cusmot_dictfetchall
+from base.helper import cusmot_dictfetchall, custom_dictfetchone
 from core.models import Backed
 
 
@@ -19,16 +19,31 @@ def basket_page(request, status=None):
 	            where cb.user_id == {request.user.id} and cb.product_id == cp.id and cb."order" = {status}
 	             and cp.category_id == cc.id
             """
+        total_cost = f"""
+                SELECT SUM(cb.cost) AS total_cost FROM core_backed cb 
+                WHERE user_id == {request.user.id} and cb."order" = {status}
+            """
 
         with closing(connection.cursor()) as cursor:
             cursor.execute(all_s)
             all_ = cusmot_dictfetchall(cursor)
 
+
+            cursor.execute(total_cost)
+            total_cost_result = custom_dictfetchone(cursor)
+            total_cost = total_cost_result['total_cost'] if total_cost_result else 0
+
             ctx = {
                 f"order_{status}": all_,
+                'total_cost': total_cost,
                 'status': status
+
             }
             print(f'\n\n\n\n{ctx}\n\n\n\n')
             return render(request, 'pages/notifications/basket.html', ctx)
 
     return render(request, 'pages/notifications/basket.html', {'status': status})
+
+
+
+

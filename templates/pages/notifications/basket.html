@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% block title %} Basket {% endblock %}
-{% block pagetitle %}Basket{% endblock %}
-{% block page_title %} Savat {% endblock %}
+{% block pagetitle %}Savatcha{% endblock %}
+{% block page_title %} Savatcha {% endblock %}
+
 {% load static %}
 {% block content %}
 
@@ -60,21 +61,28 @@
 </div>
 
 {% if not order_1 %}
-<h3 class="text-xl text-center">Siz hech qanday Maxsulotni sotib olmagansiz</h3>
 <hr>
+<h3>Siz hech qanday Maxsulot sotib olmagansiz</h3>
+
 {% endif %}
 
-<a href="{% url 'basket' %}" class="btn btn-primary bg-outline-primary btn-icon-split">
+<a href="{% url 'basket' %}" class="btn btn-primary bg-outline-primary btn-icon-split mb-2">
                     <span class="icon text-white-50">
                         <i class="fa-solid fa-backward"></i>
                     </span>
     <span class="text">Ortga</span>
 </a>
-<a href="{% url 'home' %}" class="btn btn-secondary bg-outline-primary btn-icon-split">
+<a href="{% url 'home' %}" class="btn btn-secondary bg-outline-primary btn-icon-split mb-2">
                     <span class="icon text-white-50">
                         <i class="fas fa-home"></i>
                     </span>
     <span class="text">Bosh menu</span>
+</a>
+<a href="#" class="btn btn-success btn-icon-split mb-2">
+                    <span class="icon text-white-40">
+                        <i class="fas fa-coins"></i>
+                    </span>
+    <span class="text">Ummumiy Harajat: {{ total_cost }}</span>
 </a>
 
 {% elif status == 0 %}
@@ -130,7 +138,8 @@
 </div>
 
 {% if not order_0 %}
-<h3>Siz hech qanday Maxsulot sotib olmagansiz</h3>
+
+<h3>Siz hech qanday Buyurtma bermagansiz</h3>
 {% endif %}
 
 <a href="{% url 'basket' %}" class="btn btn-primary bg-outline-primary btn-icon-split">
@@ -152,31 +161,6 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-6 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <a href="{% url 'basket_status' status=1 %}">
-
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Sotib olgan Maxsulotlarim
-                                </div>
-                            </a>
-
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
-                                <mark>{{ basket.order_true }}</mark>
-                                ta <i class="fa-solid fa-bag-shopping"></i>
-                            </div>
-                        </div>
-
-                        <div class="col-auto">
-                            <i class="fa-solid fa-basket-shopping fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-6 col-md-6 mb-4">
             <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -193,6 +177,30 @@
                         </div>
                         <div class="col-auto">
                             <i class="fa-solid fa-cart-shopping fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a href="{% url 'basket_status' status=1 %}">
+
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Sotib olgan Maxsulotlarim
+                                </div>
+                            </a>
+
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
+                                <mark>{{ basket.order_true }}</mark>
+                                ta <i class="fa-solid fa-bag-shopping"></i>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa-solid fa-basket-shopping fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
