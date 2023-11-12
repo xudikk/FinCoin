@@ -149,9 +149,7 @@
                             <td>{{ i.endedTime |date:'Y-m-d H:i' }}</td>
                             <td>{% if i.is_end %}Dars Tugagan{% else %}Dars Tugadi deb belgilanmagan{% endif %}</td>
                             <td>
-                                <a {% if request.user.ut == 1 %}href="{% url 'education_dars' group_id=group.id pk=i.id %}"
-                                   {% elif request.user.ut == 2 %}href="{% url 'mentor_education_dars' group_id=group.id pk=i.id %}"
-                                   {% endif %}
+                                <a href="{% url 'education_dars' group_id=group.id pk=i.id %}"
                                    title="Davomatni ko'rish" class="btn btn-info btn-circle btn-sm">
                                     <i class="fas fa-list-check"></i>
                                 </a>
@@ -204,9 +202,7 @@
             <span class="text">Guruhga o'quvchi qo'shish</span>
         </a>
         {% endif %}
-        <a {% if request.user.ut == 1 %}href="{% url 'education_dars_add' status='form' group_id=group.id %}"
-           {% elif request.user.ut == 2 %}href="{% url 'mentor_education_dars_add' status='form' group_id=group.id %}"
-           {% endif %}
+        <a href="{% url 'education_dars_add' status='form' group_id=group.id %}"
            class="btn btn-dark btn-icon-split">
             <span class="text">Dars boshlash</span>
         </a>

@@ -1,8 +1,8 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 
-from base.custom import admin_permission_checker
 from base.helper import gcnt, get_davomat, check_attendance_makeable
+from base.custom import admin_permission_checker, mentor_permission_checker
 from core.forms.education import GrStForm, GroupForm, CourseForm, DarsForm
 from core.models import GroupStudent, Group, User
 from core.models.education import Interested, Course, Dars, Davomat
@@ -147,7 +147,9 @@ def manage_course(requests, pk=None, edit_id=None, del_id=None):
     return render(requests, 'pages/education/course.html', ctx)
 
 
-@admin_permission_checker
+
+
+@mentor_permission_checker
 def manage_lesson(request, group_id, pk=None, status=None):
     root = Dars.objects.filter(pk=pk).first() or None
     group = Group.objects.filter(pk=group_id).first() or None
@@ -174,7 +176,7 @@ def manage_lesson(request, group_id, pk=None, status=None):
     return render(request, "pages/education/dars.html", ctx)
 
 
-@admin_permission_checker
+@mentor_permission_checker
 def end_lesson(request, lesson_id):  # attends -> davomat
     root = Dars.objects.filter(pk=lesson_id).first()
     if not root:
@@ -184,7 +186,7 @@ def end_lesson(request, lesson_id):  # attends -> davomat
     return redirect('education_dars', group_id=root.group_id, pk=root.id)
 
 
-@admin_permission_checker
+@mentor_permission_checker
 def attends(request, group_id, dars_id, student_id, status):
     check = check_attendance_makeable(group_id, dars_id, student_id)
     if not check:
