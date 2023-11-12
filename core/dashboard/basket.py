@@ -31,7 +31,7 @@ def basket_page(request, status=None):
 
             cursor.execute(total_cost)
             total_cost_result = custom_dictfetchone(cursor)
-            total_cost = total_cost_result['total_cost'] if total_cost_result else 0
+            total_cost = total_cost_result.get('total_cost', 0)
 
             ctx = {
                 f"order_{status}": all_,
