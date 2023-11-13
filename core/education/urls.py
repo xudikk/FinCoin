@@ -2,13 +2,15 @@ from django.urls import path
 
 from core.education.dars import manage_group_mentor
 from core.education.education import manage_group, manage_course, interested, manage_lesson, end_lesson, attends
+from core.education.user_group import user_group_page
 
 urlpatterns = [
     # group
     path("gr/", manage_group, name="admin-group"),
     path("gr/list/<int:status>/", manage_group, name="admin-group-list"),
+    path("gr/list/<int:status>/<int:group_id>/", manage_group, name="admin-group-edit"),
     path("gr/<int:group_id>/", manage_group, name="admin-group-one"),
-    path("gr/edit/<int:_id>/", manage_group, name="admin-group-edit"),
+    # path("gr/edit/<int:_id>/", manage_group, name="admin-group-edit"),
     path("gr/<int:group_id>/student/<int:student_id>/", manage_group, name="admin-group-del-student"),
     path("gr/<int:group_id>/gs/<int:status>", manage_group, name="admin-group-add-student"),
 
@@ -38,5 +40,7 @@ urlpatterns = [
     path("gr/<int:group_id>/student/<int:student_id>/mentor_/", manage_group_mentor, name="mentor_admin-group-del-student"),
     path("gr/<int:group_id>/gs/<int:status>/mentor_/", manage_group_mentor, name="mentor_admin-group-add-student"),
 
-
+    # user group
+    path('user_group/', user_group_page, name='user_group_page'),
+    path('user_group/g-<int:group_id>/', user_group_page, name='user_group_dars'),
 ]

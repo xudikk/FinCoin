@@ -280,6 +280,13 @@
                 <p class="text-xl">{{ i.name }}</p>
                 <p>{{ i.course }}</p>
                 <p>Boshlangan vaqti: {{ i.start_date }}</p>
+                <p>
+                    <a href="{% url 'admin-group-edit' status=201 group_id=i.id %}" title="O'zgartirish"
+                       class="btn btn-warning btn-circle btn-sm float-right">
+                        <i class="fas fa-pen"></i>
+                    </a>
+
+                </p>
                 <p>Kurs davomiyligi: {{ i.duration }}</p>
             </div>
             <div class="icon">
@@ -287,7 +294,8 @@
             </div>
             <a {% if request.user.ut == 2 %} href="{% url 'mentor_admin-group-one' group_id=i.id %}"
                {% elif request.user.ut == 1 %} href="{% url 'admin-group-one' group_id=i.id %}"
-               {% endif %} title="Group Info" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i>
+               {% endif %} title="Group Info" class="small-box-footer">Batafsil <i
+                    class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
     </div>

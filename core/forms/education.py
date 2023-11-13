@@ -43,7 +43,7 @@ class CourseForm(forms.ModelForm):
 class GroupForm(forms.ModelForm):
     class Meta:
         model = Group
-        fields = '__all__'
+        fields = ['name', 'course', 'duration', 'status']
 
 
 class DarsForm(forms.ModelForm):

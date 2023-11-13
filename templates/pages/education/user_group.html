@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %} User Group {% endblock %}
+{% block pagetitle %}User Group{% endblock %}
+{% block page_title %}User {% if group_id %} darslari {% else %}guruhlari{% endif %}{% endblock %}
+{% block content %}
+
+
+{% if group_id %}
+<div class="container-fluid rounded bg-white rounded border-bottom">
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Dars Holati</th> <!-- dars holati is_end -->
+                <th>Boshlangan vaqt</th>
+                <th>Tugagan vaqt</th>
+                <!-- vaqt {{ i.startedTime |date:'Y-m-d H:i' }} -->
+                <th>Mavzu</th>
+                <th>Davomat</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in all_lesson %}
+
+            <tr>
+                <td>{% if i.is_end %}Dars Tugagan{% else %}Dars Tugamagan{% endif %}</td>
+                <td>{{ i.startedTime |date:'Y-m-d H:i' }}</td>
+                <td>{{ i.endedTime |date:'Y-m-d H:i' }}</td>
+                <td>{{ i.topic }}</td>
+                <td>{% if i.status %}
+                    <a title="Darsga Keldi " class="btn bg-purple text-white rounded-circle btn-sm">
+                        <i class="fa-regular fa-thumbs-up"></i>
+                    </a>
+                    {% else %}
+                    <a title="Darsga Kelmadi Ota-Onaga sms yuborildi "
+                       class="btn btn-warning text-dark rounded-circle btn-sm">
+                        <i class="fa-solid fa-hand-fist"></i>
+                    </a>
+                    {% endif %}
+                </td>
+
+            </tr>
+
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+    </div>
+</div>
+<a href="{% url 'home' %}" class="btn btn-info btn-icon-split mt-4">
+    <span class="icon text-white-50">
+        <i class="fas fa-home"></i>
+    </span>
+    <span class="text">Bosh Menu</span>
+</a>
+
+<a href="{% url 'user_group_page' %}" class="btn bg-purple btn-icon-split mt-4">
+    <span class="icon text-white-50">
+        <i class="fa-solid fa-backward"></i>
+    </span>
+    <span class="text">Ortga</span>
+</a>
+{% else %}
+<div class="container-fluid rounded">
+    <div class="row">
+        {% for i in all_user_group %}
+        <div class="col-xl-6 col-md-6 mb-4  ">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a href="{% url 'user_group_dars' group_id=i.group_id %}">
+
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    {{ i.group_name }}
+                                </div>
+                            </a>
+
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
+                                <mark>{{ i.duration }}</mark>
+                                talim
+                            </div>
+                        </div>
+
+                        <div class="col-auto">
+                            <i class="fa-solid fa-code fa-2x text-gray-300 mr-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<hr>
+<a href="{% url 'home' %}" class="btn btn-info btn-icon-split">
+    <span class="icon text-white-50">
+        <i class="fas fa-home"></i>
+    </span>
+    <span class="text">Bosh Menu</span>
+</a>
+{% endif %}
+
+{% endblock %}

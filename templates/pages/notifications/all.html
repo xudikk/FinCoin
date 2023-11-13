@@ -23,6 +23,7 @@
                     <th>User phone</th>
                     <th>Username</th>
                     <th>Quentity</th>
+                    <th>Product name</th>
                     <th>Narxi</th>
                     <th>Actions</th>
                 </tr>
@@ -35,6 +36,7 @@
                     <td><a href="{% url 'get_user_info' pk=i.user_id %}" class="text-primary">{{ i.username }} 👈</a>
                     </td>
                     <td>{{ i.soni }} ta</td>
+                    <td><a href="{% url 'dashboard-auto-list' key='product' %}" title="Barcha mahsulotlar paneli">{{ i.product_name }}</a></td>
                     <td>{{ i.cost }} <i class="fa-solid fa-coins"></i></td>
                     </td>
                     <td>
