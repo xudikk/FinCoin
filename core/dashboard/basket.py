@@ -39,7 +39,6 @@ def basket_page(request, status=None):
                 'status': status
 
             }
-            print(f'\n\n\n\n{ctx}\n\n\n\n')
             return render(request, 'pages/notifications/basket.html', ctx)
 
     return render(request, 'pages/notifications/basket.html', {'status': status})
