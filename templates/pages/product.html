@@ -98,7 +98,7 @@
                 <div class="card-text px-3 rounded-pill w-auto"
                      style="font-weight: 400; background-color: #EBE9E9"><span>
                                     {% if i.discount_percent == 0 %} </span>
-                            <div>Maxsulot narxi {{ i.cost }} coin</div>
+                            <div>Narxi: {{ i.cost }} coin</div>
                             {% else %}
                             <span style="text-decoration: line-through;">{{ i.cost }} </span> coin <sup> -{{ i.discount_percent }} %</sup>
                             {% endif %}

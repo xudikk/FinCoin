@@ -69,8 +69,11 @@
                         Algaritmlarga doir masalalar mavjud emas ☝
                       </h2>
                       {% endif %}
+
+
                     {% for i in all_algorithm %}
-                      <div class="col-sm-4 mt-2">
+                        {% if i.full_name == request.user.full_name %}
+                        <div class="col-sm-4 mt-2">
                         <div class="position-relative p-3 bg-dark" style="height: 180px">
                           <div class="ribbon-wrapper ribbon-lg">
                               {% if i.bonus %}
@@ -88,7 +91,9 @@
                       </div>
                         </div>
                       </div>
+                        {% endif %}
                     {% endfor %}
+
                     </div>
                     <a href="{% url 'home' %}" class="btn btn-info mt-2"><span class="icon text-white-50"><i class="fas fa-home"></i></span> Bosh Menu</a>
                   </div>

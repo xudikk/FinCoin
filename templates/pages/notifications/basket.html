@@ -115,16 +115,15 @@
                         <div class="card-text px-3 rounded-pill w-auto"
                              style="font-weight: 400; background-color: #EBE9E9"><span>
                                     {% if i.discount_percent == 0 %} </span>
-                            <div>Maxsulot narxi {{ i.price }}
-                                <span>- {{ i.discount_percent }} % = {{ i.dp }} coin</span></div>
+                            <div>Narxi: {{ i.price }} coin
+                                <span>- {{ i.discount_percent }} % = {{ i.dp }} </span></div>
                             {% else %}
                             <span>Narx: </span><span>{{ i.price }} </span> coin
                             - {{ i.discount_percent }} % = {{ i.dp }}
                             {% endif %}
                         </div>
 
-                        <div style="font-weight: 600;" class="my-3">Jami: {{ i.soni }}X * {{ i.dp }} = {{ i.cost }}
-                            <a href="#" class="btn btn-success btn-sm ml-3">Sotib olish $ </a></div>
+                        <div style="font-weight: 600;" class="my-3">Jami: {{ i.soni }}X * {{ i.dp }} = {{ i.cost }}</div>
 
                     </div>
                 </div>

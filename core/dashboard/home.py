@@ -127,16 +127,19 @@ def done_algoritms(request, pk=None):
 
     return render(request, 'pages/done_algoritm.html', {"roots": algorithm})
 
-
 def mentor_algorithm(request):
+
     all_mentor_algorithm = f"""
-            select ca.id, ca.reward, ca.description, ca.bonus, cu.id user_id, cu.first_name, cu.last_name from core_algorithm ca , core_user cu 
-            where ca.creator_id == {request.user.id} and cu.ut==2
+            SELECT ca.id, ca.reward, ca.description, ca.bonus, cu.id user_id, cu.first_name, cu.last_name
+            FROM core_algorithm ca
+            JOIN core_user cu ON ca.creator_id = cu.id
+            WHERE ca.creator_id = {request.user.id} AND cu.ut = 2
         """
+    print("Raw Query:", all_mentor_algorithm)
     with closing(connection.cursor()) as cursor:
         cursor.execute(all_mentor_algorithm)
         all_ = dictfetchall(cursor)
-
+        print("Raw Results:", all_)
         ctx = {'all_algorithm': all_}
 
     return render(request, 'pages/algorithms/mentor_algorithm.html', ctx)

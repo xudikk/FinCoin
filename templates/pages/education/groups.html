@@ -188,14 +188,15 @@
 
 <div class="card mb-4 border-bottom-info">
     <div class="card-body">
-        <div class="btn btn-primary bg-outline-primary btn-icon-split">
-         <div class="action-link-wrap">
-                 <span class="icon text-white-50">
+
+
+        <a href="{% url 'mentor_admin-group-list' status=group.status %}"
+           class="btn btn-primary bg-outline-primary btn-icon-split">
+            <span class="icon text-white-50">
                         <i class="fa-solid fa-backward"></i>
-                 </span>
-                <a onclick="history.back(-1)" class="link-button link-back-button">Ortga</a>
-             </div>
-        </div>
+            </span>
+            <span class="text">Ortga</span>
+        </a>
 
         <a href="{% url 'admin-group' %}" class="btn btn-info btn-icon-split">
                 <span class="icon text-white-50">
@@ -285,6 +286,7 @@
 
     {% if groups %}
     {% for i in groups %}
+
     <div class="col-lg-3 col-6">
 
         <div class="small-box {% if i.status == 1 %} bg-info {% elif i.status == 2 %} bg-success {% elif i.status == 2 %} bg-warning {% else %} bg-danger {% endif%}">
@@ -311,6 +313,7 @@
             </a>
         </div>
     </div>
+
     {% endfor %}
     {% else %}
 
@@ -341,17 +344,17 @@
     {% endif %}
 </div>
 
-
-<div class="btn btn-primary bg-outline-primary btn-icon-split">
-    <div class="action-link-wrap">
-        <span class="icon text-white-50">
+ <a {% if request.user.ut == 2 %} href="{% url 'home'  %}"
+           {% elif request.user.ut == 1 %} href="{% url 'admin-group' %}"
+           {% endif %}
+           class="btn btn-primary bg-outline-primary btn-icon-split mb-2">
+            <span class="icon text-white-40">
                         <i class="fa-solid fa-backward"></i>
-        </span>
-        <a onclick="history.back(-1)" class="link-button link-back-button">Ortga</a>
-    </div>
-</div>
+            </span>
+            <span class="text">Ortga</span>
+ </a>
 
-<a href="{% url 'home' %}" class="btn btn-secondary bg-outline-dark btn-icon-split">
+<a href="{% url 'home' %}" class="btn btn-secondary bg-outline-dark btn-icon-split mb-2">
                     <span class="icon text-white-50">
                         <i class="fas fa-home"></i>
                     </span>

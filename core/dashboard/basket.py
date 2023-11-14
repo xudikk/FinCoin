@@ -18,7 +18,7 @@ def basket_page(request, status=None):
 	            from core_backed cb , core_product cp , core_category cc 
 	            where cb.user_id == {request.user.id} and cb.product_id == cp.id and cb."order" = {status}
 	             and cp.category_id == cc.id
-            """
+                """
         total_cost = f"""
                 SELECT SUM(cb.cost) AS total_cost FROM core_backed cb 
                 WHERE user_id == {request.user.id} and cb."order" = {status}
@@ -27,7 +27,6 @@ def basket_page(request, status=None):
         with closing(connection.cursor()) as cursor:
             cursor.execute(all_s)
             all_ = cusmot_dictfetchall(cursor)
-
 
             cursor.execute(total_cost)
             total_cost_result = custom_dictfetchone(cursor)
@@ -42,7 +41,3 @@ def basket_page(request, status=None):
             return render(request, 'pages/notifications/basket.html', ctx)
 
     return render(request, 'pages/notifications/basket.html', {'status': status})
-
-
-
-

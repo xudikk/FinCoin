@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from base.custom import mentor_permission_checker
 from base.helper import gcnt
 from core.forms.education import GroupForm, GrStForm
-from core.models import Group, GroupStudent, Dars, Interested, Davomat
+from core.models import Group, GroupStudent, Dars, Interested, Davomat, Course
 
 
 @mentor_permission_checker
@@ -55,7 +55,8 @@ def manage_group_mentor(requests, group_id=None, status=None, student_id=None, _
         return render(requests, 'pages/education/groups.html', ctx)
 
     elif status:
-        groups = Group.objects.filter(status=status).order_by('-pk')
+        course = Course.objects.filter(mentor_id=requests.user.id).first()
+        groups = Group.objects.filter(status=status, course=course).order_by('-pk')
         ctx = {
             'groups': groups,
             'position': 'list',
