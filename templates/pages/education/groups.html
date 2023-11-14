@@ -213,10 +213,14 @@
         </a>
         {% endif %}
 
+        {% if group.status == 2 %}
+        {% if members %}
         <a href="{% url 'education_dars_add' status='form' group_id=group.id %}"
            class="btn btn-dark btn-icon-split">
             <span class="text">Dars boshlash</span>
         </a>
+        {% endif %}
+        {% endif %}
     </div>
 </div>
 {% elif position == 'gr' %}
@@ -281,6 +285,7 @@
 
 <div class="row">
 
+    {% if groups %}
     {% for i in groups %}
 
     <div class="col-lg-3 col-6">
@@ -310,6 +315,9 @@
         </div>
     </div>
     {% endfor %}
+    {% else %}
+    <h3>Hechqanday Guruh Topilmadi</h3>
+    {% endif %}
 </div>
 
 
