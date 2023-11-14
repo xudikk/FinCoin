@@ -94,8 +94,14 @@ def p2p(request, status=None):
     return render(request, 'sidebars/payments.html', ctx)
 
 
-@admin_permission_checker
 def monitoring_page(request):
+    if request.user.is_anonymous: return redirect('login')
     all_ = Monitoring.objects.all().order_by('-id')
     ctx = {"all": all_}
+    if request.user.ut == 3:
+        cart = Card.objects.filter(user_id=request.user.id).first()
+        mont = Monitoring.objects.filter(sender_id=cart.id)
+        # vohima qimela prosta borib keladi
+        receiv = Monitoring.objects.filter(receiver_id=cart.id)
+        ctx.update({f"user_{request.user.ut}": mont, "receiv": receiv})
     return render(request, 'pages/monitoring.html', ctx)

@@ -2,15 +2,17 @@
 
 {% block title %} Monitoring {% endblock %}
 {% block pagetitle %}Monitoring{% endblock %}
-{% block page_title %}Monitoring{% endblock %}
+{% block page_title %}{% if user_3 %}<div class="text-xl">Chiqimlar ro'yxati</div>{% else %}Monitoring{% endif %}{% endblock %}
 {% block content %}
 
+{% if request.user.ut == 1 %}
+{% if all %}
 <div class="container-fluid rounded bg-white rounded border-bottom">
     <div class="card-body">
         <table id="example1" class="table table-bordered table-striped">
             <thead>
             <tr>
-                <th>ID</th> <!-- dars holati is_end -->
+                <th>ID</th>
                 <th>Yuboruvchi karta</th>
                 <th>Qabul qilivchi karta</th>
                 <th>Summa</th>
@@ -29,8 +31,8 @@
                 <td>{{ i.sender.mask }}</td>
                 <td>{{ i.receiver.mask  }}</td>
                 <td>{{ i.amount }} <i class="fa-solid fa-coins"></i></td>
-                <td>{{ i.sender.user }}</td>
-                <td>{{ i.receiver.user }}</td>
+                <td><a href="{% url 'get_user_info' pk=i.sender.user.id %}" title="User malumotlari 👈">{{ i.sender.user }}</a></td>
+                <td><a href="{% url 'get_user_info' pk=i.receiver.user.id %}" title="User malumotlari 👈">{{ i.receiver.user }}</a></td>
                 <td>{{ i.created |date:'Y-m-d H:i' }}</td>
                 <td>{{ i.updated |date:'Y-m-d H:i' }}</td>
                 <td>{% if i.status == 0 %}
@@ -57,6 +59,124 @@
         </table>
     </div>
 </div>
+{% else %}
+<div class="text-xl">Hech qanday O'tkazmalar mavjud emas</div>
+{% endif %}
+{% elif request.user.ut == 3 %}
+{% if user_3 %}
+<div class="container-fluid rounded bg-white rounded border-bottom">
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Yuboruvchi karta</th>
+                <th>Qabul qilivchi karta</th>
+                <th>Summa</th>
+                <th>Kim Tomonidan</th>
+                <th>Kimga Yuborilgan</th>
+                <th>Yuborilgan vaqt</th>
+                <th>Holati</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in user_3 %}
+
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.sender.mask }}</td>
+                <td>{{ i.receiver.mask  }}</td>
+                <td>{{ i.amount }} <i class="fa-solid fa-coins"></i></td>
+                <td>{{ i.sender.user }}</td>
+                <td>{{ i.receiver.user }}</td>
+                <td>{{ i.created |date:'Y-m-d H:i' }}</td>
+                <td>{% if i.status == 0 %}
+                    <a title="Jarayonda" class="btn bg-purple text-white rounded-circle btn-sm">
+                        <i class="fa-regular fa-clock"></i>
+                    </a>
+                    {% elif i.status == 1 %}
+                    <a title="Pul o'tqizilgan" class="btn bg-success text-white rounded-circle btn-sm">
+                        <i class="fa-solid fa-check"></i>
+                    </a>
+                    {% elif i.status == 2 %}
+                    <a title="Pul o'tqizilmadi" class="btn bg-danger text-white rounded-circle btn-sm">
+                         <i class="fa-solid fa-x"></i>
+                    </a>
+                    {% endif %}
+                </td>
+
+            </tr>
+
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% elif not user_3 %}
+<div class="text-xl">Siz hech qanday Harajat qilmagansiz <i class="fa-regular fa-thumbs-up"></i></div>
+<hr>
+{% endif %}
+{% if receiv %}
+<div class="text-xl my-3">Tushumlar ro'yxati</div>
+<div class="container-fluid rounded bg-white rounded border-bottom">
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Yuboruvchi karta</th>
+                <th>Qabul qilivchi karta</th>
+                <th>Summa</th>
+                <th>Kim Tomonidan</th>
+                <th>Kimga Yuborilgan</th>
+                <th>Yuborilgan vaqt</th>
+                <th>Holati</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in receiv %}
+
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.sender.mask }}</td>
+                <td>{{ i.receiver.mask  }}</td>
+                <td>{{ i.amount }} <i class="fa-solid fa-coins"></i></td>
+                <td>{{ i.sender.user }}</td>
+                <td>{{ i.receiver.user }}</td>
+                <td>{{ i.created |date:'Y-m-d H:i' }}</td>
+                <td>{% if i.status == 0 %}
+                    <a title="Jarayonda" class="btn bg-purple text-white rounded-circle btn-sm">
+                        <i class="fa-regular fa-clock"></i>
+                    </a>
+                    {% elif i.status == 1 %}
+                    <a title="Pul o'tqizilgan" class="btn bg-success text-white rounded-circle btn-sm">
+                        <i class="fa-solid fa-check"></i>
+                    </a>
+                    {% elif i.status == 2 %}
+                    <a title="Pul o'tqizilmadi" class="btn bg-danger text-white rounded-circle btn-sm">
+                         <i class="fa-solid fa-x"></i>
+                    </a>
+                    {% endif %}
+                </td>
+
+            </tr>
+
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% elif not receiv %}
+<div class="text-xl">Sizga hech qanday pull tushmagan <i class="fa-solid fa-face-dizzy"></i></div>
+<hr>
+{% endif %}
+{% elif request.user.ut == 2 %}
+<h2 class="text-secondary text-md">Siz Ustozsiz sizga hali o'tkazmalar uchun ruxsat yo'q</h2>
+{% endif %}
 <a href="{% url 'home' %}" class="btn btn-info btn-icon-split mt-4">
     <span class="icon text-white-50">
         <i class="fas fa-home"></i>
