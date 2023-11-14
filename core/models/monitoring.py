@@ -60,6 +60,8 @@ class Monitoring(models.Model):
     receiver_token = models.CharField(max_length=128, null=True, blank=True, editable=False)
     amount = models.IntegerField(default=0)
     status = models.SmallIntegerField(default=0)  # 0-created, 1-success, 2-canceled
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True, null=True)
 
     def response(self):
         return {

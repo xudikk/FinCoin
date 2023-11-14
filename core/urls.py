@@ -9,7 +9,7 @@ from core.dashboard.auto import gets, auto_form
 from core.dashboard.basket import basket_page
 from core.dashboard.home import algaritm, category, done_algoritms, mentor_algorithm
 from core.dashboard.auth import create_user, change_password, grader, create_cart
-from core.dashboard.monitoring import award, p2p
+from core.dashboard.monitoring import award, p2p, monitoring_page
 from core.dashboard.notification import notification, done_action, backed_action
 from core.dashboard.shop import savat
 from core.dashboard.view import index
@@ -48,8 +48,10 @@ urlpatterns = [
     path('transfer/', p2p, name='user_payments'),
     path('transfer/<status>/', p2p, name='p2p'),
 
-    # algaritm
+    # monitoring
+    path('monitoring/', monitoring_page, name='monitoring_page'),
 
+    # algaritm
     path('algaritm/', algaritm, name='all_algaritm'),
     path('algaritm/<key>/', algaritm, name='create_algaritm'),
     path('algaritm/<key>/<int:pk>/', algaritm, name='edit_algaritm'),

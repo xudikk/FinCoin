@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %} Monitoring {% endblock %}
+{% block pagetitle %}Monitoring{% endblock %}
+{% block page_title %}Monitoring{% endblock %}
+{% block content %}
+
+<div class="container-fluid rounded bg-white rounded border-bottom">
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>ID</th> <!-- dars holati is_end -->
+                <th>Yuboruvchi karta</th>
+                <th>Qabul qilivchi karta</th>
+                <th>Summa</th>
+                <th>Kim Tomonidan</th>
+                <th>Kimga Yuborilgan</th>
+                <th>Yaratilgan vaqt</th>
+                <th>O'zgartirilgan vaqt</th>
+                <th>Holati</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in all %}
+
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.sender.mask }}</td>
+                <td>{{ i.receiver.mask  }}</td>
+                <td>{{ i.amount }} <i class="fa-solid fa-coins"></i></td>
+                <td>{{ i.sender.user }}</td>
+                <td>{{ i.receiver.user }}</td>
+                <td>{{ i.created |date:'Y-m-d H:i' }}</td>
+                <td>{{ i.updated |date:'Y-m-d H:i' }}</td>
+                <td>{% if i.status == 0 %}
+                    <a title="Jarayonda" class="btn bg-purple text-white rounded-circle btn-sm">
+                        <i class="fa-regular fa-clock"></i>
+                    </a>
+                    {% elif i.status == 1 %}
+                    <a title="Pul o'tqizilgan" class="btn bg-success text-white rounded-circle btn-sm">
+                        <i class="fa-solid fa-check"></i>
+                    </a>
+                    {% elif i.status == 2 %}
+                    <a title="Pul o'tqizilmadi" class="btn bg-danger text-white rounded-circle btn-sm">
+                         <i class="fa-solid fa-x"></i>
+                    </a>
+                    {% endif %}
+                </td>
+
+            </tr>
+
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<a href="{% url 'home' %}" class="btn btn-info btn-icon-split mt-4">
+    <span class="icon text-white-50">
+        <i class="fas fa-home"></i>
+    </span>
+    <span class="text">Bosh Menu</span>
+</a>
+
+{% endblock %}

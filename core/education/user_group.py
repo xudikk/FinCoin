@@ -30,7 +30,6 @@ def user_group_page(request, group_id=None):
             all_dars = dictfetchall(cursor)
 
             ctx.update({"all_lesson": all_dars, "group_id": group_id})
-            print(f"\n\n\n\n\n\n\n\n\n\n{ctx}\n\n\n\n\n\n\n\n\n\n")
         return render(request, 'pages/education/user_group.html', ctx)
 
     return render(request, 'pages/education/user_group.html', ctx)

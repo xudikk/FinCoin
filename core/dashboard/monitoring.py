@@ -13,7 +13,7 @@ from django.db import connection
 from django.shortcuts import redirect, render
 from methodism import generate_key
 
-from base.custom import permission_checker
+from base.custom import permission_checker, admin_permission_checker
 from base.errors import MSG
 from base.helper import lang_helper, make_transfer
 from core.models import Card, Token
@@ -60,7 +60,8 @@ def p2p(request, status=None):
             except:
                 return redirect("user_payments")
             monitoring = Monitoring.objects.create(**data)
-            monitoring.status = 1 if make_transfer(sender_card, reciever_card, int(request.POST.get('amount', 0))) else 2
+            monitoring.status = 1 if make_transfer(sender_card, reciever_card,
+                                                   int(request.POST.get('amount', 0))) else 2
             monitoring.save()
             ctx.update({"success": MSG['SuccessTransaction'][lang_helper(request)]})
             try:
@@ -91,3 +92,10 @@ def p2p(request, status=None):
         except:
             pass
     return render(request, 'sidebars/payments.html', ctx)
+
+
+@admin_permission_checker
+def monitoring_page(request):
+    all_ = Monitoring.objects.all().order_by('-id')
+    ctx = {"all": all_}
+    return render(request, 'pages/monitoring.html', ctx)
