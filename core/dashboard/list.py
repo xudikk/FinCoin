@@ -20,7 +20,7 @@ def list_user(request, pk=None):
         update_user = User.objects.filter(id=pk).first()
         card = Card.objects.filter(user=update_user)
         return render(request, 'pages/list.html',
-                      {"update_user": update_user, "card_user": card, 'u_active': "active",
+                      {"update_user": update_user, "card_user": card,
                        "open_menu_fc": "menu-open",
                        "card_len": len(card)})
     except Exception as e:
@@ -53,7 +53,6 @@ def profile(request):
         "done": done,
         "card_user": card,
         "open_menu_fc": "menu-open",
-        "profile_active": 'active'
     }
     return render(request, 'sidebars/profile.html', ctx)
 

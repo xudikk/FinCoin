@@ -8,9 +8,8 @@ urlpatterns = [
     # group
     path("gr/", manage_group, name="admin-group"),
     path("gr/list/<int:status>/", manage_group, name="admin-group-list"),
-    path("gr/list/<int:status>/<int:group_id>/", manage_group, name="admin-group-edit"),
+    path("gr/edit/<int:status>/<int:group_id>/", manage_group, name="admin-group-edit"),
     path("gr/<int:group_id>/", manage_group, name="admin-group-one"),
-    # path("gr/edit/<int:_id>/", manage_group, name="admin-group-edit"),
     path("gr/<int:group_id>/student/<int:student_id>/", manage_group, name="admin-group-del-student"),
     path("gr/<int:group_id>/gs/<int:status>", manage_group, name="admin-group-add-student"),
 

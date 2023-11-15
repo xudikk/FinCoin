@@ -42,7 +42,7 @@ urlpatterns = [
 
     # user actions
     path('user/info/<int:pk>/', list_user, name='get_user_info'),
-    path('user-profile/', profile, name='user_profile'),
+    path('profile/', profile, name='user_profile'),
 
     # user payments
     path('transfer/', p2p, name='user_payments'),

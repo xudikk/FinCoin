@@ -34,6 +34,5 @@ def savat(request):
     product = Product.objects.all().order_by("-pk")
     ctx = {
         "root": product,
-        'shop_active': 'active'
     }
     return render(request, "pages/shop.html", ctx)

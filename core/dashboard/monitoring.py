@@ -93,7 +93,6 @@ def p2p(request, status=None):
             del request.session['tr_status']
         except:
             pass
-    ctx.update({"p2p_active": "active"})
     return render(request, 'sidebars/payments.html', ctx)
 
 
@@ -107,5 +106,5 @@ def monitoring_page(request):
     paginator = Paginator(all_, 50)
     page_number = request.GET.get("page", 1)
     paginated = paginator.get_page(page_number)
-    ctx = {"monitorings": paginated, "monit_active": "active"}
+    ctx = {"monitorings": paginated}
     return render(request, 'pages/monitoring.html', ctx)

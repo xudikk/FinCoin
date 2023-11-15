@@ -135,7 +135,6 @@ class UserForm(forms.ModelForm):
 
 @admin_permission_checker
 def create_user(request, status=None, pk=None, type=0):
-    print(">>>>>>>>>>>>>>>>>>>", request.user.ut)
     if type:
         pagination = User.objects.filter(ut=type)
     else:
@@ -146,7 +145,6 @@ def create_user(request, status=None, pk=None, type=0):
     ctx = {
         "roots": paginated,
         "pos": "list",
-        'u_active': "active",
         "type": type
     }
     if status == 'form':

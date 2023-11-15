@@ -42,7 +42,7 @@ def index(request, pk=None):
             'gcnt': gcnt(course_id=None if not course else course.id),
         }
         return render(request, 'pages/index.html', ctx)
-    ctx = {'active': "active"}
+    ctx = {}
     ctx.update(count())
     ctx.update(balance_rating_news(request))
     ctx.update({"open_menu_fc": "menu-open"})

@@ -19,9 +19,27 @@ def user_type(request):
         }.get(request.user.ut, ["pages/default_user/main.html", "sidebars/student.html"])
     except:
         types = ["pages/default_user/main.html", "sidebars/student.html"]
+    path = request.path.replace("edu/", "")[1:].split('/')[0]
+    sidebar = {
+        'category': 'ctg_active',
+        'user': 'u_active',
+        'u': 'u_active',
+        'profile': 'profile_active',
+        'transfer': 'p2p_active',
+        'monitoring': 'monit_active',
+        'algaritm': 'algorithm_active',
+        'algaritms': 'algorithm_active',
+        'mentor_algorithm': 'algorithm_active',
+        'mahsulotlar': 'shop_active',
+        'gr': 'gr_active',
+        'course': 'course_active',
+        'ins': 'ints_active',
+        'user_group': 'gr_active',
+    }.get(path, 'nothing_active')
     ctx = {
         "pages_html_type": types,
-        'app_name': settings.APP_NAME
+        'app_name': settings.APP_NAME,
+        sidebar: "active"
     }
     if not request.user.is_anonymous:
         ctx.update({'user_type': request.user.ut})
