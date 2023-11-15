@@ -86,12 +86,15 @@ def make_transfer(sender, receiver, amount: int):
     return True
 
 
-def gcnt():
-    sql = """
+def gcnt(course_id=None):
+    extra = ''
+    if course_id:
+        extra = f" and course_id = {course_id}"
+    sql = f"""
             SELECT  
-            (SELECT COUNT(*) FROM core_group where status == 1) AS start, 
-            (SELECT COUNT(*) FROM   core_group where status == 2) AS act,
-            (SELECT COUNT(*) FROM   core_group where status == 3 ) AS end,
+            (SELECT COUNT(*) FROM core_group where status == 1 {extra}) AS start, 
+            (SELECT COUNT(*) FROM   core_group where status == 2 {extra}) AS act,
+            (SELECT COUNT(*) FROM   core_group where status == 3 {extra}) AS end,
             (SELECT COUNT(*) FROM   core_interested WHERE contacted is FALSE or "view" is FALSE) AS icnt
             FROM core_group
             limit 1

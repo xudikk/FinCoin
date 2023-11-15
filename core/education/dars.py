@@ -8,7 +8,7 @@ from core.models import Group, GroupStudent, Dars, Interested, Davomat, Course
 
 
 @mentor_permission_checker
-def manage_group_mentor(requests, group_id=None, status=None, student_id=None, _id=None):
+def manage_group_mentor(requests, group_id=None, status=None, _id=None):
     if status == 201:  # status -> HTTP RESPONSE statuses 201-add, 99-add student, 1,2,3-group statuses
         group = Group.objects.filter(id=group_id).first()
         form = GroupForm(requests.POST or None, instance=group)
@@ -24,22 +24,6 @@ def manage_group_mentor(requests, group_id=None, status=None, student_id=None, _
 
     elif group_id:
         group = Group.objects.filter(id=group_id).first()
-        if group:
-            if student_id:
-                gs = GroupStudent.objects.filter(group=group, student_id=student_id).first()
-                None if not gs else gs.delete()
-            elif status == 99:
-                form = GrStForm(requests.POST or None, group=group)
-                ctx = {"group": group, "form": form, "position": "gr"}
-                if form.is_valid():
-                    form.save()
-                    return redirect('admin-group-one', group_id=group_id)
-                else:
-                    for i, j in form.errors.items():
-                        ctx['error'] = i
-                        break
-                return render(requests, 'pages/education/groups.html', ctx)
-
         queryset = GroupStudent.objects.select_related('group').filter(group=group)
         members = [x.student for x in queryset]
         lessons = Dars.objects.filter(group_id=group_id).order_by('-pk')
@@ -62,8 +46,9 @@ def manage_group_mentor(requests, group_id=None, status=None, student_id=None, _
             'position': 'list',
         }
         return render(requests, 'pages/education/groups.html', ctx)
+    course = Course.objects.filter(mentor_id=requests.user.id).first() or None
     ctx = {
         'position': 'main',
-        'gcnt': gcnt(),
+        'gcnt': gcnt(course_id=None if not course else course.id),
     }
     return render(requests, 'pages/education/groups.html', ctx)

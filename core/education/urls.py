@@ -37,8 +37,6 @@ urlpatterns = [
     path("gr/list/<int:status>/mentor_/", manage_group_mentor, name="mentor_admin-group-list"),
     path("gr/<int:group_id>/mentor_/", manage_group_mentor, name="mentor_admin-group-one"),
     path("gr/edit/<int:_id>/mentor_/", manage_group_mentor, name="mentor_admin-group-edit"),
-    path("gr/<int:group_id>/student/<int:student_id>/mentor_/", manage_group_mentor, name="mentor_admin-group-del-student"),
-    path("gr/<int:group_id>/gs/<int:status>/mentor_/", manage_group_mentor, name="mentor_admin-group-add-student"),
 
     # user group
     path('user_group/', user_group_page, name='user_group_page'),

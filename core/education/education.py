@@ -147,8 +147,6 @@ def manage_course(requests, pk=None, edit_id=None, del_id=None):
     return render(requests, 'pages/education/course.html', ctx)
 
 
-
-
 @mentor_permission_checker
 def manage_lesson(request, group_id, pk=None, status=None):
     root = Dars.objects.filter(pk=pk).first() or None
@@ -195,4 +193,3 @@ def attends(request, group_id, dars_id, student_id, status):
         "Shu yerda userning ota onasiga sms chiqarib yuboriladi."
     Davomat.objects.create(dars_id=dars_id, group_id=group_id, user_id=student_id, status=status)
     return redirect('education_dars', group_id=group_id, pk=dars_id)
-
