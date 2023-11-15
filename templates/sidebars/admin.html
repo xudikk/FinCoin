@@ -1,4 +1,4 @@
-<li class="nav-item has-treeview open_menu active">
+<li class="nav-item has-treeview menu-open active">
     <a href="#" class="nav-link">
         <i class="nav-icon fas fa-tachometer-alt"></i>
         <p>
@@ -14,7 +14,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{% url 'monitoring_page' %}" class="nav-link">
+            <a href="{% url 'monitoring_page' %}" class="nav-link {{ monit_active }}">
                 <i class="fa-regular fa-credit-card"></i>
                 <p>User O'tkazmalar</p>
             </a>
@@ -42,7 +42,7 @@
 
 </li>
 
-<li class="nav-item has-treeview {{ open_menu_edu }}">
+<li class="nav-item has-treeview menu-open">
     <a href="" class="nav-link">
         <i class="nav-icon fas fa-copy"></i>
         <p>
@@ -52,19 +52,19 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="{% url 'admin-group' %}" class="nav-link">
+            <a href="{% url 'admin-group' %}" class="nav-link {{ gr_active }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Guruhlar</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{% url 'admin-course' %}" class="nav-link">
+            <a href="{% url 'admin-course' %}" class="nav-link {{ course_active }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Kurslar</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{% url 'admin-interested' %}" class="nav-link">
+            <a href="{% url 'admin-interested' %}" class="nav-link {{ ints_active }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Yangi Yozilganlar</p>
             </a>

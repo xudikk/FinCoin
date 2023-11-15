@@ -13,7 +13,7 @@ def manage_group(requests, group_id=None, status=None, student_id=None, _id=None
     if status == 201:  # status -> HTTP RESPONSE statuses 201-add, 99-add student, 1,2,3-group statuses
         group = Group.objects.filter(id=group_id).first()
         form = GroupForm(requests.POST or None, instance=group)
-        ctx = {"group": group, "form": form, "position": "add"}
+        ctx = {"group": group, "form": form, "position": "add", "gr_active": "active"}
         if form.is_valid():
             form.save()
             return redirect('admin-group-one', group_id=group_id)
@@ -31,7 +31,7 @@ def manage_group(requests, group_id=None, status=None, student_id=None, _id=None
                 None if not gs else gs.delete()
             elif status == 99:
                 form = GrStForm(requests.POST or None, group=group)
-                ctx = {"group": group, "form": form, "position": "gr"}
+                ctx = {"group": group, "form": form, "position": "gr", "gr_active": "active"}
                 if form.is_valid():
                     form.save()
                     return redirect('admin-group-one', group_id=group_id)
@@ -51,7 +51,8 @@ def manage_group(requests, group_id=None, status=None, student_id=None, _id=None
             'group': group,
             "position": "one",
             'members': members,
-            "lessons": lessons
+            "lessons": lessons,
+            "gr_active": "active"
         }
         return render(requests, 'pages/education/groups.html', ctx)
 
@@ -60,11 +61,13 @@ def manage_group(requests, group_id=None, status=None, student_id=None, _id=None
         ctx = {
             'groups': groups,
             'position': 'list',
+            "gr_active": "active"
         }
         return render(requests, 'pages/education/groups.html', ctx)
     ctx = {
         'position': 'main',
         'gcnt': gcnt(),
+        "gr_active": "active"
     }
     return render(requests, 'pages/education/groups.html', ctx)
 
@@ -85,6 +88,7 @@ def interested(requests, pk=None, contac_id=None):
         ctx = {
             'inst': ins,
             'position': "one",
+            "ints_active": "active"
         }
         return render(requests, 'pages/instres.html', ctx)
 
@@ -95,6 +99,7 @@ def interested(requests, pk=None, contac_id=None):
             ctx = {
                 'intres': inst,
                 'error': True,
+                "ints_active": "active"
             }
             return render(requests, 'pages/instres.html', ctx)
         ins.contacted = True
@@ -106,6 +111,7 @@ def interested(requests, pk=None, contac_id=None):
         inst = Interested.objects.all().order_by('-pk')
         ctx = {
             'intres': inst,
+            "ints_active": "active"
         }
 
         return render(requests, 'pages/education/instres.html', ctx)
@@ -113,7 +119,7 @@ def interested(requests, pk=None, contac_id=None):
 
 @admin_permission_checker
 def manage_course(requests, pk=None, edit_id=None, del_id=None):
-    ctx = {}
+    ctx = {"course_active": "active"}
     if del_id:
         course = Course.objects.filter(id=del_id).first()
         if not course:
@@ -165,7 +171,8 @@ def manage_lesson(request, group_id, pk=None, status=None):
     ctx = {
         "form": form,
         "root": root,
-        "group_id": group_id
+        "group_id": group_id,
+        "gr_active": "active"
     }
     if root:
         ctx.update({'members': get_davomat(group_id, root.id)})

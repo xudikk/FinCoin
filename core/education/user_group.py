@@ -15,7 +15,7 @@ def user_group_page(request, group_id=None):
     with closing(connection.cursor()) as cursor:
         cursor.execute(all_group)
         all_ = dictfetchall(cursor)
-    ctx = {"all_user_group": all_}
+    ctx = {"all_user_group": all_, 'gr_active': 'active'}
     if group_id:
         all_lesson = f"""
             SELECT dars.*, cg.start_date AS cursga_kirgan, davomat.status

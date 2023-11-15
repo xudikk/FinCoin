@@ -9,20 +9,7 @@ from core.models import Group, GroupStudent, Dars, Interested, Davomat, Course
 
 @mentor_permission_checker
 def manage_group_mentor(requests, group_id=None, status=None, _id=None):
-    if status == 201:  # status -> HTTP RESPONSE statuses 201-add, 99-add student, 1,2,3-group statuses
-        group = Group.objects.filter(id=group_id).first()
-        form = GroupForm(requests.POST or None, instance=group)
-        ctx = {"group": group, "form": form, "position": "add"}
-        if form.is_valid():
-            form.save()
-            return redirect('admin-group-one', group_id=group_id)
-        else:
-            for i, j in form.errors.items():
-                ctx['error'] = i
-                break
-        return render(requests, 'pages/education/groups.html', ctx)
-
-    elif group_id:
+    if group_id:
         group = Group.objects.filter(id=group_id).first()
         queryset = GroupStudent.objects.select_related('group').filter(group=group)
         members = [x.student for x in queryset]
@@ -34,7 +21,8 @@ def manage_group_mentor(requests, group_id=None, status=None, _id=None):
             'group': group,
             "position": "one",
             'members': members,
-            "lessons": lessons
+            "lessons": lessons,
+            "gr_active": "active"
         }
         return render(requests, 'pages/education/groups.html', ctx)
 
@@ -43,6 +31,7 @@ def manage_group_mentor(requests, group_id=None, status=None, _id=None):
         groups = Group.objects.filter(status=status, course=course).order_by('-pk')
         ctx = {
             'groups': groups,
+            "gr_active": "active",
             'position': 'list',
         }
         return render(requests, 'pages/education/groups.html', ctx)
@@ -50,5 +39,6 @@ def manage_group_mentor(requests, group_id=None, status=None, _id=None):
     ctx = {
         'position': 'main',
         'gcnt': gcnt(course_id=None if not course else course.id),
+        "gr_active": "active",
     }
     return render(requests, 'pages/education/groups.html', ctx)

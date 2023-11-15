@@ -7,11 +7,19 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
+
         <li class="nav-item">
-            <a href="{% url 'mentor_algorithm' %}" class="nav-link {{ u_active }}">
-                 <i class="fas fa-clipboard-list"></i>
-                <p>Your Algorithm</p>
+            <a href="{% url 'mentor_admin-group' %}" class="nav-link {{ gr_active }}">
+                <i class="fas fa-users"></i>
+                <p>Guruhlar</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{% url 'mentor_algorithm' %}" class="nav-link {{ algorithm_active }}">
+                 <i class="fas fa-clipboard-list"></i>
+                 <p> Your Algorithm</p>
+            </a>
+        </li>
+
     </ul>
 </li>

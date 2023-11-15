@@ -81,7 +81,8 @@ def algaritm(request, key=None, pk=None):
             return redirect('all_algaritm')
         else:
             print(form.errors)
-        return render(request, 'pages/algorithms/algaritm.html', {'key': key, "form": form})
+        return render(request, 'pages/algorithms/algaritm.html',
+                      {'key': key, "form": form, 'algorithm_active': 'active'})
 
     all_algaritm = f""" select cor_al.id, cor_al.reward, cor_al.description, cor_al.bonus, (COALESCE(user_c.first_name, '') || ' ' || COALESCE(user_c.last_name, '')) as full_name
                 from core_algorithm cor_al
@@ -103,7 +104,8 @@ def algaritm(request, key=None, pk=None):
         bonuses = cursor.fetchall()
 
     return render(request, 'pages/algorithms/algaritm.html',
-                  {"all_algorithm": algarithm, 'key': key, 'user': user, "bonuses": [x[0] for x in bonuses]})
+                  {"all_algorithm": algarithm, 'key': key, 'user': user, 'algorithm_active': 'active',
+                   "bonuses": [x[0] for x in bonuses]})
 
 
 def done_algoritms(request, pk=None):
@@ -125,10 +127,10 @@ def done_algoritms(request, pk=None):
         cursor.execute(sql)
         algorithm = dictfetchall(cursor)
 
-    return render(request, 'pages/algorithms/done_algoritm.html', {"roots": algorithm})
+    return render(request, 'pages/algorithms/done_algoritm.html', {"roots": algorithm, 'algorithm_active': 'active'})
+
 
 def mentor_algorithm(request):
-
     all_mentor_algorithm = f"""
             SELECT ca.id, ca.reward, ca.description, ca.bonus, cu.id user_id, cu.first_name, cu.last_name
             FROM core_algorithm ca
@@ -140,6 +142,6 @@ def mentor_algorithm(request):
         cursor.execute(all_mentor_algorithm)
         all_ = dictfetchall(cursor)
         print("Raw Results:", all_)
-        ctx = {'all_algorithm': all_}
+        ctx = {'all_algorithm': all_, 'algorithm_active': 'active'}
 
     return render(request, 'pages/algorithms/mentor_algorithm.html', ctx)

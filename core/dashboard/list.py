@@ -53,6 +53,7 @@ def profile(request):
         "done": done,
         "card_user": card,
         "open_menu_fc": "menu-open",
+        "profile_active": 'active'
     }
     return render(request, 'sidebars/profile.html', ctx)
 
