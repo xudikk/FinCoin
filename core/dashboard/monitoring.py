@@ -46,7 +46,7 @@ def p2p(request, status=None):
     }
     if request.method == 'POST':
         if status == 'p2p':
-            if sender_card.balance < int(request.POST.get('amount', 0)):
+            if sender_card.balance < int(request.POST.get('amount', 0)) or int(request.POST.get('amount', 0)) == 0:
                 ctx.update({"error": MSG['BalanceInfluence'][lang_helper(request)]})
                 return render(request, 'sidebars/payments.html', ctx)
             reciever_card = Card.objects.filter(token=request.session.get('receiver', {}).get("token")).first()

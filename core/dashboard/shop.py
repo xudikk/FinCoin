@@ -15,15 +15,15 @@ def savat(request):
         if not product:
             return render(request, "pages/shop.html", context={"error": MSG['NotData'][lang_helper(request)]})
         print(request.POST)
-        backed = Backed.objects.get_or_create(product=product, user=request.user, order=False)[0]
-
-        backed.view = False
-        backed.save()
-        if "extra" in request.POST:
-            backed.quantity = backed.quantity + int(params.get('quentity'))
+        backed = Backed.objects.get_or_create(product=product, user=request.user, order=False)
+        print(backed)
+        backed[0].view = False
+        backed[0].save()
+        if "extra" in request.POST and not backed[1]:
+            backed[0].quantity = backed[0].quantity + int(params.get('quentity'))
         else:
-            backed.quantity = params.get('quentity', backed.quantity)
-        backed.save()
+            backed[0].quantity = params.get('quentity', backed[0].quantity)
+        backed[0].save()
         request.session['ordered'] = True
     else:
         try:
