@@ -75,6 +75,27 @@
 
             </tbody>
         </table>
+        <br>
+        <hr>
+        <div class="pagination">
+        <span class="step-links">
+            {% if monitorings.has_previous %}
+                <a href="?page=1" class="btn btn-primary btn-sm">&laquo;first</a>
+                <a href="?page={{ monitorings.previous_page_number }}" class="btn btn-primary btn-sm">prev</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ monitorings.number }} of {{ monitorings.paginator.num_pages }}.
+            </span>
+
+            {% if monitorings.has_next %}
+                <a href="?page={{ monitorings.next_page_number }}" class="btn btn-primary btn-sm">next</a>
+                <a href="?page={{ monitorings.paginator.num_pages }}"
+                   class="btn btn-primary btn-sm">last&raquo;</a>
+            {% endif %}
+        </span>
+        </div>
+        <hr>
     </div>
 </div>
 {% else %}

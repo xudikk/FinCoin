@@ -9,6 +9,7 @@
 from contextlib import closing
 
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db import connection
 from django.db.models import Q
 from django.shortcuts import redirect, render
@@ -99,9 +100,11 @@ def p2p(request, status=None):
 def monitoring_page(request):
     if request.user.ut == 3:
         cart = Card.objects.filter(user_id=request.user.id).first()
-        mont = Monitoring.objects.filter(Q(sender_id=cart.id) | Q(receiver_id=cart.id))
-        ctx = {f"monitorings": mont.order_by('-pk')}
+        all_ = Monitoring.objects.filter(Q(sender_id=cart.id) | Q(receiver_id=cart.id)).order_by('-id')
     else:
         all_ = Monitoring.objects.all().order_by('-id')
-        ctx = {"monitorings": all_}
+    paginator = Paginator(all_, 50)
+    page_number = request.GET.get("page", 1)
+    paginated = paginator.get_page(page_number)
+    ctx = {"monitorings": paginated}
     return render(request, 'pages/monitoring.html', ctx)
