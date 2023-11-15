@@ -10,6 +10,7 @@ from contextlib import closing
 
 from django.contrib.auth.decorators import login_required
 from django.db import connection
+from django.db.models import Q
 from django.shortcuts import redirect, render
 from methodism import generate_key
 
@@ -94,14 +95,13 @@ def p2p(request, status=None):
     return render(request, 'sidebars/payments.html', ctx)
 
 
+@login_required(login_url='login')
 def monitoring_page(request):
-    if request.user.is_anonymous: return redirect('login')
-    all_ = Monitoring.objects.all().order_by('-id')
-    ctx = {"all": all_}
     if request.user.ut == 3:
         cart = Card.objects.filter(user_id=request.user.id).first()
-        mont = Monitoring.objects.filter(sender_id=cart.id)
-        # vohima qimela prosta borib keladi
-        receiv = Monitoring.objects.filter(receiver_id=cart.id)
-        ctx.update({f"user_{request.user.ut}": mont, "receiv": receiv})
+        mont = Monitoring.objects.filter(Q(sender_id=cart.id) | Q(receiver_id=cart.id))
+        ctx = {f"monitorings": mont.order_by('-pk')}
+    else:
+        all_ = Monitoring.objects.all().order_by('-id')
+        ctx = {"monitorings": all_}
     return render(request, 'pages/monitoring.html', ctx)
