@@ -7,6 +7,7 @@
 from django.urls import path
 from core.dashboard.auto import gets, auto_form
 from core.dashboard.basket import basket_page
+from core.dashboard.chat import chat, chatSearch
 from core.dashboard.home import algaritm, category, done_algoritms, mentor_algorithm
 from core.dashboard.auth import create_user, change_password, grader, create_cart
 from core.dashboard.monitoring import award, p2p, monitoring_page
@@ -83,5 +84,9 @@ urlpatterns = [
     path('savat/', basket_page, name='basket'),
     path('savat/<int:status>/status/', basket_page, name='basket_status'),
 
+    #chat
+    path('chat/', chat, name='chat'),
+    path('chat/<int:user_id>/', chat, name='chat_user_id'),
+    path('chat/search/', chatSearch, name='chatSearch'),
 ]
 

@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %} Chat {% endblock %}
+{% block pagetitle %} Chat {% endblock %}
+
+{% load static %}
+{% block content %}
+<html lang="en" >
+<head>
+  <meta charset="UT
+  F-8">
+  <title></title>
+  <link rel="stylesheet" href="{% static 'chat/style.css' %}">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="container">
+	<aside>
+		<header>
+			<form action="{% url 'chatSearch' %}">
+				<input name="data" type="text" placeholder="Search">
+			</form>
+		</header>
+		<ul>
+<!--for user-->
+			{% for i in users %}
+			<a href="{% url 'chat_user_id' user_id=i.user_id %}">
+				<li>
+					<div class="user-panel">
+						<div class="image">
+							<img src="{% static 'ddist/img/user2-160x160.jpg' %}" class="img-circle elevation-2"
+								 alt="User Image">
+						</div>
+					</div>
+					<div>
+						<h2>{{ i.first_name }} {{ i.last_name }}</h2>
+						<h3>
+							<span class="status orange"></span>
+							{{i.last_login }}
+						</h3>
+					</div>
+				</li>
+			</a>
+			{% endfor %}
+<!--end for-->
+		</ul>
+	</aside>
+	<main>
+		<header>
+<!--			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">-->
+			<div>
+				<h2>Chat with {{ chat_data.first_name }} {{ chat_data.last_name }}</h2>
+				<h3>already {{ chat_data.messege_len }} messages</h3>
+			</div>
+<!--			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_star.png" alt="">-->
+		</header>
+		<ul id="chat">
+			{% if messages %}
+			{% for i in messages %}
+				<li class="{% if i.user_id == request.user.id %}me{% else %}you{% endif %}">
+					<div class="entete">
+						<span class="status green"></span>
+						<h2>{{ i.user }}</h2>
+						<h3>{{ i.created }}</h3>
+					</div>
+					<div class="triangle"></div>
+					<div class="message">
+						{{ i.message }}
+					</div>
+					</li>
+<!--				<li class="me">-->
+<!--					<div class="entete">-->
+<!--						<h3>10:12AM, Today</h3>-->
+<!--						<h2>Vincent</h2>-->
+<!--						<span class="status blue"></span>-->
+<!--					</div>-->
+<!--					<div class="triangle"></div>-->
+<!--					<div class="message">-->
+<!--						Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.-->
+<!--					</div>-->
+<!--				</li>-->
+			{% endfor %}
+			{% endif %}
+		</ul>
+		<footer>
+			<textarea placeholder="Type your message"></textarea>
+			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_picture.png" alt="">
+			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_file.png" alt="">
+			<a href="#">Send</a>
+		</footer>
+	</main>
+</div>
+<!-- partial -->
+  
+</body>
+</html>
+{% endblock %}
