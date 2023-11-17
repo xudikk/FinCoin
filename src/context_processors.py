@@ -35,6 +35,7 @@ def user_type(request):
         'course': 'course_active',
         'ins': 'ints_active',
         'user_group': 'gr_active',
+        'user_instruction': 'user_instruction',
     }.get(path, 'nothing_active')
     ctx = {
         "pages_html_type": types,
