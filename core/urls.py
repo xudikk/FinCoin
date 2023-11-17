@@ -13,6 +13,7 @@ from core.dashboard.auth import create_user, change_password, grader, create_car
 from core.dashboard.monitoring import award, p2p, monitoring_page
 from core.dashboard.notification import notification, done_action, backed_action
 from core.dashboard.shop import savat
+from core.dashboard.u_instruction import user_instruction, _instruction
 from core.dashboard.view import index
 from core.dashboard.auth import sign_in, sign_out, clear
 from core.dashboard.list import list_user, delCard, profile
@@ -44,6 +45,9 @@ urlpatterns = [
     # user actions
     path('user/info/<int:pk>/', list_user, name='get_user_info'),
     path('profile/', profile, name='user_profile'),
+    path('user_instruction/', user_instruction, name='user_davomat'),
+    path('user_instruction/<int:student_id>/', user_instruction, name='student_davomat'),
+    path('users_instruction/<int:user_id>/', _instruction, name='get_instruction'),
 
     # user payments
     path('transfer/', p2p, name='user_payments'),

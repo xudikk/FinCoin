@@ -3,7 +3,7 @@ from contextlib import closing
 from django.db import connection
 from django.shortcuts import render
 
-from base.helper import cusmot_dictfetchall,custom_dictfetchone
+from base.helper import cusmot_dictfetchall, custom_dictfetchone
 from core.models import Message
 
 
