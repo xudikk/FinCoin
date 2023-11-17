@@ -41,11 +41,15 @@
                     </td>
                     <td>
                         {% if i.order == False %}
-                        <a href="{% url 'notification_backed' status='backed' pk=i.backed_id %}"
-                           title="Mahsulot yetkazib berish"
-                           class="btn btn-warning btn-circle btn-sm">
-                            <i class="fa-solid fa-gift"></i>
-                        </a>
+                            {% if i.may_order %}
+                            <a href="{% url 'notification_backed' status='backed' pk=i.backed_id %}"
+                               title="Mahsulot yetkazib berish"
+                               class="btn btn-warning btn-circle btn-sm">
+                                <i class="fa-solid fa-gift"></i>
+                            </a>
+                            {% else%}
+                            <p>Balansda mablag yetarli emas</p>
+                            {% endif %}
                         {% else %}
                         <a href="#" title="Mahsulot yetkazib berilgan"
                            class="btn btn-success btn-circle btn-sm">

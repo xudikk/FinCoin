@@ -36,18 +36,24 @@ def notification(request, status=None):
         return render(request, f'pages/notifications/all.html', ctx)
     if status == 'backed':
         all_backed = f"""
-            select cb.id backed_id, cb.quantity soni, cb.'order', cb.cost, cu.first_name , cu.last_name, cu.username, cu.phone, cb.'view', cu.id as user_id, cp.name product_name
-            from core_backed cb , core_user cu, core_product cp 
-            where cb.user_id == cu.id and cb.product_id == cp.id
-            order by cb.id desc
+        select 
+        COALESCE((select 1 from core_card WHERE cb.cost < card.balance), 0) as may_order,
+        cb.id backed_id, cb.quantity soni, cb.'order', cb.cost, cu.first_name , cu.last_name, cu.username, cu.phone, cb.'view', cu.id as user_id, cp.name product_name
+        from core_backed cb , core_user cu, core_product cp 
+        inner join core_card card on card.user_id = cu.id 
+        where cb.user_id == cu.id and cb.product_id == cp.id
+        order by cb.id desc
         """
+
         with closing(connection.cursor()) as cursor:
+
+
             cursor.execute(all_backed)
             all_ = dictfetchall(cursor)
-
             ctx.update({
-                'all_backed': all_
+                'all_backed': all_,
             })
+
         viewed = Backed.objects.filter(view=False)
         if viewed:
             for _i in viewed:
@@ -55,6 +61,8 @@ def notification(request, status=None):
                 _i.save()
         return render(request, f'pages/notifications/all.html', ctx)
     return render(request, f'pages/notifications/all.html', ctx)
+
+
 
 
 @admin_permission_checker
