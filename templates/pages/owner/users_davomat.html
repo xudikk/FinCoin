@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %} Users Yo'qlamalari {% endblock %}
+{% block pagetitle %} Yo'qlama {% endblock %}
+{% block page_title %} <span class="text-xl">Yo'qlama</span>{% endblock %}
+{% block content %}
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Mavzu</th>
+                    <th>Boshlangan vaqti</th>
+                    <th>Tugagan vaqti</th>
+                    <th>Dars Holati</th>
+                    <th>Student username</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in lessons %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.topic }}</td>
+                    <td>{{ i.startedTime |date:'Y-m-d H:i' }}</td>
+                    <td>{{ i.endedTime |date:'Y-m-d H:i' }}</td>
+                    <td>{% if i.is_end %}Dars Tugagan{% else %}Dars Tugadi deb belgilanmagan{% endif %}</td>
+                    <td>{{ i.username }}</td>
+                    <td>
+                        {% if i.status == 'Keldi' %}
+                        <a title="Darsga keldi"
+                           class="btn btn-success btn-circle btn-sm">
+                            <i class="fas fa-hand-sparkles"></i>
+                        </a>
+                        {% elif i.status == 'Kemadi' %}
+                        <a title="Darska Kelmadi"
+                           class="btn btn-warning btn-circle btn-sm">
+                            <i class="fas fa-hand-fist"></i>
+                        </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<a href="{% url 'home' %}" class="btn btn-dark ">Bosh Menu</a>
+{% endblock %}

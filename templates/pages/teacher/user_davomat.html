@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %} User Yo'qlamalari {% endblock %}
+{% block pagetitle %} Yo'qlama {% endblock %}
+{% block page_title %} <span class="text-xl">Yo'qlama</span>{% endblock %}
+{% block content %}
+
+{% if student_id %}
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Mavzu</th>
+                    <th>Boshlangan vaqti</th>
+                    <th>Tugagan vaqti</th>
+                    <th>Dars Holati</th>
+                    <th>Student username</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in student_id %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.topic }}</td>
+                    <td>{{ i.startedTime |date:'Y-m-d H:i' }}</td>
+                    <td>{{ i.endedTime |date:'Y-m-d H:i' }}</td>
+                    <td>{% if i.is_end %}Dars Tugagan{% else %}Dars Tugadi deb belgilanmagan{% endif %}</td>
+                    <td>{{ i.username }}</td>
+                    <td>
+                        {% if i.status == 'Keldi' %}
+                        <a title="Darsga keldi"
+                           class="btn btn-success btn-circle btn-sm">
+                            <i class="fas fa-hand-sparkles"></i>
+                        </a>
+                        {% elif i.status == 'Kemadi' %}
+                        <a title="Darska Kelmadi"
+                           class="btn btn-warning btn-circle btn-sm">
+                            <i class="fas fa-hand-fist"></i>
+                        </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Group name</th>
+                    <th>Course name</th>
+                    <th>Student username</th>
+                    <th>Student Fullname</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in lessons %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.group_name }}</td>
+                    <td>{{ i.course_name }}</td>
+                    <td>{{ i.student_username }}</td>
+                    <td>{{ i.student_full_name }}</td>
+                    <td>
+                        <a href="{% url 'student_davomat' student_id=i.student_id %}"
+                           title="Davomatni ko'rish" class="btn btn-info btn-circle btn-sm">
+                            <i class="fas fa-list-check"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="pagination">
+                    <span class="step-links">
+                        {% if lessons.has_previous %}
+                            <a href="?page=1" class="btn btn-primary btn-sm">&laquo;first</a>
+                            <a href="?page={{ lessons.previous_page_number }}" class="btn btn-primary btn-sm">prev</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ lessons.number }} of {{ lessons.paginator.num_pages }}.
+                        </span>
+
+                        {% if lessons.has_next %}
+                            <a href="?page={{ lessons.next_page_number }}" class="btn btn-primary btn-sm">next</a>
+                            <a href="?page={{ lessons.paginator.num_pages }}"
+                               class="btn btn-primary btn-sm">last&raquo;</a>
+                        {% endif %}
+                    </span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+<a href="{% url 'home' %}" class="btn btn-dark ">Bosh Menu</a>
+{% endblock %}
