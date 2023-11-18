@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import DateInput
 
-from core.models import Group, GroupStudent, Course, Dars
+from core.models import Group, GroupStudent, Course, Dars, Interested
 
 
 class DatePicker(DateInput):
@@ -55,3 +55,9 @@ class DarsForm(forms.ModelForm):
         group = kwargs.pop('group')
         super().__init__(*args, **kwargs)
         self.fields['group'].initial = group
+
+
+class InterestedForm(forms.ModelForm):
+    class Meta:
+        model = Interested
+        fields = "__all__"

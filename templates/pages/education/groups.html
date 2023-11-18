@@ -432,7 +432,9 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <a href="{% url 'admin-group-list' status=2 %}">
+
+                            <a {% if request.user.ut == 2 %} href="{% url 'mentor_admin-group-list' status=2 %}"
+                            {% elif request.user.ut == 1%} href="{% url 'admin-group-list' status=2 %}" {% endif %}>
 
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     Active Guruhlar
@@ -457,7 +459,8 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <a href="{% url 'admin-group-list' status=1  %}">
+                             <a {% if request.user.ut == 2 %} href="{% url 'mentor_admin-group-list' status=1 %}"
+                            {% elif request.user.ut == 1%} href="{% url 'admin-group-list' status=1 %}" {% endif %}>
                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                     Start Yaqinda
                                 </div>
@@ -475,14 +478,14 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-xl-6 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <a href="{% url 'admin-group-list' status=3 %}">
+                            <a {% if request.user.ut == 2 %} href="{% url 'mentor_admin-group-list' status=3 %}"
+                            {% elif request.user.ut == 1%} href="{% url 'admin-group-list' status=3 %}" {% endif %}>
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     Tugagan Guruhlar
                                 </div>
@@ -540,6 +543,7 @@
         </div>
 
     </div>
+
 </div>
 
 
