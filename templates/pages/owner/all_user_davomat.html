@@ -13,6 +13,7 @@
                 <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Course name</th>
                     <th>Mavzu</th>
                     <th>Boshlangan vaqti</th>
                     <th>Tugagan vaqti</th>
@@ -25,6 +26,7 @@
                 {% for i in lessons %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
+                    <td>{{ i.course_name }}</td>
                     <td>{{ i.topic }}</td>
                     <td>{{ i.startedTime |date:'Y-m-d H:i' }}</td>
                     <td>{{ i.endedTime |date:'Y-m-d H:i' }}</td>

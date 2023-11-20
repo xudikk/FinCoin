@@ -12,7 +12,7 @@ class Course(models.Model):
                                )
 
     def __str__(self):
-        return f"{self.name} | Mentor: {self.mentor}"
+        return f"{self.name} | Mentor: {self.mentor.username}"
 
     class Meta:
         verbose_name = "course"

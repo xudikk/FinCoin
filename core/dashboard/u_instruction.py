@@ -12,9 +12,8 @@ from core.models import Course
 def user_instruction(request, student_id=None):
     if student_id:
         student = f"""                    
-                select c_davomat.status, c_davomat.user_id, c_dars.topic , c_dars.startedTime , c_dars.endedTime, c_dars.is_end, c_user.username from core_davomat c_davomat
-                inner join core_dars c_dars on c_davomat.dars_id == c_dars.id
-                inner join core_user c_user on c_davomat.user_id == c_user.id
+                select c_davomat.status, c_davomat.user_id, c_dars.topic, c_dars.startedTime, c_dars.endedTime, c_dars.is_end, c_user.username, c_course.name course_name from core_davomat c_davomat
+                inner join core_dars c_dars on c_davomat.dars_id == c_dars.id inner join core_user c_user on c_davomat.user_id == c_user.id inner join core_group c_group on c_davomat.group_id == c_group.id inner join core_course c_course on c_group.course_id == c_course.id
                 where c_davomat.user_id == {student_id}
             """
         with closing(connection.cursor()) as cursor:
@@ -43,13 +42,12 @@ def user_instruction(request, student_id=None):
 @admin_permission_checker
 def _instruction(request, user_id=None):
     all_lesson = f"""
-            select c_davomat.status, c_dars.topic, c_dars.is_end, c_dars.startedTime, c_dars.endedTime, c_user.username from core_davomat c_davomat
-            inner join core_dars c_dars on c_davomat.dars_id == c_dars.id
-            inner join core_user c_user on c_davomat.user_id == c_user.id
+            select c_davomat.status, c_dars.topic, c_dars.is_end, c_dars.startedTime, c_dars.endedTime, c_user.username, c_course.name course_name from core_davomat c_davomat
+            inner join core_dars c_dars on c_davomat.dars_id == c_dars.id inner join core_user c_user on c_davomat.user_id == c_user.id inner join core_group c_group on c_davomat.group_id == c_group.id inner join core_course c_course on c_group.course_id == c_course.id
             where c_davomat.user_id == {user_id}
         """
     with closing(connection.cursor()) as cursor:
         cursor.execute(all_lesson)
         all_dars = dictfetchall(cursor)
     ctx = {"lessons": all_dars}
-    return render(request, 'pages/owner/users_davomat.html', ctx)
+    return render(request, 'pages/owner/all_user_davomat.html', ctx)
