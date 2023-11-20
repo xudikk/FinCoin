@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 
 from base.helper import gcnt, get_davomat, check_attendance_makeable
 from base.custom import admin_permission_checker, mentor_permission_checker
-from core.forms.education import GrStForm, GroupForm, CourseForm, DarsForm
+from core.forms.education import GrStForm, GroupForm, CourseForm, DarsForm, EnrollForm
 from core.models import GroupStudent, Group, User
 from core.models.education import Interested, Course, Dars, Davomat
 
@@ -88,9 +88,8 @@ def interested(requests, pk=None, contac_id=None):
         ctx = {
             'inst': ins,
             'position': "one",
-            "ints_active": "active"
         }
-        return render(requests, 'pages/instres.html', ctx)
+        return render(requests, 'pages/education/instres.html', ctx)
 
     elif contac_id:
         ins = Interested.objects.filter(id=contac_id).first()
@@ -99,9 +98,8 @@ def interested(requests, pk=None, contac_id=None):
             ctx = {
                 'intres': inst,
                 'error': True,
-                "ints_active": "active"
             }
-            return render(requests, 'pages/instres.html', ctx)
+            return render(requests, 'pages/education/instres.html', ctx)
         ins.contacted = True
         ins.who_contacted = requests.user
         ins.save()
@@ -111,7 +109,6 @@ def interested(requests, pk=None, contac_id=None):
         inst = Interested.objects.all().order_by('-pk')
         ctx = {
             'intres': inst,
-            "ints_active": "active"
         }
 
         return render(requests, 'pages/education/instres.html', ctx)
@@ -200,3 +197,24 @@ def attends(request, group_id, dars_id, student_id, status):
         "Shu yerda userning ota onasiga sms chiqarib yuboriladi."
     Davomat.objects.create(dars_id=dars_id, group_id=group_id, user_id=student_id, status=status)
     return redirect('education_dars', group_id=group_id, pk=dars_id)
+
+
+def enroll(requests):
+    form = EnrollForm(requests.POST or None)
+    ctx = {
+        'ekey': 'enroll',
+        "form": form
+    }
+    if form.is_valid():
+        via = requests.GET.get('via', '')
+        en = form.save()
+        if via:
+            en.via = via
+            en.save()
+        ctx.update({
+            "added": True,
+        })
+        return render(requests, "base.html", ctx)
+
+    return render(requests, "base.html", ctx)
+

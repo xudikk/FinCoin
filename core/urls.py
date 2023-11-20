@@ -17,6 +17,7 @@ from core.dashboard.u_instruction import user_instruction, _instruction
 from core.dashboard.view import index
 from core.dashboard.auth import sign_in, sign_out, clear
 from core.dashboard.list import list_user, delCard, profile
+from core.education.education import enroll
 
 urlpatterns = [
 
@@ -92,5 +93,8 @@ urlpatterns = [
     path('chat/', chat, name='chat'),
     path('chat/<int:user_id>/', chat, name='chat_user_id'),
     path('chat/search/', chatSearch, name='chatSearch'),
+
+    # kursga yozilish
+    path("enroll/", enroll, name="enroll")
 ]
 

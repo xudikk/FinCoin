@@ -162,6 +162,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                  style="opacity: .8">
             <span class="brand-text font-weight-light">{{ app_name }}<span class="badge badge-danger navbar-badge">TEST</span></span>
         </a>
+         {% if ekey != 'enroll' or not request.user.is_anonymous %}
+
         <div class="sidebar">
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
@@ -171,14 +173,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="info">
                     <a href="{% url 'user_profile' %}" class="d-block">
                         {% if request.user.username %}
-                        {{ request.user.username }}
+                            {{ request.user.username }}
                         {% else %}
-                        {{ request.user.get_uname }}
+                            {{ request.user.get_uname }}
                         {% endif %}
                     </a>
                 </div>
             </div>
-
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -197,6 +198,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </nav>
             <!-- /.sidebar-menu -->
         </div>
+        {% endif %}
         <!-- /.sidebar -->
     </aside>
 
@@ -221,9 +223,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="content">
             <div class="container-fluid">
                 {% if error == 404 %}
-                {% include 'pages/abs404.html' %}
+                    {% include 'pages/abs404.html' %}
+                {% elif ekey == 'enroll' %}
+                    {% include 'enroll.html' %}
                 {% else %}
-                {% block content %} {% endblock %}
+                    {% block content %} {% endblock %}
                 {% endif %}
 
                 <!-- /.row -->
