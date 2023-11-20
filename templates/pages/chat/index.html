@@ -1,10 +1,4 @@
-{% extends 'base.html' %}
-
-{% block title %} Chat {% endblock %}
-{% block pagetitle %} Chat {% endblock %}
-
 {% load static %}
-{% block content %}
 <html lang="en" >
 <head>
   <meta charset="UT
@@ -28,8 +22,8 @@
 			<a href="{% url 'chat_user_id' user_id=i.user_id %}">
 				<li>
 					<div class="user-panel">
-						<div class="image">
-							<img src="{% static 'ddist/img/user2-160x160.jpg' %}" class="img-circle elevation-2"
+						<div class="image" style=" margin-bottom: 10px;">
+							<img style="width: 50px;" src="{% static 'ddist/img/user2-160x160.jpg' %}" class="img-circle elevation-2"
 								 alt="User Image">
 						</div>
 					</div>
@@ -95,4 +89,3 @@
   
 </body>
 </html>
-{% endblock %}
