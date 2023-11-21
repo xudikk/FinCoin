@@ -30,7 +30,7 @@ def user_instruction(request, student_id=None):
                 core_course inner join core_group on core_course.id = core_group.course_id
                 inner join core_groupstudent on core_group.id = core_groupstudent.group_id
                 inner join core_user on core_groupstudent.student_id = core_user.id where core_course.mentor_id = {request.user.id}
-                group by core_course.id, core_group.id, core_user.id;
+                group by core_user.id;
                 """
         with closing(connection.cursor()) as cursor:
             cursor.execute(all_lesson)
