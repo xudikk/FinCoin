@@ -52,6 +52,7 @@
         </div>
     </div>
 </div>
+
 {% else %}
 <div class="card">
     <div class="card-body">
@@ -100,12 +101,22 @@
                             <a href="?page={{ lessons.next_page_number }}" class="btn btn-primary btn-sm">next</a>
                             <a href="?page={{ lessons.paginator.num_pages }}"
                                class="btn btn-primary btn-sm">last&raquo;</a>
+
                         {% endif %}
                     </span>
+
             </div>
         </div>
     </div>
 </div>
+
 {% endif %}
+<a href="{% url 'user_davomat' %}"
+   class="btn btn-primary bg-outline-primary btn-icon-split">
+    <span class="icon text-white-50">
+        <i class="fa-solid fa-backward"></i>
+    </span>
+    <span class="text">Ortga</span>
+</a>
 <a href="{% url 'home' %}" class="btn btn-dark ">Bosh Menu</a>
 {% endblock %}

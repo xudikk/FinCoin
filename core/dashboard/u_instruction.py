@@ -32,6 +32,7 @@ def user_instruction(request, student_id=None):
                 inner join core_user on core_groupstudent.student_id = core_user.id where core_course.mentor_id = {request.user.id}
                 group by core_user.id;
                 """
+        
         with closing(connection.cursor()) as cursor:
             cursor.execute(all_lesson)
             all_dars = dictfetchall(cursor)
