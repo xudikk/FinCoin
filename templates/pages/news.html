@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %} News | View {% endblock %}
+{% block title %} News {% endblock %}
+
 {% block page_title %}
-{% if request.user.ut == 1 %}
-<a href="{% url 'dashboard-auto-add' key='news' %}" class="btn btn-outline-dark ">
-    <i class="fa-solid fa-newspaper"></i>
-    Yangilik qo'shish
-</a>
-{% endif %}
+    {% if request.user.ut == 1 %}
+    <a href="{% url 'dashboard-auto-add' key='news' %}" class="btn btn-outline-dark ">
+        <i class="fa-solid fa-newspaper"></i>
+        Yangilik qo'shish
+    </a>
+    {% endif %}
 {% endblock %}
 {% block pagetitle %} Yangililar {% endblock %}
 {% load bootstrap4 %}
