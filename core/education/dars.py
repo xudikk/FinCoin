@@ -27,8 +27,8 @@ def manage_group_mentor(requests, group_id=None, status=None, _id=None):
         return render(requests, 'pages/education/groups.html', ctx)
 
     elif status:
-        course = Course.objects.filter(mentor_id=requests.user.id).first()
-        groups = Group.objects.filter(status=status, course=course).order_by('-pk')
+        groups = Group.objects.filter(status=status, course__mentor=requests.user.id).order_by('-pk')
+
         ctx = {
             'groups': groups,
             "gr_active": "active",
