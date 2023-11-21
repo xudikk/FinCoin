@@ -111,6 +111,7 @@
 </div>
 
 {% endif %}
+{% if student_id %}
 <a href="{% url 'user_davomat' %}"
    class="btn btn-primary bg-outline-primary btn-icon-split">
     <span class="icon text-white-50">
@@ -118,5 +119,6 @@
     </span>
     <span class="text">Ortga</span>
 </a>
+{% endif %}
 <a href="{% url 'home' %}" class="btn btn-dark ">Bosh Menu</a>
 {% endblock %}
