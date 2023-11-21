@@ -23,15 +23,15 @@ def user_instruction(request, student_id=None):
         return render(request, 'pages/teacher/user_davomat.html', ctx)
     else:
         all_lesson = f"""
-                select course.name as course_name, 'group'.id group_id, 'group'.name group_name, c_user.id as student_id, c_user.username as student_username, 
-                (COALESCE(c_user.first_name, '') || ' ' || COALESCE(c_user.last_name, '')) as student_full_name
-                from core_course course
-                inner join core_group as 'group' on course.id == 'group'.course_id
-                inner join core_groupstudent cg_student on 'group'.id == cg_student.group_id
-                inner join core_user c_user on cg_student.student_id == c_user.id
-                where course.mentor_id == {request.user.id}
-                group by c_user.id
-                    """
+                select
+                core_course.name as course_name, core_group.id as group_id, core_group.name as group_name,
+                core_user.id as student_id,core_user.username as student_username,
+                (COALESCE(core_user.first_name, '') || ' ' || COALESCE(core_user.last_name, '')) as student_full_name from
+                core_course inner join core_group on core_course.id = core_group.course_id
+                inner join core_groupstudent on core_group.id = core_groupstudent.group_id
+                inner join core_user on core_groupstudent.student_id = core_user.id where core_course.mentor_id = {request.user.id}
+                group by core_course.id, core_group.id, core_user.id;
+                """
         with closing(connection.cursor()) as cursor:
             cursor.execute(all_lesson)
             all_dars = dictfetchall(cursor)
