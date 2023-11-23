@@ -71,7 +71,7 @@
                 <tbody>
                 {% for i in rating %}
                 <tr>
-                    <td>{{ i.full_name }}</td>
+                    <td>{{ i.full_name }}{% if i.full_name == request.user.full_name %}<sup class="badge bg-success">bu siz ✊👍</sup></td>{% endif %}</td>
                     <td>{{ i.username }}</td>
                     {% if i.level == 'Beginner' %}
                     <td>

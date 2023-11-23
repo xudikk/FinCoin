@@ -78,7 +78,6 @@ def mentor_permission_checker(funk):
             return redirect('login')
 
         if request.user.ut not in [1, 2]:
-
             return render(request, 'base.html', {'error': 404})
 
         return funk(request, *args, **kwargs)

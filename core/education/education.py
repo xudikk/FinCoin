@@ -217,4 +217,3 @@ def enroll(requests):
         return render(requests, "base.html", ctx)
 
     return render(requests, "base.html", ctx)
-

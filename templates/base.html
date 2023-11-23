@@ -58,10 +58,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
         </ul>
 
-<!--         SEARCH FORM-->
+        <!--         SEARCH FORM-->
         <form class="form-inline ml-3">
             <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" title="Hozircha bu yer ishlamaydi" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control form-control-navbar" title="Hozircha bu yer ishlamaydi" type="search"
+                       placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
                     <button class="btn btn-navbar" type="submit">
                         <i class="fas fa-search"></i>
@@ -73,33 +74,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
-<!--            <li class="nav-item dropdown">-->
-<!--                <a class="nav-link" data-toggle="dropdown" href="#">-->
-<!--                    <i class="far fa-user"></i>-->
-<!--                    <span class="badge badge-danger navbar-badge">3</span>-->
-<!--                </a>-->
-<!--                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">-->
-<!--                    <a href="#" class="dropdown-item">-->
-<!--                        &lt;!&ndash; Message Start &ndash;&gt;-->
-<!--                        <div class="media">-->
-<!--                            <img src="{% static 'ddist/img/user1-128x128.jpg' %}" alt="User Avatar"-->
-<!--                                 class="img-size-50 mr-3 img-circle">-->
-<!--                            <div class="media-body">-->
-<!--                                <h3 class="dropdown-item-title">-->
-<!--                                   Salom-->
-<!--                                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>-->
-<!--                                </h3>-->
-<!--                                <p class="text-sm">Call me whenever you can...</p>-->
-<!--                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        &lt;!&ndash; Message End &ndash;&gt;-->
-<!--                    </a>-->
+            <!--            <li class="nav-item dropdown">-->
+            <!--                <a class="nav-link" data-toggle="dropdown" href="#">-->
+            <!--                    <i class="far fa-user"></i>-->
+            <!--                    <span class="badge badge-danger navbar-badge">3</span>-->
+            <!--                </a>-->
+            <!--                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">-->
+            <!--                    <a href="#" class="dropdown-item">-->
+            <!--                        &lt;!&ndash; Message Start &ndash;&gt;-->
+            <!--                        <div class="media">-->
+            <!--                            <img src="{% static 'ddist/img/user1-128x128.jpg' %}" alt="User Avatar"-->
+            <!--                                 class="img-size-50 mr-3 img-circle">-->
+            <!--                            <div class="media-body">-->
+            <!--                                <h3 class="dropdown-item-title">-->
+            <!--                                   Salom-->
+            <!--                                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>-->
+            <!--                                </h3>-->
+            <!--                                <p class="text-sm">Call me whenever you can...</p>-->
+            <!--                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                        &lt;!&ndash; Message End &ndash;&gt;-->
+            <!--                    </a>-->
 
-<!--                    <div class="dropdown-divider"></div>-->
-<!--                    <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>-->
-<!--                </div>-->
-<!--            </li>-->
+            <!--                    <div class="dropdown-divider"></div>-->
+            <!--                    <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>-->
+            <!--                </div>-->
+            <!--            </li>-->
             <!-- Notifications Dropdown Menu -->
             {% if request.user.ut == 1 %}
             <li class="nav-item dropdown">
@@ -160,9 +161,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a href="{% url 'home' %}" class="brand-link">
             <img src="{% static 'auth/logo1.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">{{ app_name }}<span class="badge badge-danger navbar-badge">TEST</span></span>
+            <span class="brand-text font-weight-light">{{ app_name }}<span
+                    class="badge badge-danger navbar-badge">TEST</span></span>
         </a>
-         {% if ekey != 'enroll' or not request.user.is_anonymous %}
+        {% if ekey != 'enroll' or not request.user.is_anonymous %}
 
         <div class="sidebar">
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -173,9 +175,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="info">
                     <a href="{% url 'user_profile' %}" class="d-block">
                         {% if request.user.username %}
-                            {{ request.user.username }}
+                        {{ request.user.username }}
                         {% else %}
-                            {{ request.user.get_uname }}
+                        {{ request.user.get_uname }}
                         {% endif %}
                     </a>
                 </div>
@@ -223,11 +225,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="content">
             <div class="container-fluid">
                 {% if error == 404 %}
-                    {% include 'pages/abs404.html' %}
+                {% include 'pages/abs404.html' %}
                 {% elif ekey == 'enroll' %}
-                    {% include 'enroll.html' %}
+                {% include 'enroll.html' %}
                 {% else %}
-                    {% block content %} {% endblock %}
+                {% block content %} {% endblock %}
                 {% endif %}
 
                 <!-- /.row -->

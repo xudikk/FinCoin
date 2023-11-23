@@ -1,5 +1,6 @@
 from contextlib import closing
 
+from django.core.paginator import Paginator
 from django.db import connection
 from django.shortcuts import render
 from methodism import dictfetchall
@@ -32,11 +33,16 @@ def user_instruction(request, student_id=None):
                 inner join core_user on core_groupstudent.student_id = core_user.id where core_course.mentor_id = {request.user.id}
                 group by core_user.id;
                 """
-        
+
         with closing(connection.cursor()) as cursor:
             cursor.execute(all_lesson)
             all_dars = dictfetchall(cursor)
-        ctx = {"lessons": all_dars}
+
+            paginator = Paginator(all_dars, 10)
+            page_number = request.GET.get("page", 1)
+            paginated = paginator.get_page(page_number)
+
+        ctx = {"lessons": paginated}
         return render(request, 'pages/teacher/user_davomat.html', ctx)
 
 

@@ -25,8 +25,12 @@ def notification(request, status=None):
             cursor.execute(all_done)
             all_ = dictfetchall(cursor)
 
+            paginator = Paginator(all_, 10)
+            page_number = request.GET.get("page", 1)
+            paginated = paginator.get_page(page_number)
+
             ctx.update({
-                'all_done': all_
+                'all_done': paginated
             })
         viewed = Done.objects.filter(view=False)
         if viewed:
@@ -47,11 +51,15 @@ def notification(request, status=None):
 
         with closing(connection.cursor()) as cursor:
 
-
             cursor.execute(all_backed)
             all_ = dictfetchall(cursor)
+
+            paginator = Paginator(all_, 10)
+            page_number = request.GET.get("page", 1)
+            paginated = paginator.get_page(page_number)
+
             ctx.update({
-                'all_backed': all_,
+                'all_backed': paginated,
             })
 
         viewed = Backed.objects.filter(view=False)
@@ -61,8 +69,6 @@ def notification(request, status=None):
                 _i.save()
         return render(request, f'pages/notifications/all.html', ctx)
     return render(request, f'pages/notifications/all.html', ctx)
-
-
 
 
 @admin_permission_checker

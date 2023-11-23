@@ -36,20 +36,21 @@
                     <td><a href="{% url 'get_user_info' pk=i.user_id %}" class="text-primary">{{ i.username }} 👈</a>
                     </td>
                     <td>{{ i.soni }} ta</td>
-                    <td><a href="{% url 'dashboard-auto-list' key='product' %}" title="Barcha mahsulotlar paneli">{{ i.product_name }}</a></td>
+                    <td><a href="{% url 'dashboard-auto-list' key='product' %}" title="Barcha mahsulotlar paneli">{{
+                        i.product_name }}</a></td>
                     <td>{{ i.cost }} <i class="fa-solid fa-coins"></i></td>
                     </td>
                     <td>
                         {% if i.order == False %}
-                            {% if i.may_order %}
-                            <a href="{% url 'notification_backed' status='backed' pk=i.backed_id %}"
-                               title="Mahsulot yetkazib berish"
-                               class="btn btn-warning btn-circle btn-sm">
-                                <i class="fa-solid fa-gift"></i>
-                            </a>
-                            {% else%}
-                            <p>Balansda mablag yetarli emas</p>
-                            {% endif %}
+                        {% if i.may_order %}
+                        <a href="{% url 'notification_backed' status='backed' pk=i.backed_id %}"
+                           title="Mahsulot yetkazib berish"
+                           class="btn btn-warning btn-circle btn-sm">
+                            <i class="fa-solid fa-gift"></i>
+                        </a>
+                        {% else%}
+                        <p>Balansda mablag yetarli emas</p>
+                        {% endif %}
                         {% else %}
                         <a href="#" title="Mahsulot yetkazib berilgan"
                            class="btn btn-success btn-circle btn-sm">
@@ -63,6 +64,24 @@
                 </tbody>
 
             </table>
+            <div class="pagination mb-3">
+                <span class="step-links">
+            {% if all_backed.has_previous %}
+                <a href="?page=1" class="btn btn-primary btn-sm">&laquo; first</a>
+                <a href="?page={{ all_backed.previous_page_number }}" class="btn btn-primary btn-sm">prev</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ all_backed.number }} of {{ all_backed.paginator.num_pages }}.
+            </span>
+
+            {% if all_backed.has_next %}
+                <a href="?page={{ all_backed.next_page_number }}" class="btn btn-primary btn-sm">next</a>
+                <a href="?page={{ all_backed.paginator.num_pages }}"
+                   class="btn btn-primary btn-sm">last &raquo;</a>
+            {% endif %}
+        </span>
+            </div>
             <a href="{% url 'home' %}" class="btn btn-secondary bg-outline-dark btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-home"></i>
@@ -208,6 +227,24 @@
                 {% endfor %}
                 </tbody>
             </table>
+            <div class="pagination mb-3">
+                <span class="step-links">
+            {% if all_done.has_previous %}
+                <a href="?page=1" class="btn btn-primary btn-sm">&laquo; first</a>
+                <a href="?page={{ all_done.previous_page_number }}" class="btn btn-primary btn-sm">prev</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ all_done.number }} of {{ all_done.paginator.num_pages }}.
+            </span>
+
+            {% if all_done.has_next %}
+                <a href="?page={{ all_done.next_page_number }}" class="btn btn-primary btn-sm">next</a>
+                <a href="?page={{ all_done.paginator.num_pages }}"
+                   class="btn btn-primary btn-sm">last &raquo;</a>
+            {% endif %}
+        </span>
+            </div>
             <a href="{% url 'home' %}" class="btn btn-secondary bg-outline-dark btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-home"></i>
