@@ -14,7 +14,7 @@ def notification(request, status=None):
     ctx = {'status': status}
     if status == 'done_algorithm':
         all_done = f"""
-                select cd.id done_id, cd.status, cu.first_name , cu.last_name, cu.username, cu.phone, cd.algorithm_id, cd.view
+                select cd.id done_id, cd.status, cu.first_name , cu.last_name, cu.username, cu.phone, cd.algorithm_id algorithm_id, cd.view
                 from core_done cd, core_user cu
                 where cd.user_id == cu.id
                 order by cd.id desc                
@@ -23,9 +23,9 @@ def notification(request, status=None):
 
         with closing(connection.cursor()) as cursor:
             cursor.execute(all_done)
-            all_ = dictfetchall(cursor)
+            _all_ = dictfetchall(cursor)
 
-            paginator = Paginator(all_, 10)
+            paginator = Paginator(_all_, 10)
             page_number = request.GET.get("page", 1)
             paginated = paginator.get_page(page_number)
 
