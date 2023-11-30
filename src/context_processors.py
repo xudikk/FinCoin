@@ -50,11 +50,14 @@ def user_type(request):
 def notifications(request):
     result = {}
     if not request.user.is_anonymous and request.user.ut == 1:
-        sql = """
+        sql = f"""
                 select 
-                    (select COUNT(*) from core_backed cb where cb.'view' = 0) as count_backed,
-                    (select COUNT(*) from core_done cd where cd.'view' = 0) as count_done_algorithm,
-                    (SELECT COUNT(*) FROM core_backed cb WHERE cb.'view' = 0) + (SELECT COUNT(*) FROM core_done cd WHERE cd.'view' = 0) AS all_count
+                (select COUNT(*) from core_backed cb where cb.'view' = 0) as count_backed,
+                (select COUNT(*) from core_done cd where cd.'view' = 0) as count_done_algorithm,
+                (select COUNT(*) from core_usernotification cu where cu.'viewed' = 0 and user_id={request.user.id}) as cnt_user_notes,
+                (SELECT COUNT(*) FROM core_backed cb WHERE cb.'view' = 0) + (SELECT COUNT(*) FROM core_usernotification 
+                WHERE 'viewed' = 0  and user_id={request.user.id}) + (SELECT COUNT(*) FROM core_done cd WHERE cd.'view' = 0) AS all_count
+
             """
         with closing(connection.cursor()) as cursor:
             cursor.execute(sql)
@@ -67,10 +70,11 @@ def basket(request):
     if not request.user.is_anonymous and request.user.ut == 3:
         basket = f"""
                 select (SELECT COUNT(*) from core_backed cb where cb."order" = 0 and cb.user_id == {request.user.id}) as basket_count,
+                (select COUNT(*) from core_usernotification cu where cu.'viewed' = 0 and user_id={request.user.id}) as cnt_user_notes,
             	(SELECT COUNT(*) from core_backed cb where cb."order" == 1 and cb.user_id == {request.user.id}) as order_true
             """
         with closing(connection.cursor()) as cursor:
             cursor.execute(basket)
             result = {'basket': dictfetchone(cursor)}
-
+    print(result)
     return result

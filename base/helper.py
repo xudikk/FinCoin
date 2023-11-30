@@ -76,7 +76,7 @@ def look_at_params(params: dict, requires: list):
     return set(requires) - set(params.keys())
 
 
-def make_transfer(sender, receiver, amount: int):
+def make_transfer(sender, receiver, amount: int, **kwargs):
     try:
         sender.balance = sender.balance - amount
         receiver.balance = receiver.balance + amount

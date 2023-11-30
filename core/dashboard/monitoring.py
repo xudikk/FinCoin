@@ -15,7 +15,7 @@ from django.db.models import Q
 from django.shortcuts import redirect, render
 from methodism import generate_key
 
-from base.custom import permission_checker, admin_permission_checker
+from base.custom import permission_checker, admin_permission_checker, user_notification_sender
 from base.errors import MSG
 from base.helper import lang_helper, make_transfer
 from core.models import Card, Token
@@ -32,6 +32,9 @@ def award(request, pk=None):
         """
         with closing(connection.cursor()) as cursor:
             cursor.execute(sql)
+    user_notification_sender(user_id=pk, note=request.POST.get('desc_reward', 0), bonus=request.POST.get('reward', 0),
+                             type="Bonus", many=pk is None)
+
     if pk:
         return redirect("get_user_info", pk=pk)
     else:
@@ -46,7 +49,7 @@ def p2p(request, status=None):
     }
     if request.method == 'POST':
         if status == 'p2p':
-            if sender_card.balance < int(request.POST.get('amount', 0)) or int(request.POST.get('amount', 0)) == 0:
+            if sender_card.balance < int(request.POST.get('amount', 0)) or int(request.POST.get('amount', 0)) <= 1000:
                 ctx.update({"error": MSG['BalanceInfluence'][lang_helper(request)]})
                 return render(request, 'sidebars/payments.html', ctx)
             reciever_card = Card.objects.filter(token=request.session.get('receiver', {}).get("token")).first()
@@ -65,6 +68,11 @@ def p2p(request, status=None):
             monitoring.status = 1 if make_transfer(sender_card, reciever_card,
                                                    int(request.POST.get('amount', 0))) else 2
             monitoring.save()
+            if monitoring.status == 1:
+                amount = int(request.POST.get('amount', 0))
+                print(amount, amount*-1)
+                user_notification_sender(sender_card.user_id, "User Transfer", "p2p", bonus=amount*-1)
+                user_notification_sender(reciever_card.user_id, "User Transfer", "p2p", bonus=amount)
             ctx.update({"success": MSG['SuccessTransaction'][lang_helper(request)]})
             try:
                 del request.session['receiver']

@@ -80,6 +80,12 @@ class Done(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, limit_choices_to={"ut": 3})
     view = models.BooleanField(default=False)
 
+    status_choices = {
+        2: "Xato",
+        3: "Tekshirilmoqda",
+        4: "Bajarilmoqda",
+    }
+
     class Meta:
         verbose_name_plural = "C. Bajarilgan Algoritmlar"
 

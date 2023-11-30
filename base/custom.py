@@ -3,6 +3,9 @@
 #  Please contact before making any changes
 #
 #  Tashkent, Uzbekistan
+from contextlib import closing
+
+from django.db import connection
 from django.shortcuts import redirect, render
 from methodism import METHODISM, custom_response, MESSAGE, exception_data
 from re import compile as re_compile
@@ -62,7 +65,8 @@ def admin_permission_checker(funk):
 
         if request.user.is_anonymous:
             return redirect('login')
-
+        if 'status' in kwargs and kwargs['status'] == 'bonus':
+            return funk(request, *args, **kwargs)
         if request.user.ut != 1:
             return render(request, 'base.html', {'error': 404})
 
@@ -125,3 +129,15 @@ class CustomMETHODISM(METHODISM):
                 custom_response(False, method=method, message=MESSAGE['UndefinedError'][lang_helper(requests)],
                                 data=exception_data(e)))
         return response
+
+
+def user_notification_sender(user_id, note, type, bonus=0, many=False):
+    sql = f""" 
+            insert into core_usernotification ("type", "desc", bonus, viewed ,user_id)
+            {f"select '{type}','{note}','{bonus}',0,id from core_user WHERE ut=3" if many else  f"values ('{type}','{note}','{bonus}',0,'{user_id}')"}
+         """
+    with closing(connection.cursor()) as cursor:
+        cursor.execute(sql)
+    # UserNotification.objects.create(**{"user_id": user_id, "type": type, 'bonus': bonus, 'desc': note})
+    return True
+

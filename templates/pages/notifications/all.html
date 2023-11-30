@@ -36,8 +36,8 @@
                     <td><a href="{% url 'get_user_info' pk=i.user_id %}" class="text-primary">{{ i.username }} 👈</a>
                     </td>
                     <td>{{ i.soni }} ta</td>
-                    <td><a href="{% url 'dashboard-auto-list' key='product' %}" title="Barcha mahsulotlar paneli">{{
-                        i.product_name }}</a></td>
+                    <td><a href="{% url 'dashboard-auto-list' key='product' %}" title="Barcha mahsulotlar paneli">
+                        {{ i.product_name }}</a></td>
                     <td>{{ i.cost }} <i class="fa-solid fa-coins"></i></td>
                     </td>
                     <td>
@@ -97,12 +97,10 @@
         </div>
     </div>
 </div>
-
-{% elif status == 'done_algorithm' %}
-
+{% elif status == 'bonus' %}
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-purple">Ishlangan algarimlar Jami: {{ all_done|length }} ta</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Buyurtmalar ro'yxati</h6>
 
     </div>
     <div class="card-body">
@@ -111,6 +109,81 @@
             <h5 class="m-0 font-weight-bold text-danger">Qandaydir Xatolik</h5>
             {% endif %}
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Type</th>
+                    <th>Info</th>
+                    <th>Bonus</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in notifications %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.type }}</td>
+                    <td>{{ i.desc }}</td>
+                    <td>{{ i.bonus }} <i class="fa-solid fa-coins"></i></td>
+                    <td>
+
+                        <a href="#" title="Mahsulot yetkazib berilgan"
+                           class="btn btn-success btn-circle btn-sm">
+                            <i class="fa-solid fa-check"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+            <div class="pagination mb-3">
+                <span class="step-links">
+            {% if notifications.has_previous %}
+                <a href="?page=1" class="btn btn-primary btn-sm">&laquo; first</a>
+                <a href="?page={{ notifications.previous_page_number }}" class="btn btn-primary btn-sm">prev</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ notifications.number }} of {{ notifications.paginator.num_pages }}.
+            </span>
+
+            {% if notifications.has_next %}
+                <a href="?page={{ notifications.next_page_number }}" class="btn btn-primary btn-sm">next</a>
+                <a href="?page={{ notifications.paginator.num_pages }}"
+                   class="btn btn-primary btn-sm">last &raquo;</a>
+            {% endif %}
+        </span>
+            </div>
+            <a href="{% url 'home' %}" class="btn btn-secondary bg-outline-dark btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-home"></i>
+                    </span>
+                <span class="text">Bosh Menu</span>
+            </a>
+            <a {% if request.user.ut == 3 %} href="{% url 'basket' %}" {% else %} href="{% url 'notifications' %}"{% endif %} class="btn btn-primary bg-outline-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fa-solid fa-backward"></i>
+                    </span>
+                <span class="text">Ortga</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% elif status == 'done_algorithm' %}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-purple">Jami: {{ all_bonus.summ }} ta</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            {% if error %}
+            <h5 class="m-0 font-weight-bold text-danger">Qandaydir Xatolik</h5>
+            {% endif %}
+            <table class="table table-bordered" id="datasTable" width="100%" cellspacing="0">
                 <thead>
                 <tr>
                     <th>№</th>
@@ -306,6 +379,29 @@
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a href="{% url 'notification_status' status='bonus' %}">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Bonuslar Va Balance o'zgarishlari
+                                </div>
+                            </a>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
+                                <mark>{{ notifications.cnt_user_notes }}</mark>
+                                ta <i class="fas fa-envelope mr-2 "></i>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>

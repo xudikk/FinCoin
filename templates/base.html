@@ -124,6 +124,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <span class="float-right text-muted text-sm"> {{notifications.count_done_algorithm}} <i
                                 class="fas fa-envelope mr-2"></i></span>
                     </a>
+                    <a href="{% url 'notification_status' status='bonus' %}" class="dropdown-item">
+                        <i class="fa-solid fa-dollar"></i> Barcha Bonuslarni ko'rish
+                        <span class="float-right text-muted text-sm"> {{ notifications.cnt_user_notes }} <i
+                                class="fas fa-envelope mr-2"></i></span>
+                    </a>
                     <div class="dropdown-divider"></div>
                     <a href="{% url 'notifications' %}" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>
@@ -148,6 +153,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <a href="{% url 'basket_status' status=1 %}" class="dropdown-item">
                         <i class="fa-solid fa-basket-shopping"></i> Sotib olinganlar
                         <span class="float-right text-muted text-sm"> {{basket.order_true}} <i
+                                class="fas fa-envelope mr-2"></i></span>
+                    </a>
+                    <a href="{% url 'notification_status' status='bonus' %}" class="dropdown-item">
+                        <i class="fa-solid fa-dollar"></i> Barcha Bonuslarni ko'rish
+                        <span class="float-right text-muted text-sm"> {{ basket.cnt_user_notes }} <i
                                 class="fas fa-envelope mr-2"></i></span>
                     </a>
                     <div class="dropdown-divider"></div>
@@ -294,6 +304,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="form-group col-md-4">
                     <label for="award">Bonus Qiymatini yozing</label><br>
                     <input type="number" id="award" name="reward">
+                    <label for="desc_award">Bonus Uchun Izoh</label><br>
+                    <input type="text" id="desc_award" name="desc_reward">
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Barchaga qo'shish</button>

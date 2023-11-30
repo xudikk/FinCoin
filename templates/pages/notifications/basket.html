@@ -204,6 +204,28 @@
                 </div>
             </div>
         </div>
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <a href="{% url 'notification_status' status='bonus' %}">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Bonuslar Va Balance o'zgarishlari
+                                </div>
+                            </a>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Umumiy
+                                <mark>{{ basket.cnt_user_notes }}</mark>
+                                ta <i class="fas fa-envelope mr-2 "></i>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <a href="{% url 'home' %}" class="btn btn-primary"><i class="fas fa-home"></i> Bosh Menu</a>
 </div>

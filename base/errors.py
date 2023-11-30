@@ -78,7 +78,33 @@ MSG = {
         'en': "You cannot add this number because the phone does not match"
     },
 
+    # bonus
+
+    "AuthBonus": {
+        "uz": "Siz Muaffaqiyatli ro'yxatdan o'tganingiz uchun sizga bonus taqdim qilamiz",
+        "ru": "Мы подарим вам бонус за успешную регистрацию",
+        'en': "We will give you a bonus for your successful registration"
+    },
+
+
+    "AttendBonus": {
+        "uz": "Siz darsga kelganingiz uchun sizga bonus taqdim qilindi",
+        "ru": "Вам дали бонус за посещение занятий",
+        'en': "You were given a bonus for coming to class"
+    },
+
+
+    "AlgorithmBonus": {
+        "uz": "Muaffaqiyatli Bajarilgan Algoritm uchun Bonus",
+        "ru": "Бонус за успешно выполненный алгоритм",
+        'en': "Bonus for Successfully Executed Algorithm"
+    },
+
+
+
+
     # auth
+
     'UUIDBlocked': {
         'uz': "Ushbu UUID Blocklangan",
         'ru': "Этот UUID заблокирован",
@@ -250,9 +276,9 @@ MSG = {
         'en': "Transfers cannot be made to this card"
     },
     "BalanceInfluence": {
-        'uz': "Mablag' yetarli emas",
-        "ru": "Баланс недостаточен",
-        'en': "Balance is insufficient"
+        'uz': "Mablag' yetarli emas yoki judayam kkichik qiymat ",
+        "ru": "Сумма недостаточна или слишком мала",
+        'en': "Balance is insufficient or too small"
     },
     'DeviceRevokeDenited': {
         "uz": "Ushbu qurulma boshqalarini chiqarib yubora olmaydi",
@@ -286,7 +312,7 @@ MSG = {
     },
 
 
-    # Not Fount Errors
+    # Not Found Errors
     "ServiceDoesNotExist": {
         "uz": "Hozircha Bunday xizmat mavjud emas",
         "ru": "Эта услуга в настоящее время недоступна",

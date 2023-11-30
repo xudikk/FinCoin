@@ -42,8 +42,8 @@
                     <td>{{ i.sender.user }}</td>
                     <td>{{ i.receiver.user }}</td>
                 {% endif %}
-                <td>{{ i.created |date:'Y-m-d H:i' }}</td>
-                <td>{{ i.updated |date:'Y-m-d H:i' }}</td>
+                <td>{{ i.created |date:'d-M Y || H:i' }}</td>
+                <td>{{ i.updated |date:'d-M Y || H:i' }}</td>
                 <td>
                     {% if request.user.ut == 3 and i.sender.user == request.user %}
                     <a title="Pul Yuborilgan" class="btn bg-danger text-white rounded-circle btn-sm">

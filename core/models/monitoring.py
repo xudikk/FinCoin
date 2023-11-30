@@ -4,6 +4,7 @@
 #
 #  Tashkent, Uzbekistan
 from django.db import models
+from django.db.models import Sum
 
 from base.helper import card_mask
 from core.models import User
@@ -71,3 +72,23 @@ class Monitoring(models.Model):
             "receiver": self.sender.number,
             "status": {0: "Created", 1: "Success", 2: "Canceled"}[self.status]
         }
+
+
+class UserNotification(models.Model):
+    type = models.CharField(max_length=50, choices=[
+        ("Bonus", "Bonus"),
+        ("Jarima", "Jarima"),
+        ("Topshiriq", "Topshiriq"),
+        ("p2p", "p2p"),
+    ])
+    desc = models.TextField(verbose_name="To'lliq ma'lumot")
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    bonus = models.IntegerField("Userga beriladigan bonus", default=0, blank=True)
+    viewed = models.BooleanField(verbose_name="Ko'rilganligi", default=False, blank=True)
+
+    def __str__(self):
+        return self.type
+
+    def summ(self):
+        result = self.objects.aggregate(Sum('bonus'))
+        return result
