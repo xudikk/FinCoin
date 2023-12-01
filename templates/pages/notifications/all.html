@@ -119,7 +119,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for i in notifications %}
+                {% for i in bonuses %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ i.type }}</td>
@@ -140,18 +140,18 @@
             </table>
             <div class="pagination mb-3">
                 <span class="step-links">
-            {% if notifications.has_previous %}
+            {% if bonuses.has_previous %}
                 <a href="?page=1" class="btn btn-primary btn-sm">&laquo; first</a>
-                <a href="?page={{ notifications.previous_page_number }}" class="btn btn-primary btn-sm">prev</a>
+                <a href="?page={{ bonuses.previous_page_number }}" class="btn btn-primary btn-sm">prev</a>
             {% endif %}
 
             <span class="current">
-                Page {{ notifications.number }} of {{ notifications.paginator.num_pages }}.
+                Page {{ bonuses.number }} of {{ bonuses.paginator.num_pages }}.
             </span>
 
             {% if notifications.has_next %}
-                <a href="?page={{ notifications.next_page_number }}" class="btn btn-primary btn-sm">next</a>
-                <a href="?page={{ notifications.paginator.num_pages }}"
+                <a href="?page={{ bonuses.next_page_number }}" class="btn btn-primary btn-sm">next</a>
+                <a href="?page={{ bonuses.paginator.num_pages }}"
                    class="btn btn-primary btn-sm">last &raquo;</a>
             {% endif %}
         </span>

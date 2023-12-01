@@ -83,7 +83,7 @@ def notification(request, status=None):
         page_number = request.GET.get("page", 1)
         paginated = paginator.get_page(page_number)
         ctx.update({
-            'notifications': paginated,
+            'bonuses': paginated,
         })
         all_.filter(viewed=False).update(viewed=True)
 
