@@ -1,0 +1,152 @@
+<section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{ count.count_teacher }}</h3>
+
+                <p>Ustozlar</p>
+              </div>
+              <div class="icon">
+                <i class="fa-solid fa-person-chalkboard"></i>
+              </div>
+              <a href="{% url 'user' type=2 %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{ count.count_admin}}</h3>
+
+                <p>Adminlar</p>
+              </div>
+              <div class="icon">
+                <i class="fa-solid fa-user-secret"></i>
+              </div>
+              <a href="{% url 'user' type=1 %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{ count.count_user}}</h3>
+
+                <p>Userlar</p>
+              </div>
+              <div class="icon">
+                <i class="fa-solid fa-users"></i>
+              </div>
+              <a href="{% url 'user' type=3 %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{ count.count_algorithm }}</h3>
+
+                <p>Algaritmlar</p>
+              </div>
+              <div class="icon">
+                <i class="fa-solid fa-calculator"></i>
+              </div>
+              <a href="{% url 'all_algaritm' %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+        <!-- Main row -->
+
+      </div><!-- /.container-fluid -->
+    </section>
+<!-- TABLE: LATEST ORDERS -->
+<div class="card">
+  <div class="card-header border-transparent">
+    <h3 class="card-title">Top 5 ta ko'p ball to'plaganlar 💰💰</h3>
+
+    <div class="card-tools">
+      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+        <i class="fas fa-minus"></i>
+      </button>
+    </div>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table m-0">
+        <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Full Name</th>
+          <th>Username</th>
+          <th>Level</th>
+          <th>Ballance</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in rating %}
+        <tr>
+          <td><a href="{% url 'get_user_info' pk=i.id %}">User | {{ i.id }}</a></td>
+          <td>{{ i.full_name }}</td>
+          <td>{{ i.username }}</td>
+          {% if i.level == 'Beginner' %}
+          <td><span class="text-danger">
+            {{ i.level }}
+          </span></td>
+          {% elif i.level == 'Junior' %}
+          <td><span class="text-warning">
+            {{ i.level }}
+          </span></td>
+          {% elif i.level == 'Middle' %}
+          <td><span class="text-success">
+            {{ i.level }}
+          </span></td>
+          {% elif i.level == 'Senior' %}
+          <td><span class="text-info">
+            {{ i.level }}
+          </span></td>
+          {% elif i.level == 'TeamLead' %}
+          <td><span class="text-dark">
+            {{ i.level }}
+          </span></td>
+          {% endif %}
+          <td>
+            <div class="sparkbar" data-color="#00a65a" style="text-wrap: balance;" id="balance{{ forloop.counter }}" data-height="20"></div>
+          </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <!-- /.table-responsive -->
+  </div>
+  <!-- /.card-body -->
+  <div class="card-footer clearfix">
+    <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">Ko'roq ko'rsatish</a>
+  </div>
+  <!-- /.card-footer -->
+</div>
+<!-- /.card -->
+
+
+<script>
+  function balanceView(id, number){
+    var formattedNumber = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    document.getElementById(id).innerHTML = formattedNumber;
+  };
+
+  var balances = {{ balances|safe }};
+
+  for (var i = 0; i < balances.length; i++) {
+    balanceView("balance" + (i + 1), balances[i]);
+  }
+</script>

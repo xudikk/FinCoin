@@ -2,67 +2,71 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>{{ count.count_teacher }}</h3>
-
-                <p>Ustozlar</p>
+              <div class="col-xl-3 col-lg-12 stretch-card grid-margin">
+                <div class="row">
+                  <div class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3">
+                    <a href="{% url 'user' type=2 %}">
+                      <div class="card bg-warning">
+                        <div class="card-body px-3 py-4">
+                          <div class="d-flex justify-content-between align-items-start">
+                            <div class="color-card">
+                              <p class="mb-0 color-card-head">Ustozlar</p>
+                              <h2 class="text-white">{{ count.count_teacher }}</h2>
+                            </div>
+                            <i class="card-icon-indicator mdi mdi-basket bg-inverse-icon-warning"></i>
+                          </div>
+                          <h6 class="text-white">Batafsil</h6>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3">
+                    <div class="card bg-danger">
+                      <div class="card-body px-3 py-4">
+                        <div class="d-flex justify-content-between align-items-start">
+                          <div class="color-card">
+                            <p class="mb-0 color-card-head">Margin</p>
+                            <h2 class="text-white"> $5,300.<span class="h5">00</span>
+                            </h2>
+                          </div>
+                          <i class="card-icon-indicator mdi mdi-cube-outline bg-inverse-icon-danger"></i>
+                        </div>
+                        <h6 class="text-white">13.21% Since last month</h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3 pb-lg-0 pb-xl-3">
+                    <div class="card bg-primary">
+                      <div class="card-body px-3 py-4">
+                        <div class="d-flex justify-content-between align-items-start">
+                          <div class="color-card">
+                            <p class="mb-0 color-card-head">Orders</p>
+                            <h2 class="text-white"> $1,753.<span class="h5">00</span>
+                            </h2>
+                          </div>
+                          <i class="card-icon-indicator mdi mdi-briefcase-outline bg-inverse-icon-primary"></i>
+                        </div>
+                        <h6 class="text-white">67.98% Since last month</h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-12 col-md-6 stretch-card pb-sm-3 pb-lg-0">
+                    <div class="card bg-success">
+                      <div class="card-body px-3 py-4">
+                        <div class="d-flex justify-content-between align-items-start">
+                          <div class="color-card">
+                            <p class="mb-0 color-card-head">Affiliate</p>
+                            <h2 class="text-white">2368</h2>
+                          </div>
+                          <i class="card-icon-indicator mdi mdi-account-circle bg-inverse-icon-success"></i>
+                        </div>
+                        <h6 class="text-white">20.32% Since last month</h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="icon">
-                <i class="fa-solid fa-person-chalkboard"></i>
-              </div>
-              <a href="{% url 'user' type=2 %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>{{ count.count_admin}}</h3>
-
-                <p>Adminlar</p>
-              </div>
-              <div class="icon">
-                <i class="fa-solid fa-user-secret"></i>
-              </div>
-              <a href="{% url 'user' type=1 %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>{{ count.count_user}}</h3>
-
-                <p>Userlar</p>
-              </div>
-              <div class="icon">
-                <i class="fa-solid fa-users"></i>
-              </div>
-              <a href="{% url 'user' type=3 %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>{{ count.count_algorithm }}</h3>
-
-                <p>Algaritmlar</p>
-              </div>
-              <div class="icon">
-                <i class="fa-solid fa-calculator"></i>
-              </div>
-              <a href="{% url 'all_algaritm' %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-        </div>
         <!-- /.row -->
         <!-- Main row -->
 
