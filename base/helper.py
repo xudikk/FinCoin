@@ -164,7 +164,7 @@ def balance_rating_news(request):
         """
         rating = f"""
                 SELECT cast(COALESCE(SUM(card.balance), 0) as int) as balance, uu.id, COALESCE(uu.username, 'not set yet') as username,
-             uu.phone, (COALESCE(uu.first_name, '') || ' ' || COALESCE(uu.last_name, '')) as full_name, uu.avatar, uu.level
+             uu.phone, (COALESCE(uu.first_name, '') || ' ' || COALESCE(uu.last_name, '')) as full_name, uu.avatar, uu.level, uu.gender
             from core_user uu
             left join core_card card on card.user_id = uu.id
             group by uu.id, uu.username, uu.phone, uu.first_name, uu.last_name, uu.avatar

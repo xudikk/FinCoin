@@ -1,156 +1,153 @@
-<section class="content">
-      <div class="container-fluid">
+{% load static %}
+<section class="">
+    <div class="">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-              <div class="col-xl-3 col-lg-12 stretch-card grid-margin">
+            <div class="col-xl-3 col-lg-12 stretch-card grid-margin">
                 <div class="row">
-                  <div class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3">
-                    <a href="{% url 'user' type=2 %}">
-                      <div class="card bg-warning">
-                        <div class="card-body px-3 py-4">
-                          <div class="d-flex justify-content-between align-items-start">
-                            <div class="color-card">
-                              <p class="mb-0 color-card-head">Ustozlar</p>
-                              <h2 class="text-white">{{ count.count_teacher }}</h2>
+                    <div class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3">
+                            <div class="card bg-warning">
+                                <div class="card-body px-3 py-4">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="color-card">
+                                            <p class="mb-0 color-card-head">Ustozlar</p>
+                                            <h2 class="text-white">{{ count.count_teacher }}</h2>
+                                        </div>
+                                        <i class="card-icon-indicator mdi mdi-basket bg-inverse-icon-warning"></i>
+                                    </div>
+                                    <h6 class="text-white">Batafsil</h6>
+                                </div>
                             </div>
-                            <i class="card-icon-indicator mdi mdi-basket bg-inverse-icon-warning"></i>
-                          </div>
-                          <h6 class="text-white">Batafsil</h6>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3">
-                    <div class="card bg-danger">
-                      <div class="card-body px-3 py-4">
-                        <div class="d-flex justify-content-between align-items-start">
-                          <div class="color-card">
-                            <p class="mb-0 color-card-head">Margin</p>
-                            <h2 class="text-white"> $5,300.<span class="h5">00</span>
-                            </h2>
-                          </div>
-                          <i class="card-icon-indicator mdi mdi-cube-outline bg-inverse-icon-danger"></i>
-                        </div>
-                        <h6 class="text-white">13.21% Since last month</h6>
-                      </div>
                     </div>
-                  </div>
-                  <div class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3 pb-lg-0 pb-xl-3">
-                    <div class="card bg-primary">
-                      <div class="card-body px-3 py-4">
-                        <div class="d-flex justify-content-between align-items-start">
-                          <div class="color-card">
-                            <p class="mb-0 color-card-head">Orders</p>
-                            <h2 class="text-white"> $1,753.<span class="h5">00</span>
-                            </h2>
-                          </div>
-                          <i class="card-icon-indicator mdi mdi-briefcase-outline bg-inverse-icon-primary"></i>
+                    <div class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3">
+                        <div class="card bg-danger">
+                            <div class="card-body px-3 py-4">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div class="color-card">
+                                        <p class="mb-0 color-card-head">Adminlar</p>
+                                        <h2 class="text-white">{{ count.count_admin}}</h2>
+                                    </div>
+                                    <i class="card-icon-indicator mdi mdi-cube-outline bg-inverse-icon-danger"></i>
+                                </div>
+                                <h6 class="text-white">Batafsil</h6>
+                            </div>
                         </div>
-                        <h6 class="text-white">67.98% Since last month</h6>
-                      </div>
                     </div>
-                  </div>
-                  <div class="col-xl-12 col-md-6 stretch-card pb-sm-3 pb-lg-0">
-                    <div class="card bg-success">
-                      <div class="card-body px-3 py-4">
-                        <div class="d-flex justify-content-between align-items-start">
-                          <div class="color-card">
-                            <p class="mb-0 color-card-head">Affiliate</p>
-                            <h2 class="text-white">2368</h2>
-                          </div>
-                          <i class="card-icon-indicator mdi mdi-account-circle bg-inverse-icon-success"></i>
+                    <div class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3 pb-lg-0 pb-xl-3">
+                        <div class="card bg-primary">
+                            <div class="card-body px-3 py-4">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div class="color-card">
+                                        <p class="mb-0 color-card-head">Userlar</p>
+                                        <h2 class="text-white">{{ count.count_user }}</h2>
+                                    </div>
+                                    <i class="card-icon-indicator mdi mdi-briefcase-outline bg-inverse-icon-primary"></i>
+                                </div>
+                                <h6 class="text-white">Batafsil</h6>
+                            </div>
                         </div>
-                        <h6 class="text-white">20.32% Since last month</h6>
-                      </div>
                     </div>
-                  </div>
+                    <div class="col-xl-12 col-md-6 stretch-card pb-sm-3 pb-lg-0">
+                        <div class="card bg-success">
+                            <div class="card-body px-3 py-4">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div class="color-card">
+                                        <p class="mb-0 color-card-head">Algaritmlar</p>
+                                        <h2 class="text-white">{{ count.count_algorithm }}</h2>
+                                    </div>
+                                    <i class="card-icon-indicator mdi mdi-account-circle bg-inverse-icon-success"></i>
+                                </div>
+                                <h6 class="text-white">Batafsil</h6>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-        <!-- /.row -->
-        <!-- Main row -->
+            <div class="col-xl-9 col-lg-12 stretch-card grid-margin">
+                <div class="card">
+    <div class="card-header border-transparent">
+        <h3 class="card-title">Top 5 ta ko'p ball to'plaganlar 💰💰</h3>
 
-      </div><!-- /.container-fluid -->
-    </section>
-<!-- TABLE: LATEST ORDERS -->
-<div class="card">
-  <div class="card-header border-transparent">
-    <h3 class="card-title">Top 5 ta ko'p ball to'plaganlar 💰💰</h3>
-
-    <div class="card-tools">
-      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-        <i class="fas fa-minus"></i>
-      </button>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
     </div>
-  </div>
-  <!-- /.card-header -->
-  <div class="card-body p-0">
-    <div class="table-responsive">
-      <table class="table m-0">
-        <thead>
-        <tr>
-          <th>User ID</th>
-          <th>Full Name</th>
-          <th>Username</th>
-          <th>Level</th>
-          <th>Ballance</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for i in rating %}
-        <tr>
-          <td><a href="{% url 'get_user_info' pk=i.id %}">User | {{ i.id }}</a></td>
-          <td>{{ i.full_name }}</td>
-          <td>{{ i.username }}</td>
-          {% if i.level == 'Beginner' %}
-          <td><span class="text-danger">
+    <!-- /.card-header -->
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-striped m-0 ">
+                <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Full Name</th>
+                    <th>Username</th>
+                    <th>Level</th>
+                    <th>Ballance</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in rating %}
+                <tr>
+                    <td><a href="{% url 'get_user_info' pk=i.id %}"><img {% if i.gender %} src="{% static 'assets/images/faces-clipart/pic-1.png' %}" {% else %} src="{% static 'assets/images/faces-clipart/pic-2.png' %}" {% endif %} alt="image"></a></td>
+                    <td>{{ i.full_name }}</td>
+                    <td>{{ i.username }}</td>
+                    {% if i.level == 'Beginner' %}
+                    <td><span class="text-danger">
             {{ i.level }}
           </span></td>
-          {% elif i.level == 'Junior' %}
-          <td><span class="text-warning">
+                    {% elif i.level == 'Junior' %}
+                    <td><span class="text-warning">
             {{ i.level }}
           </span></td>
-          {% elif i.level == 'Middle' %}
-          <td><span class="text-success">
+                    {% elif i.level == 'Middle' %}
+                    <td><span class="text-success">
             {{ i.level }}
           </span></td>
-          {% elif i.level == 'Senior' %}
-          <td><span class="text-info">
+                    {% elif i.level == 'Senior' %}
+                    <td><span class="text-info">
             {{ i.level }}
           </span></td>
-          {% elif i.level == 'TeamLead' %}
-          <td><span class="text-dark">
+                    {% elif i.level == 'TeamLead' %}
+                    <td><span class="text-dark">
             {{ i.level }}
           </span></td>
-          {% endif %}
-          <td>
-            <div class="sparkbar" data-color="#00a65a" style="text-wrap: balance;" id="balance{{ forloop.counter }}" data-height="20"></div>
-          </td>
-        </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+                    {% endif %}
+                    <td>
+                        <div class="sparkbar" data-color="#00a65a" style="text-wrap: balance;"
+                             id="balance{{ forloop.counter }}" data-height="20"></div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.table-responsive -->
     </div>
-    <!-- /.table-responsive -->
-  </div>
-  <!-- /.card-body -->
-  <div class="card-footer clearfix">
-    <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">Ko'roq ko'rsatish</a>
-  </div>
-  <!-- /.card-footer -->
+    <!-- /.card-body -->
+    <div class="card-footer clearfix">
+        <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">Ko'roq ko'rsatish</a>
+    </div>
+    <!-- /.card-footer -->
 </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- TABLE: LATEST ORDERS -->
 <!-- /.card -->
 
 
 <script>
-  function balanceView(id, number){
-    var formattedNumber = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-    document.getElementById(id).innerHTML = formattedNumber;
-  };
+    function balanceView(id, number){
+      var formattedNumber = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+      document.getElementById(id).innerHTML = formattedNumber;
+    };
 
-  var balances = {{ balances|safe }};
+    var balances = {{ balances|safe }};
 
-  for (var i = 0; i < balances.length; i++) {
-    balanceView("balance" + (i + 1), balances[i]);
-  }
+    for (var i = 0; i < balances.length; i++) {
+      balanceView("balance" + (i + 1), balances[i]);
+    }
 </script>

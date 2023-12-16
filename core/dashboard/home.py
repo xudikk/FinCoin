@@ -11,40 +11,6 @@ from core.models import New, Algorithm, Category, Done
 
 
 @admin_permission_checker
-def home_page(request):
-    balance = f"""
-        select SUM(balance) as summ from core_card  
-        where user_id = {request.user.id}
-    """
-    rating = f"""
-            SELECT cast(COALESCE(SUM(card.balance), 0) as int) as balance, uu.id, COALESCE(uu.username, 'not set yet') as username,
-             uu.phone, (COALESCE(uu.first_name, '') || ' ' || COALESCE(uu.last_name, '')) as full_name, uu.avatar, uu.level
-            from core_user uu
-            left join core_card card on card.user_id = uu.id
-            group by uu.id, uu.username, uu.phone, uu.first_name, uu.last_name, uu.avatar
-            order by balance desc 
-            limit 5
-    """
-    news = "select id, img, title from core_new order by id desc limit 3"
-
-    with closing(connection.cursor()) as cursor:
-        cursor.execute(balance)
-        balance = dictfetchone(cursor)
-
-        cursor.execute(rating)
-        rating = dictfetchall(cursor)
-
-        cursor.execute(news)
-        news = dictfetchall(cursor)
-
-    return render(request, 'pages/index.html', context={
-        "balance": balance['summ'],
-        "rating": rating,
-        "news": news
-    })
-
-
-@admin_permission_checker
 def category(request, pk=None):
     pagination = Category.objects.all().order_by('-pk')
     paginator = Paginator(pagination, settings.PAGINATE_BY)

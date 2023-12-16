@@ -1,82 +1,62 @@
-<li class="nav-item has-treeview menu-open active">
-    <a href="#" class="nav-link">
-        <i class="nav-icon fas fa-tachometer-alt"></i>
-        <p>
-            Fincoin paneli
-            <i class="right fas fa-angle-left"></i>
-        </p>
-    </a>
-    <ul class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="{% url 'user' type=3 %}" class="nav-link {{ u_active }}">
-                <i class="fa-solid fa-users"></i>
-                <p>Userlar </p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'monitoring_page' %}" class="nav-link {{ monit_active }}">
-                <i class="fa-regular fa-credit-card"></i>
-                <p>User O'tkazmalar</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'dashboard-auto-list' key='news' %}" class="nav-link {{ news_active }}">
-                <i class="fa-solid fa-newspaper"></i>
-                <p>Yangiliklar </p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'dashboard-auto-list' key='product' %}" class="nav-link {{ product_active }}">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <p>Maxsulotlar</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'category' %}" class="nav-link {{ ctg_active }}">
-                <i class="fa-solid fa-sliders"></i>
-                <p>Categorylar</p>
-            </a>
-        </li>
-
-    </ul>
-
-</li>
-
-<li class="nav-item has-treeview menu-open">
-    <a href="" class="nav-link">
-        <i class="nav-icon fas fa-copy"></i>
-        <p>
-            Education Paneli
-            <i class="fas fa-angle-left right"></i>
-        </p>
-    </a>
-    <ul class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="{% url 'admin-group' %}" class="nav-link {{ gr_active }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Guruhlar</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'admin-course' %}" class="nav-link {{ course_active }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Kurslar</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'admin-interested' %}" class="nav-link {{ ints_active }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Yangi Yozilganlar</p>
-            </a>
-        </li>
-    </ul>
-</li>
-{% if request.user.is_staff and request.user.is_superuser %}
+{% load static %}
 <li class="nav-item">
-    <a href="" data-toggle="modal" data-target="#bonusForAllModal" class="nav-link">
-        <i class="fa fa-gift"></i>
-        <p>Barchaga bonus berish</p>
+    <a class="nav-link" href="{% url 'user' type=3 %}">
+        <i class="mdi mdi-home menu-icon"></i>
+        <span class="menu-title">Userlar</span>
     </a>
 </li>
-{% endif %}
-
+<li class="nav-item">
+    <a class="nav-link {{ monit_active }}" href="{% url 'monitoring_page' %}">
+        <i class="mdi mdi-contacts menu-icon"></i>
+        <span class="menu-title">User O'tkazmalar</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link {{ news_active }}" href="{% url 'dashboard-auto-list' key='news' %}">
+        <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+        <span class="menu-title">Yangiliklar</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link {{ product_active }}" href="{% url 'dashboard-auto-list' key='product' %}">
+        <i class="mdi mdi-chart-bar menu-icon"></i>
+        <span class="menu-title">Maxsulotlar</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link {{ ctg_active }}" href="{% url 'category' %}">
+        <i class="mdi mdi-table-large menu-icon"></i>
+        <span class="menu-title">Categorylar</span>
+    </a>
+</li>
+<li class="nav-item">
+    <span class="nav-link" href="#">
+      <span class="menu-title">Docs</span>
+    </span>
+</li>
+<li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+        <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+        <span class="menu-title">Education Paneli</span>
+        <i class="menu-arrow"></i>
+    </a>
+    <div class="collapse" id="ui-basic">
+        <ul class="nav flex-column sub-menu">
+            <li class="nav-item">
+                <a class="nav-link {{ gr_active }}" href="{% url 'admin-group' %}">Guruhlar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ course_active }}" href="{% url 'admin-course' %}">Kurslar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ ints_active }}" href="{% url 'admin-interested' %}">Yangi Yozilganlar</a>
+            </li>
+        </ul>
+    </div>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="#">
+        <i class="mdi mdi-file-document-box menu-icon"></i>
+        <span class="menu-title">Documentation</span>
+    </a>
+</li>

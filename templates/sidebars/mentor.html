@@ -1,31 +1,25 @@
-<li class="nav-item has-treeview menu-open">
-    <a href="#" class="nav-link">
-        <i class="nav-icon fas fa-tachometer-alt"></i>
-        <p>
-            Menular paneli
-            <i class="right fas fa-angle-left"></i>
-        </p>
+
+<li class="nav-item">
+    <span class="nav-link" href="#">
+      <span class="menu-title">Menyular Paneli</span>
+    </span>
+</li>
+
+<li class="nav-item">
+    <a href="{% url 'mentor_admin-group' %}" class="nav-link {{ gr_active }}">
+        <i class="fas fa-users pb-3 pl-1 pr-3"></i>
+        <p>Guruhlar</p>
     </a>
-    <ul class="nav nav-treeview">
-
-        <li class="nav-item">
-            <a href="{% url 'mentor_admin-group' %}" class="nav-link {{ gr_active }}">
-                <i class="fas fa-users"></i>
-                <p>Guruhlar</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'user_davomat' %}" class="nav-link {{ user_instruction }}">
-                <i class="fas fa-users"></i>
-                <p>O'quvchilaringiz</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'mentor_algorithm' %}" class="nav-link {{ algorithm_active }}">
-                <i class="fas fa-clipboard-list"></i>
-                <p> Your Algorithm</p>
-            </a>
-        </li>
-
-    </ul>
+</li>
+<li class="nav-item">
+    <a href="{% url 'user_davomat' %}" class="nav-link {{ user_instruction }}">
+        <i class="fas fa-users pb-3 pl-1 pr-3"></i>
+        <p>O'quvchilaringiz</p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{% url 'mentor_algorithm' %}" class="nav-link {{ algorithm_active }}">
+        <i class="fas fa-clipboard-list pb-3 pl-1 pr-3"></i>
+        <p> Your Algorithm</p>
+    </a>
 </li>
