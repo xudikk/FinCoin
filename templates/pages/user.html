@@ -14,9 +14,6 @@
         <div class="col-12">
 
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Xodimlar</h3>
-                </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
@@ -33,7 +30,7 @@
                         {% for i in roots %}
 
                         <tr>
-                            <td>{{ i.id }}</td>
+                            <td>{{ forloop.counter }}</td>
                             {% if i == request.user %}
                             <td>{{ i.full_name }} <sup class="badge badge-primary">bu siz</sup></td>
                             {% else %}
@@ -46,38 +43,34 @@
                             <td>
                                 <a href="{% url 'get_user_info' pk=i.id %}"
                                    title="To'lliq ma'lumotlarni ko'rish"
-                                   class="btn btn-info btn-circle btn-sm">
+                                   class="btn btn-info btn-circle btn-sm px-2">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
                                 <a href="{% url 'user_edit' type=type status='form' pk=i.id %}" title="O'zgartirish"
-                                   class="btn btn-warning btn-circle btn-sm">
+                                   class="btn btn-warning btn-circle btn-sm px-2">
                                     <i class="fas fa-pen"></i>
                                 </a>
                                 {% if request.user.is_staff and request.user.is_superuser %}
                                 <a href="" data-toggle="modal" data-target="#ChangePasswordModal{{ i.id }}"
-                                   title="Parolni o'zgartirish" class="btn btn-primary btn-circle btn-sm">
+                                   title="Parolni o'zgartirish" class="btn btn-primary px-2 btn-circle btn-sm">
                                     <i class="fas fa-key"></i>
                                 </a>
                                 {% endif %}
                                 {% if i.ut == 3 %}
                                 <a href="{% url 'get_instruction' user_id=i.id %}"
-                                   title="Davomatni ko'rish" class="btn btn-info btn-circle btn-sm">
-                                    <i class="fas fa-list-check"></i>
+                                   title="Davomatni ko'rish" class="btn btn-info px-2 btn-circle btn-sm">
+                                    <i class="fas fa-list"></i>
                                 </a>
                                 {% endif %}
                             </td>
 
                         </tr>
-
-
                         {% endfor %}
-
                         </tbody>
 
                     </table>
                     <br>
                     <hr>
-                    <!--    **********************************************************************************************************  -->
                     {% if suggest_status == 'form' %}
                     <div class="row">
                         <!-- left column -->
@@ -147,8 +140,6 @@
                         </div>
 
                     </div>
-
-                    <!--    **********************************************************************************************************  -->
                     {% endif %}
 
                     {% if suggest_status != 'form' %}

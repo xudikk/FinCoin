@@ -150,8 +150,8 @@
                     <td>{% if i.is_end %}Dars Tugagan{% else %}Dars Tugadi deb belgilanmagan{% endif %}</td>
                     <td>
                         <a href="{% url 'education_dars' group_id=group.id pk=i.id %}"
-                           title="Davomatni ko'rish" class="btn btn-info btn-circle btn-sm">
-                            <i class="fas fa-list-check"></i>
+                           title="Davomatni ko'rish" class="btn btn-info btn-circle btn-sm px-2">
+                            <i class="fas fa-list"></i>
                         </a>
                     </td>
                 </tr>
@@ -291,8 +291,8 @@
 
     <div class="col-lg-3 col-6">
 
-        <div class="small-box {% if i.status == 1 %} bg-info {% elif i.status == 2 %} bg-success {% elif i.status == 2 %} bg-warning {% else %} bg-danger {% endif%}">
-            <div class="inner">
+        <div class="small-box card {% if i.status == 1 %} bg-info {% elif i.status == 2 %} bg-success {% elif i.status == 2 %} bg-warning {% else %} bg-danger {% endif%}">
+            <div class="inner card-body">
                 <p class="text-xl">{{ i.name }}</p>
                 <p>{{ i.course }}</p>
                 <p>Boshlangan vaqti: {{ i.start_date }}</p>
@@ -312,8 +312,7 @@
             </div>
             <a {% if request.user.ut == 2 %} href="{% url 'mentor_admin-group-one' group_id=i.id %}"
                {% elif request.user.ut == 1 %} href="{% url 'admin-group-one' group_id=i.id %}"
-               {% endif %} title="Group Info" class="small-box-footer">Batafsil<i
-                    class="fas fa-arrow-circle-right"></i>
+               {% endif %} title="Group Info" class="text-white bg-dark px-3 py-2 small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
     </div>
@@ -326,7 +325,7 @@
             <div class="col-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title"></h3>
+                        <h3 class="card-title">Sizning guruhingiz</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -334,31 +333,26 @@
                             <h2 class="text-info">
                             Hech qanday guruh topilmadi
                             </h2>
-
                         </div>
                     </div>
-                    <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
             </div>
-            <!-- /.col -->
         </div>
     </div>
-    <!-- /.container-fluid -->
     {% endif %}
 </div>
 
  <a {% if request.user.ut == 2 %} href="{% url 'home'  %}"
            {% elif request.user.ut == 1 %} href="{% url 'admin-group' %}"
            {% endif %}
-           class="btn btn-primary bg-outline-primary btn-icon-split mb-2">
+           class="btn btn-primary bg-outline-primary btn-icon-split px-2 py-2 mb-2 mt-2">
             <span class="icon text-white-40">
-                        <i class="fa-solid fa-backward"></i>
+                        <i class="fa fa-backward"></i>
             </span>
             <span class="text">Ortga</span>
  </a>
 
-<a href="{% url 'home' %}" class="btn btn-secondary bg-outline-dark btn-icon-split mb-2">
+<a href="{% url 'home' %}" class="btn btn-secondary text-white px-3 py-2 bg-dark btn-icon-split mb-2 mt-2">
                     <span class="icon text-white-50">
                         <i class="fas fa-home"></i>
                     </span>
@@ -426,7 +420,7 @@
 
 {% else %}
 
-<div class="container-fluid">
+<div class="">
 
 
     <div class="row">

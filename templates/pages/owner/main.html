@@ -13,7 +13,7 @@
                                             <p class="mb-0 color-card-head">Ustozlar</p>
                                             <h2 class="text-white">{{ count.count_teacher }}</h2>
                                         </div>
-                                        <i class="card-icon-indicator mdi mdi-basket bg-inverse-icon-warning"></i>
+                                        <a href="{% url 'user' type=2 %}" class="card-icon-indicator bg-inverse-icon-warning"><i class="mdi mdi-basket"></i></a>
                                     </div>
                                     <h6 class="text-white">Batafsil</h6>
                                 </div>
@@ -27,7 +27,7 @@
                                         <p class="mb-0 color-card-head">Adminlar</p>
                                         <h2 class="text-white">{{ count.count_admin}}</h2>
                                     </div>
-                                    <i class="card-icon-indicator mdi mdi-cube-outline bg-inverse-icon-danger"></i>
+                                    <a href="{% url 'user' type=1 %}" class="bg-inverse-icon-danger card-icon-indicator"><i class="mdi mdi-cube-outline"></i></a>
                                 </div>
                                 <h6 class="text-white">Batafsil</h6>
                             </div>
@@ -41,7 +41,9 @@
                                         <p class="mb-0 color-card-head">Userlar</p>
                                         <h2 class="text-white">{{ count.count_user }}</h2>
                                     </div>
-                                    <i class="card-icon-indicator mdi mdi-briefcase-outline bg-inverse-icon-primary"></i>
+                                    <a href="{% url 'user' type=3 %}" class="bg-inverse-icon-primary card-icon-indicator ">
+                                        <i class="mdi mdi-briefcase-outline "></i>
+                                    </a>
                                 </div>
                                 <h6 class="text-white">Batafsil</h6>
                             </div>
@@ -55,7 +57,9 @@
                                         <p class="mb-0 color-card-head">Algaritmlar</p>
                                         <h2 class="text-white">{{ count.count_algorithm }}</h2>
                                     </div>
-                                    <i class="card-icon-indicator mdi mdi-account-circle bg-inverse-icon-success"></i>
+                                    <a href="{% url 'all_algaritm' %}" class="card-icon-indicator bg-inverse-icon-success ">
+                                        <i class="mdi mdi-account-circle"></i>
+                                    </a>
                                 </div>
                                 <h6 class="text-white">Batafsil</h6>
                             </div>
@@ -67,12 +71,6 @@
                 <div class="card">
     <div class="card-header border-transparent">
         <h3 class="card-title">Top 5 ta ko'p ball to'plaganlar 💰💰</h3>
-
-        <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-            </button>
-        </div>
     </div>
     <!-- /.card-header -->
     <div class="card-body p-0">

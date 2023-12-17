@@ -11,7 +11,7 @@
 {% else %}
 
 {% if monitorings %}
-<div class="container-fluid rounded bg-white rounded border-bottom">
+<div class="rounded bg-white rounded border-bottom" align="center">
     <div class="card-body">
         <table id="example1" class="table table-bordered table-striped">
             <thead>
@@ -46,25 +46,26 @@
                 <td>{{ i.updated |date:'d-M Y || H:i' }}</td>
                 <td>
                     {% if request.user.ut == 3 and i.sender.user == request.user %}
-                    <a title="Pul Yuborilgan" class="btn bg-danger text-white rounded-circle btn-sm">
-                         <i class="fa-solid fa-sack-xmark"></i>
+                    <a title="Pul Yuborilgan" class="btn bg-danger text-white rounded-circle btn-sm px-2">
+<!--                         <i class="fa fa-sack-xmark"></i>-->
+                        <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path d="M192 96H320l47.4-71.1C374.5 14.2 366.9 0 354.1 0H157.9c-12.8 0-20.4 14.2-13.3 24.9L192 96zm128 32H192c-3.8 2.5-8.1 5.3-13 8.4l0 0 0 0C122.3 172.7 0 250.9 0 416c0 53 43 96 96 96H416c53 0 96-43 96-96c0-165.1-122.3-243.3-179-279.6c-4.8-3.1-9.2-5.9-13-8.4zM289.9 336l47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47z"/></svg>
                     </a>
                     {% elif request.user.ut == 3 and i.receiver.user == request.user %}
                     <a title="Qabul qilingan" class="btn bg-success text-white rounded-circle btn-sm">
-                         <i class="fa-solid fa-sack-dollar"></i>
+                         <i class="fa fa-dollar"></i>
                     </a>
                     {% endif %}
                     {% if i.status == 0 %}
                     <a title="Jarayonda" class="btn bg-purple text-white rounded-circle btn-sm">
-                        <i class="fa-regular fa-clock"></i>
+                        <i class="fa fa-clock"></i>
                     </a>
                     {% elif i.status == 1 %}
-                    <a title="Pul o'tqizilgan" class="btn bg-primary text-white rounded-circle btn-sm">
-                        <i class="fa-solid fa-check"></i>
+                    <a title="Pul o'tqizilgan" class="btn bg-primary text-white rounded-circle btn-sm px-2">
+                        <i class="fa fa-check"></i>
                     </a>
                     {% elif i.status == 2 %}
                     <a title="Pul o'tqizilmadi" class="btn bg-danger text-white rounded-circle btn-sm">
-                         <i class="fa-solid fa-x"></i>
+                         <i class="mdi mdi-window-close"></i>
                     </a>
                     {% endif %}
 

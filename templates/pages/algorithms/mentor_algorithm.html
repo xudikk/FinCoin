@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
 
 {% block title %} All Algarithm {% endblock %}
-{% block pagetitle %} Algarithm {% endblock %}
+{% block page_title %} Algarithm {% endblock %}
 
 {% load bootstrap4 %}
 {% block content %}
 
 <section class="content">
-    <div class="container-fluid">
+    <div class="">
         <div class="row">
             <div class="col-12">
                 <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title">Algorithms you added <a href="{% url 'create_algaritm' key='form' %}"
                                                                        class="btn btn-dark">
-                            <i class="fa-sharp fa-solid fa-plus"></i> Add the algorithm again
+                            <i class="fas fa-plus"></i> Add the algorithm again
                         </a></h3>
                     </div>
                     <!-- /.card-header -->
@@ -47,17 +47,12 @@
                             </div>
                             {% endfor %}
                         </div>
-                        <a href="{% url 'home' %}" class="btn btn-info mt-2"><span class="icon text-white-50"><i
-                                class="fas fa-home"></i></span> Bosh Menu</a>
+                                                <a href="{% url 'home' %}" class="btn btn-info mt-2"><span class="icon text-white-50"><i class="fas fa-home"></i></span> Bosh Menu</a>
                     </div>
-                    <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
             </div>
-            <!-- /.col -->
         </div>
     </div>
-    <!-- /.container-fluid -->
 </section>
 
 

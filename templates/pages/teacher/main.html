@@ -1,8 +1,8 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-3 col-6">
-                <div class="small-box text-uppercase bg-success">
+            <div class="col-lg-3 col-6 card bg-success">
+                <div class="small-box card-body text-uppercase ">
                     <div class="inner">
                         <p class="text-sm mt-2">Active Guruhlar</p>
                         <div class="h5 mb-0 font-weight-bold mb-3 text-capitalize text-gray-800">Umumiy
@@ -10,16 +10,15 @@
                             ta
                         </div>
                     </div>
-                    <div class="icon">
-                        <i class="fa-solid fa-chart-line"></i>
+                    <div class="icon float-right" style="margin-top: -50px">
+                        <i class="fas fa-chart-line fa-3x text-gray-300"></i>
                     </div>
                     <a href="{% url 'mentor_admin-group-list' status=2 %}" class="small-box-footer">Batafsil <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-
-            <div class="col-lg-3 col-6">
-                <div class="small-box text-uppercase bg-purple">
+            <div class="col-lg-3 col-6 card" style="border: solid 1px purple">
+                <div class="small-box card-body text-uppercase">
                     <div class="inner">
 
                         <p class="text-sm mt-2">Start Yaqinda</p>
@@ -28,15 +27,30 @@
                             ta
                         </div>
                     </div>
-                    <div class="icon">
-                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    <div class="icon float-right" style="margin-top: -50px">
+                        <i class="fas fa-clipboard-list fa-3x text-gray-300"></i>
                     </div>
                     <a href="{% url 'mentor_admin-group-list' status=1  %}" class="small-box-footer">Batafsil <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-            <div class="col-lg-3 col-6">
-                <div class="small-box text-uppercase bg-primary">
+            <div class="col-lg-3 col-6 card" style="border: solid 1px orange">
+                <div class="small-box text-uppercase card-body">
+                    <div class="inner">
+                        <p class="text-sm mt-2">Algorithms</p>
+                        <div class="h5 mb-0 font-weight-bold mb-3 text-capitalize text-gray-800">
+<!--                            Ko'rilmagan<mark class="bg-warning">{{ gcnt.icnt }}</mark>ta-->
+                            Barcha Algoritmlar
+                        </div>
+                    </div>
+                    <div class="icon float-right" style="margin-top: -50px">
+                        <i class="fas fa-clipboard-list fa-3x text-gray-300"></i>
+                    </div>
+                    <a href="{% url 'mentor_algorithm' %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6 card" style="border: solid 1px blue">
+                <div class="small-box card-body text-uppercase">
                     <div class="inner">
                         <h3>{{ count.count_user}}</h3>
 
@@ -46,29 +60,14 @@
                             ta
                         </div>
                     </div>
-                    <div class="icon">
-                        <i class="fa-solid fa-users"></i>
+                    <div class="icon float-right" style="margin-top: -50px">
+                        <i class="fas fa-users fa-3x text-gray-300"></i>
                     </div>
                     <a href="{% url 'mentor_admin-group-list' status=3 %}" class="small-box-footer">Batafsil <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-            <div class="col-lg-3 col-6">
-                <div class="small-box text-uppercase bg-warning">
-                    <div class="inner">
-                        <p class="text-sm mt-2">Algorithms</p>
-                        <div class="h5 mb-0 font-weight-bold mb-3 text-capitalize text-gray-800">
-<!--                            Ko'rilmagan<mark class="bg-warning">{{ gcnt.icnt }}</mark>ta-->
-                            Barcha Algoritmlar
-                        </div>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-clipboard-list"></i>
-                    </div>
-                    <a href="{% url 'mentor_algorithm' %}" class="small-box-footer">Batafsil <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
+
         </div>
     </div>
 </section>
