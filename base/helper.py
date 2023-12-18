@@ -163,13 +163,18 @@ def balance_rating_news(request):
             where user_id = {request.user.id}
         """
         rating = f"""
-                SELECT cast(COALESCE(SUM(card.balance), 0) as int) as balance, uu.id, COALESCE(uu.username, 'not set yet') as username,
-             uu.phone, (COALESCE(uu.first_name, '') || ' ' || COALESCE(uu.last_name, '')) as full_name, uu.avatar, uu.level, uu.gender
-            from core_user uu
-            left join core_card card on card.user_id = uu.id
-            group by uu.id, uu.username, uu.phone, uu.first_name, uu.last_name, uu.avatar
-            order by balance desc 
-            limit 5
+             SELECT cast(COALESCE(SUM(card.balance), 0) as int) as balance, uu.id, COALESCE(uu.username, 'not set yet') as username,
+             uu.phone, (COALESCE(uu.first_name, '') || ' ' || COALESCE(uu.last_name, '')) as full_name, uu.avatar, uu.level, 
+             CASE 
+                WHEN uu.gender = 1 THEN 'assets/images/faces-clipart/pic-1.png'
+                ELSE 'assets/images/faces-clipart/pic-2.png'
+                END as gender
+            FROM core_user uu
+            LEFT JOIN core_card card ON card.user_id = uu.id
+            GROUP BY uu.id, uu.username, uu.phone, uu.first_name, uu.last_name, uu.avatar
+            ORDER BY balance DESC 
+            LIMIT 10
+
         """
         balances = """
             SELECT cast(COALESCE(SUM(card.balance), 0) as int) as balance
@@ -177,7 +182,7 @@ def balance_rating_news(request):
             left join core_card card on card.user_id = uu.id
             group by uu.id, uu.username, uu.phone, uu.first_name, uu.last_name, uu.avatar
             order by balance desc 
-            limit 5
+            limit 10
         """
         with closing(connection.cursor()) as cursor:
             cursor.execute(balance)

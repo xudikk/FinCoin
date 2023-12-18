@@ -88,29 +88,29 @@
                 <tbody>
                 {% for i in rating %}
                 <tr>
-                    <td><a href="{% url 'get_user_info' pk=i.id %}"><img {% if i.gender %} src="{% static 'assets/images/faces-clipart/pic-1.png' %}" {% else %} src="{% static 'assets/images/faces-clipart/pic-2.png' %}" {% endif %} alt="image"></a></td>
+                    <td><a href="{% url 'get_user_info' pk=i.id %}"><img src="{% static i.gender %}" alt="image"></a></td>
                     <td>{{ i.full_name }}</td>
                     <td>{{ i.username }}</td>
                     {% if i.level == 'Beginner' %}
-                    <td><span class="text-danger">
-            {{ i.level }}
-          </span></td>
+                    <td>
+                        <span class="text-danger">{{ i.level }}</span>
+                    </td>
                     {% elif i.level == 'Junior' %}
-                    <td><span class="text-warning">
-            {{ i.level }}
-          </span></td>
+                    <td>
+                        <span class="text-warning">{{ i.level }}</span>
+                    </td>
                     {% elif i.level == 'Middle' %}
-                    <td><span class="text-success">
-            {{ i.level }}
-          </span></td>
+                    <td>
+                        <span class="text-success">{{ i.level }}</span>
+                    </td>
                     {% elif i.level == 'Senior' %}
-                    <td><span class="text-info">
-            {{ i.level }}
-          </span></td>
+                    <td>
+                        <span class="text-info">{{ i.level }}</span>
+                    </td>
                     {% elif i.level == 'TeamLead' %}
-                    <td><span class="text-dark">
-            {{ i.level }}
-          </span></td>
+                    <td>
+                        <span class="text-dark">{{ i.level }}</span>
+                    </td>
                     {% endif %}
                     <td>
                         <div class="sparkbar" data-color="#00a65a" style="text-wrap: balance;"
