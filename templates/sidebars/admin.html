@@ -1,82 +1,119 @@
-<li class="nav-item has-treeview menu-open active">
-    <a href="#" class="nav-link">
-        <i class="nav-icon fas fa-tachometer-alt"></i>
-        <p>
-            Fincoin paneli
-            <i class="right fas fa-angle-left"></i>
-        </p>
+
+<li class="sidebar-layout">
+    <a href="#app1" class="collapsed svg-icon active" data-toggle="collapse" aria-expanded="false">
+      <i>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+      </i>
+      <span class="ml-2">Fincoin paneli</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon iq-arrow-right arrow-active" width="15" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
     </a>
-    <ul class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="{% url 'user' type=3 %}" class="nav-link {{ u_active }}">
-                <i class="fa-solid fa-users"></i>
-                <p>Userlar </p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'monitoring_page' %}" class="nav-link {{ monit_active }}">
-                <i class="fa-regular fa-credit-card"></i>
-                <p>User O'tkazmalar</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'dashboard-auto-list' key='news' %}" class="nav-link {{ news_active }}">
-                <i class="fa-solid fa-newspaper"></i>
-                <p>Yangiliklar </p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'dashboard-auto-list' key='product' %}" class="nav-link {{ product_active }}">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <p>Maxsulotlar</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'category' %}" class="nav-link {{ ctg_active }}">
-                <i class="fa-solid fa-sliders"></i>
-                <p>Categorylar</p>
-            </a>
-        </li>
-
-    </ul>
-
+    <ul id="app1" class="submenu collapse show" data-parent="#iq-sidebar-toggle">
+      <li class=" sidebar-layout">
+          <a href="{% url 'user' type=3 %}" class="svg-icon">
+              <i class=""><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
+              </svg>
+              </i><span class="">Userlar</span>
+          </a>
+      </li>
+      <li class=" sidebar-layout">
+          <a href="{% url 'monitoring_page' %}" class="svg-icon">
+              <i class="">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                  </svg>
+              </i><span class="">User O'tkazmalar</span>
+          </a>
+      </li>
+      <li class=" sidebar-layout">
+          <a href="{% url 'dashboard-auto-list' key='news' %}" class="svg-icon">
+              <i class="">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+              </i><span class="">Yangiliklar</span>
+          </a>
+      </li>
+      <li class=" sidebar-layout">
+          <a href="{% url 'dashboard-auto-list' key='product' %}" class="svg-icon">
+              <i class="">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+              </i><span class="">Maxsulotlar</span>
+          </a>
+      </li>
+      <li class=" sidebar-layout">
+          <a href="{% url 'category' %}" class="svg-icon">
+              <i class="">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+              </i><span class="">Categorylar</span>
+          </a>
+      </li>
+</ul>
 </li>
 
-<li class="nav-item has-treeview menu-open">
-    <a href="" class="nav-link">
-        <i class="nav-icon fas fa-copy"></i>
-        <p>
-            Education Paneli
-            <i class="fas fa-angle-left right"></i>
-        </p>
+<li class="sidebar-layout">
+    <a href="#app6" class="collapsed svg-icon" data-toggle="collapse" aria-expanded="false">
+      <i>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+      </i>
+      <span class="ml-2">Education paneli</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon iq-arrow-right arrow-active" width="15" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
     </a>
-    <ul class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="{% url 'admin-group' %}" class="nav-link {{ gr_active }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Guruhlar</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'admin-course' %}" class="nav-link {{ course_active }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Kurslar</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'admin-interested' %}" class="nav-link {{ ints_active }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Yangi Yozilganlar</p>
-            </a>
-        </li>
-    </ul>
+    <ul id="app6" class="submenu collapse" data-parent="#iq-sidebar-toggle">
+      <li class=" sidebar-layout">
+          <a href="{% url 'admin-group' %}" class="svg-icon">
+              <i class=""><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
+              </svg>
+              </i><span class="">Guruhlar</span>
+          </a>
+      </li>
+      <li class=" sidebar-layout">
+          <a href="{% url 'admin-course' %}" class="svg-icon">
+              <i class="">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                  </svg>
+              </i><span class="">Kurslar</span>
+          </a>
+      </li>
+      <li class=" sidebar-layout">
+          <a href="{% url 'admin-interested' %}" class="svg-icon">
+              <i class="">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+              </i><span class="">Yangi Yozilganlar</span>
+          </a>
+      </li>
+</ul>
 </li>
-{% if request.user.is_staff and request.user.is_superuser %}
-<li class="nav-item">
-    <a href="" data-toggle="modal" data-target="#bonusForAllModal" class="nav-link">
-        <i class="fa fa-gift"></i>
-        <p>Barchaga bonus berish</p>
-    </a>
+
+
+
+<li class=" sidebar-layout">
+  <a href="{% url 'home' %}" data-toggle="modal" data-target="#bonusForAllModal" class="svg-icon">
+      <i class="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+      </i>
+      <span class="ml-2">Barchaga Bonus Berish</span>
+<!--      <p class="mb-0 w-10 badge badge-pill badge-primary">6</p>-->
+  </a>
 </li>
-{% endif %}
+
+
 

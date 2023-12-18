@@ -40,7 +40,7 @@ def user_type(request):
     ctx = {
         "pages_html_type": types,
         'app_name': settings.APP_NAME,
-        sidebar: "active"
+        sidebar: "show"
     }
     if not request.user.is_anonymous:
         ctx.update({'user_type': request.user.ut})
